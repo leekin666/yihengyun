@@ -1,0 +1,47 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <div class="form-item">
+    		<h2 class="look_tit">店铺信息</h2>           
+    </div>
+    <div class="look_brand form-horizontal look-listInfo">
+        <div class="form-item">
+            <label class="look-label">店铺名称：</label>
+            <div class="look-info">
+                           {$store.name}
+            </div>            
+        </div>
+        <div class="form-item">
+            <label class="look-label">主营类目：</label>
+            <div class="look-info">
+                             {$store.category}
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">详细类目：</label>
+            <div class="look-info">
+            	{$store.detail_category}
+            </div>            
+        </div>
+    </div>
+        
+    
+    
+</block>
+
+<block name="script">
+
+    <script type="text/javascript">
+        //导航高亮
+        if("{$act}" == 'index'){
+            highlight_subnav('{:U('Business/index')}');
+        }else if("{$act}" == 'qualification'){
+            highlight_subnav('{:U('Business/qualification')}');
+        }else{
+            highlight_subnav('{:U('Business/store')}');
+        }
+    </script>
+</block>

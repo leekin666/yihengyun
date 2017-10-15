@@ -1,0 +1,674 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+	<script type="text/javascript" src="__JS__/myQuery.js"></script>
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>    
+    <form action="{:U('')}" method="post" class="form-horizontal" id="merchants_window_form"  enctype="multipart/form-data">
+    	<ul class="goods_add_tab controls">
+    		<li class="stat_on">基本信息</li>
+    		<li>商品图片</li>
+    		<li>商品详情</li>
+    		<li>其他信息</li>
+    		<li>运营信息</li>
+    	</ul>
+    	<div class="goods_add_info">
+    		<!--
+            	作者：cnzap@sina.cn
+            	时间：2017-08-30
+            	描述：基本信息
+            -->
+    		<div class="goods_info_item" style="display: block;">
+    			<div class="form-item">
+		        	<label class="item-label">商品品牌 <span class="red">*</span></label>
+		            <div class="controls">
+		                <select name="brand_id"  class="fl">
+		                    <option value="">请选择商品品牌</option>
+		                    <foreach name="_goods_brand" item="bo">
+		                        <option value="{$bo.id}" <if condition="$row['brand_id'] eq $bo['id']">selected</if>>|--{$bo.brand_name}</option>
+		                    </foreach>
+		                </select>
+		                <div class="box_error fl red"></div>
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">商品分类<span class="red">*</span></label>
+		            <div class="controls">
+		                <select name="category" class="fl">
+		                    <option value="">请选择商品分类</option>
+		                    <foreach name="_goods_type" item="to">
+		                        <option value="{$to.id}" <if condition="$row['category_id'] eq $to['id']">selected</if>>|--{$to.name}</option>
+								<foreach name="to._child" item="vo">
+									<option value="{$vo.id}" <if condition="$row['category_id'] eq $vo['id']">selected</if>>&nbsp;&nbsp;&nbsp;&nbsp;|----{$vo.name}</option>
+										<foreach name="vo._child" item="co">
+											<option value="{$co.id}" <if condition="$row['category_id'] eq $co['id']">selected</if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|----{$co.name}</option>
+										</foreach>
+								</foreach>
+		                    </foreach>
+		                </select>
+		                <div class="box_error fl red"></div>
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">商品中文名称 <span class="red">*</span></label>
+		            <div class="controls">
+		                <input type="text" class="text input-large fl" name="goods_name" value="{$row.goods_name}" id="goods_name">
+		                <div class="box_error fl red block"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">商品英文名称 </label>
+		            <div class="controls">
+		                <input type="text" class="text input-large fl" name="goods_letter" value="{$row.goods_letter}" id="goods_letter">
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">商品编码 </label>
+		            <div class="controls">
+		                <input type="text" class="text input-large fl" name="goods_sn" value="{$row.goods_sn}" id="goods_sn">
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">条形码</label>
+		            <div class="controls">
+		                <input type="text" class="text input-large fl" name="product_sn" value="{$row.product_sn}" id="product_sn">
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">销售价 <span class="red">*</span></label>
+		            <div class="controls">
+		                <div class="fl input_r_text"><input type="text" class="text input-large fl" name="price" onkeyup="this.value=this.value.replace(/[^\d\.]/g, '')" value="{$row.price}" id="brand_name"><span>¥</span></div>
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">市场价 </label>
+		            <div class="controls">
+		                <div class="fl input_r_text"><input type="text" class="text input-large fl" name="market_price" value="{$row.market_price}" id="market_price"><span>¥</span></div>
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">库存数</label>
+		            <div class="controls">
+		            	<div class="fl input_r_text"><input type="text" class="text input-large fl" name="num" value="{$row.num}" id="num"><span>件</span></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">商品重量</label>
+		            <div class="controls">
+		            	<div class="fl input_r_text"><input type="text" class="text input-large fl" name="weight" value="{$row.weight}" id="weight"><span>克</span></div>
+		            </div>
+		        </div>		        
+		        <div class="form-item">
+		        	<label class="item-label">商品类型</label>
+		            <div class="controls">
+		                <!--<div class="radio"><label for="com_type1"><input type="radio" name="com_type" id="com_type1" value="1" />国内商品</label></div>-->
+		                <!--<div class="radio"><label for="com_type2"><input type="radio" checked="checked" name="com_type" id="com_type2" value="2" />一般贸易商品</label></div>-->
+		                <!--<div class="radio"><label for="com_type3"><input type="radio" name="com_type" id="com_type3" value="3" />跨境商品</label></div>-->
+						<empty name="row">
+							<foreach name="type" item="ty" key="key">
+								<if condition="$key eq 1">
+									<div class="radio"><label for="com_type1"><input type="radio" name="com_type" value="1" />{$ty}</label></div>
+								<elseif condition="$key eq 2" />
+									<div class="radio"><label for="com_type2"><input type="radio" <if condition="$key eq 2">checked="checked"</if> name="com_type" id="com_type_2" value="2" />{$ty}</label></div>
+								<elseif condition="$key eq 9" />
+									<div class="radio"><label for="com_type3"><input type="radio"  name="com_type" id="com_type_3 " value="3" />跨境商品</label></div>
+								</if>
+							</foreach>
+						<else />
+							<if condition="($row['is_cross'] eq 1) OR ($row['is_cross'] eq 2)">
+								<foreach name="type" item="ty" key="key">
+									<if condition="($key eq 1) OR ($key eq 2) OR ($key eq 9)">
+										<if condition="$key eq 1">
+											<div class="radio"><label for="com_type1"><input type="radio" <if condition="$row['is_cross'] eq 1">checked="checked"</if> name="com_type" id="com_type_1" value="1" />{$ty}</label></div>
+										<elseif condition="$key eq 2" />
+											<div class="radio"><label for="com_type2"><input type="radio" <if condition="$row['is_cross'] eq 2">checked="checked"</if> name="com_type" id="com_type_2" value="2" />{$ty}</label></div>
+										<else/>
+											<div class="radio"><label for="com_type3"><input type="radio" name="com_type" id="com_type_3" value="3" />跨境商品</label></div>
+										</if>
+									</if>
+								</foreach>
+							<elseif condition="($row['is_cross'] eq 3) OR ($row['is_cross'] eq 4)"/>
+								<foreach name="type" item="ty" key="key">
+									<if condition="($key eq 1) OR ($key eq 2)">
+										<if condition="$key eq 1">
+											<div class="radio"><label for="com_type1"><input type="radio" name="com_type" id="com_type_1" value="1" />{$ty}</label></div>
+										<elseif condition="$key eq 2" />
+											<div class="radio"><label for="com_type2"><input type="radio" name="com_type" id="com_type_2" value="2" />{$ty}</label></div>
+										</if>
+									<elseif condition="($key eq 3) OR ($key eq 4)" />
+										<if condition="$row['is_cross'] eq $key">
+											<div class="radio"><label for="com_type3"><input type="radio" <if condition="$row['is_cross'] eq $key">checked="checked"</if> name="com_type" id="com_type_3 " value="3" />跨境商品</label></div>
+										</if>
+									</if>
+								</foreach>
+							</if>
+						</empty>
+					</div>
+		        </div>
+		        <div class="form-item hidden deli_type">
+		        	<label class="item-label">发货方式 </label>
+		            <div class="controls">
+						<empty name="row">
+							<foreach name="type" item="tys" key="keys">
+								<if condition="$keys eq 9">
+									<div class="radio"><label for="deli_type_1"><input type="radio" name="deli_type" id="deli_type_1" value="1">直邮</label></div>
+									<div class="radio"><label for="deli_type_2"><input type="radio" name="deli_type" id="deli_type_2" value="2" >保税仓</label></div>
+								</if>
+							</foreach>
+						<else />
+
+								<if condition="$row['is_cross'] eq 3">
+									<div class="radio"><label for="deli_type_2"><input type="radio" checked="checked" name="deli_type" value="2" id="deli_type_2">保税仓</label></div>
+									<div class="radio"><label for="deli_type_1"><input type="radio" name="deli_type" value="1" id="deli_type_1">直邮</label></div>
+
+								<elseif condition="$row['is_cross'] eq 4" />
+									<div class="radio"><label for="deli_type_1"><input type="radio" checked="checked" name="deli_type" value="1" id="deli_type_1">直邮</label></div>
+									<div class="radio"><label for="deli_type_2"><input type="radio" name="deli_type"  value="2" id="deli_type_2">保税仓</label></div>
+								<else />
+									<div class="radio"><label for="deli_type_1"><input type="radio" checked="checked" name="deli_type" value="1" id="deli_type_1">直邮</label></div>
+									<div class="radio"><label for="deli_type_2"><input type="radio" name="deli_type"  value="2" id="deli_type_2">保税仓</label></div>
+								</if>
+
+						</empty>
+
+		                <!--<div class="radio"><label for="deli_type_1"><input type="radio" name="deli_type" id="deli_type_1" value="1">直邮</label></div>-->
+		                <!--<div class="radio"><label for="deli_type_2"><input type="radio" name="deli_type" id="deli_type_2" value="2" >保税仓</label></div>-->
+		            </div>
+		        </div>
+    		</div>
+    		<!--
+            	作者：cnzap@sina.cn
+            	时间：2017-08-30
+            	描述：上传商品图片
+            -->
+    		<div class="goods_info_item">
+    			<div class="form-item">
+		        	<label class="item-label">商品主图 <span class="red">*</span></label>
+		            <div class="controls">         		
+		                <div class="upload-img-box" id="upimg">
+		                    <if condition="$row['goods_id']">
+		                        <div class="upload-pre-item logo_show"><img id="tmp_img" src="{$main_pic.pic_url}"/><b class="logo-close" onclick="closeLogo(this,'{$main_pic[\'id\']}')"></b><i></i></div>
+								<else/>
+		                        <notempty name="info['icon']">
+		                            <div class="upload-pre-item"><img id="tmp_img" src=src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+		                        </notempty>
+		                    </if>
+		                </div>
+		                
+			            <input type="file" id="upload_picture">
+			            <input type="hidden" name="icon" id="icon" value="{$info['icon']|default=''}"/>
+		                <input type="hidden" name="logo" id="img_path" value="{$main_pic.pic_url}">
+						<input type="hidden" name ="pic_id" value="{$main_pic.id}">
+		                <div class="box_error fl red"></div>
+			        </div>
+		        </div>
+		        <div id="tab1" class="tab-pane in tab1">
+					<div class="controls fuPic_box">
+						<label class="item-label">商品附图 <span class="check-tips">（修改图片底部数字可以改变显示排序，最多上传10张）</span></label>
+							<input type="file" id="upload_picture1">														
+								<div class="upload-img-box" id="upimg1">
+									<volist name="goods_img" id="go">
+										<if condition="$go">
+											<div class="upload-pre-item logo_show"><img id="tmp_img1" src="{$go.pic_url}"/><b class="logo-close" onclick="closeLogo(this,'{$go[\'id\']}')"></b><i></i><input type='text' name='sort[]' value='2' onchange='changeNum()'/></div>
+											<else/>
+											<notempty name="info['icon']">
+												<div class="upload-pre-item"><img id="tmp_img1" src=src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+											</notempty>
+										</if>
+										<input type="hidden" name ="img_id[]" value="{$go.id}">
+									</volist>
+								</div>
+							
+					</div>
+					<input type="hidden" name="goods_img" value="{$go.pic_url}">
+    			</div>
+			</div>
+    		<!--
+            	作者：cnzap@sina.cn
+            	时间：2017-08-30
+            	描述：编辑商品详情
+            -->
+    		<div class="goods_info_item">
+    			<div class="form-item">
+	    			<label class="item-label">中文详情描述</label>
+		            <div class="controls">
+	                    <label class="textarea">
+		                    <textarea name="desc1">&nbsp;{$row.details}</textarea>
+		                    {:hook('adminArticleEdit', array('name'=>'desc1','value'=>'desc1'))}
+	                    </label>	                    
+		            </div>
+	           	</div>
+	           	<div class="form-item">
+	    			<label class="item-label">英文详情描述</label>
+		            <div class="controls">
+	                    <label class="textarea">
+		                    <textarea name="desc2">{$row.details_letter}</textarea>
+		                    {:hook('adminArticleEdit', array('name'=>'desc2','value'=>'desc2'))}
+	                    </label>	                    
+		            </div>
+	           	</div>	           	
+    		</div>
+    		<!--
+            	作者：cnzap@sina.cn
+            	时间：2017-08-30
+            	描述：其他信息
+            -->
+    		<div class="goods_info_item">
+    			<div class="form-item">
+	    			<label class="item-label">中文简介</label>
+		            <div class="controls">
+	                    <label class="textarea input-large">
+                            <textarea name="desc3">{$row.desc_cn}</textarea>
+						</label>
+		            </div>
+	           	</div>
+	           	<div class="form-item">
+	    			<label class="item-label">英文简介</label>
+		            <div class="controls">
+	                    <label class="textarea input-large">
+                            <textarea name="desc4">{$row.desc_letter}</textarea>
+						</label>
+		            </div>
+	           	</div>
+		        <div class="form-item">
+		        	<label class="item-label">商家备注</label>
+		            <div class="controls">
+		            	<label class="textarea input-large">
+                            <textarea name="description">{$row.note}</textarea>
+						</label>
+		            </div>
+		        </div>
+    		</div>
+    		<!--
+            	作者：cnzap@sina.cn
+            	时间：2017-08-30
+            	描述：运营信息
+            -->
+    		<div class="goods_info_item">
+    			<div class="form-item">
+		        	<label class="item-label">运营标签</label>
+		            <div class="controls">
+						<empty name="row">
+							<div class="checkbox"><label for="operate1"><input checked="checked" type="checkbox" name="operate1" id="operate1" value="1"/>新品</label></div>
+						<else />
+							<div class="checkbox"><label for="operate1"><input type="checkbox" <if condition="$row['is_new'] eq 1">checked="checked"</if> name="operate1" id="operate1" value="1" />新品</label></div>
+						</empty>
+						<empty name="row">
+							<div class="checkbox"><label for="operate2"><input type="checkbox" name="operate2" id="operate2" value="1"/>热销</label></div>
+						<else />
+							<div class="checkbox"><label for="operate2"><input type="checkbox" <if condition="$row['is_hot'] eq 1">checked="checked" value="1"<else />value="0"</if> name="operate2" id="operate2" />热销</label></div>
+						</empty>
+						<empty name="row">
+							<div class="checkbox"><label for="operate3"><input type="checkbox" name="operate3" id="operate3" value="1"/>精品</label></div>
+							<else />
+							<div class="checkbox"><label for="operate3"><input type="checkbox" <if condition="$row['is_boutique'] eq 1">checked="checked"</if> name="operate3" id="operate3" value="1" />精品</label></div>
+						</empty>
+		            	<!--<div class="checkbox"><label for="operate1"><input checked="checked" type="checkbox" name="operate1" id="operate1" value="1"/>新品</label></div>-->
+		                <!--<div class="checkbox"><label for="operate2"><input type="checkbox" name="operate2" id="operate2" value="1"/>热销</label></div>-->
+		                <!--<div class="checkbox"><label for="operate3"><input checked="checked" type="checkbox" name="operate3" id="operate3" value="1"/>精品</label></div>-->
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">商品服务</label>
+		            <div class="controls">
+						<empty name="row">
+							<div class="checkbox"><label for="service1"><input type="checkbox" checked="checked" name="service1" id="service1" value="1"/>包退服务</label></div>
+							<else />
+							<div class="checkbox"><label for="service1"><input type="checkbox" <if condition="$row['returned'] eq 1">checked="checked"</if> name="service1" id="service1" value="1" />包退服务</label></div>
+						</empty>
+						<empty name="row">
+							<div class="checkbox"><label for="service2"><input type="checkbox" name="service2" id="service2" value="1"/>闪速配送</label></div>
+							<else />
+							<div class="checkbox"><label for="service2"><input type="checkbox" <if condition="$row['flash'] eq 1">checked="checked"</if> name="service2" id="service2" value="1" />闪速配送</label></div>
+						</empty>
+		            	<!--<div class="checkbox"><label for="service1"><input type="checkbox" checked="checked" name="service1" id="service1" value="1"/>包退服务</label></div>-->
+		                <!--<div class="checkbox"><label for="service2"><input type="checkbox" name="service2" id="service2" value="1"/>闪速配送</label></div>-->
+		            </div>
+		        </div>
+		        <div class="form-item hidden">
+		        	<label class="item-label">审核后操作</label>
+		            <div class="controls">
+						<empty name="row">
+							<div class="radio"><label for="examine1"><input type="radio" checked="checked" name="examine" id="examine1" value="1"/>立即上架</label></div>
+							<div class="radio"><label for="examine0"><input type="radio" name="examine" id="examine0" value="0"/>暂不上架</label></div>
+						<else />
+							<foreach name="_putaway" item="pu" key="k">
+								<div class="radio"><label for="examine{$k}"><input type="radio" <if condition="$row['is_onsale'] eq $k">checked="checked"</if> name="examine" id="examine{$k}" value="{$k}" />{$pu}</label></div>
+							</foreach>
+						</empty>
+		                <!--<div class="radio"><label for="examine1"><input type="radio" checked="checked" name="examine" id="examine1" value="1"/>立即上架</label></div>-->
+		                <!--<div class="radio"><label for="examine2"><input type="radio" name="examine" id="examine2" value="0"/>暂不上架</label></div>-->
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">是否为助售商品</label>
+		            <div class="controls">
+						<empty name="row">
+							<div class="radio"><label for="sale1"><input type="radio" name="sale" id="sale1" value="1"/>是</label></div>
+							<div class="radio"><label for="sale0"><input  type="radio" checked="checked" name="sale" id="sale0" value="0"/>否</label></div>
+						<else />
+							<foreach name="_help_sales" item="hu" key="hk">
+								<div class="radio"><label for="examine{$hk}"><input type="radio" <if condition="$row['help_sales'] eq $hk">checked="checked"</if> name="sale" id="examine{$hk}" value="{$hk}" />{$hu}</label></div>
+							</foreach>
+						</empty>
+		                <!--<div class="radio"><label for="sale1"><input type="radio" name="sale" id="sale1" value="1"/>是</label></div>-->
+		                <!--<div class="radio"><label for="sale2"><input type="radio" checked="checked" name="sale" id="sale2" value="0"/>否</label></div>-->
+		            </div>
+		        </div>
+    		</div>
+    	</div>
+        
+
+          
+        <div class="form-item pt20">
+            <input type="hidden" name ="goods_id" value="{$row.goods_id}">
+        	<button class="btn btn-default brand-btnM" onclick="javascript:location.reload();return false;">重置</button>
+            <if condition="$row['status'] eq 10">
+                <button class="btn btn-success brand-btnM ajax-post" id="submit" type="submit" target-form="form-horizontal">解冻并提交</button>
+            <else/>
+                <button class="btn btn-success brand-btnM ajax-post" id="submit" type="submit" target-form="form-horizontal">提交</button>
+                <!--<a class="btn  btn-success ajax-post" id="submit">提 交</a>-->
+            </if>
+            <button class="btn  btn-info brand-btnM" onclick="javascript:history.back(-1);return false;">返回</button>
+        </div>
+    </form>   
+</block>
+
+<block name="script">
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav('{:U('Goods/index')}');
+
+
+        
+        
+        
+        
+        $('#time-start').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true,
+            pickerPosition:'top-right'
+        });
+
+        //上传图片
+        /* 初始化上传插件 */
+        $("#upload_picture").uploadify({
+            "height"          : 30,
+            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName"     : "download",
+            "buttonText"      : "添加主图",
+            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            "width"           : 120,
+            'removeTimeout'	  : 1,
+            'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+            "onUploadSuccess" : uploadPicture,
+        });
+        //上传图片
+        /* 初始化上传插件 */
+        $("#upload_picture1").uploadify({
+            "height"          : 30,
+            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName"     : "download",
+            "buttonText"      : "添加附图",
+            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            "width"           : 120,
+            'removeTimeout'	  : 1,
+            'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+            "onUploadSuccess" : uploadPicture1,
+			"uploadLimit"     : 10,
+            'onFallback' : function() {
+                alert('未检测到兼容版本的Flash.');
+            }
+        });
+        function uploadPicture(file, data){
+            var data = $.parseJSON(data);
+            var src = '';
+            if(data.status){
+//                //创建input借点
+//				$_img_path = $("<input type='hidden' name='icon[]' class='icon' value=''/>" );
+//                //将当前图片的id赋予input
+//				$_img_path.val(data.id);
+//				//将input添加到上传图片的div中
+//				$("#tab1").append($_img_path);
+//				src = data.url || '__ROOT__'+data.path;
+//				//创建图片接点
+//				$_upload_img = $("<img src="+src+" title = '点击显示大图'>");
+//				//创建图片删除的节点
+//				$_img_del =  $("<span class='btn-close' title='删除图片'>");
+//				//创建div节点并添加图片接点和删除图片接点
+//				$_upload_item = $("<div class='upload-pre-item'></div>");
+//				$_upload_item.append($_upload_img);
+//				$_upload_item.append($_img_del);
+//				$(".icon").parent().find('.upload-img-box').append($_upload_item);
+				$("#icon").val(data.id);
+                src = data.url || '__ROOT__' + data.path;
+                $("#icon").parent().find('.upload-img-box').html(
+                        '<div class="upload-pre-item"><img src="' + src + '"/><b class="logo-close" onclick="closeLogo(this,\'{$main_pic[\'id\']}\')"></b><i></i></div>'
+                );
+                $.post(
+                    "{:U('Brand/up_img_oss')}",
+                    {tmp_img:src},
+                    function(data){
+                        console.log(data);
+                        $('#img_path').val(data);
+                        $(".goods_add_tab li").eq(1).removeClass("tab_error");
+					    $("input[name='logo']").removeClass("input_error").next(".box_error").hide().html("");
+                    }
+                );
+            } else {
+                updateAlert(data.info);
+                setTimeout(function(){
+                    $('#top-alert').find('button').click();
+                    $(that).removeClass('disabled').prop('disabled',false);
+                },1500);
+            }
+        }
+
+        var goods_img = [];        
+        var sortNum = 0;
+        function uploadPicture1(file, data){   
+        	changeNum();
+            var data = $.parseJSON(data);
+            var src = '';
+            if(data.status){
+                //创建input借点
+                src = data.url || '__ROOT__'+data.path;
+//              console.log(data);
+//              $_img_path = $("<input type='hidden' name='icon[]' class='icon' value=''/>" );
+//              //将当前图片的id赋予input
+//              $_img_path.val(src);
+//              //将input添加到上传图片的div中
+//              $("#tab1").append($_img_path);
+
+                //创建图片接点
+                $_upload_img = $("<img src="+src+"><i></i><input type='text' name='sort[]' value='"+sortNum+"' onchange='changeNum()'/>");                
+                //创建图片删除的节点
+                $_img_del =  $('<b class="logo-close" style="display: block;" onclick="closeLogo(this,\'{$main_pic[\'id\']}\')"></b>');
+                //创建div节点并添加图片接点和删除图片接点
+                $_upload_item = $("<div class='upload-pre-item' ></div>");
+                $_upload_item.append($_upload_img);
+                $_upload_item.append($_img_del);
+                $(".fuPic_box").find('.upload-img-box').append($_upload_item);
+                $.post(
+                    "{:U('Brand/up_img_oss')}",
+                    {tmp_img:src},
+                    function(data){                       
+                        goods_img.push(data);                        
+                        $("input[name='goods_img']").val(goods_img);
+                        sortNum++;
+                    }
+                );
+                
+            } else {
+                updateAlert(data.info);
+                setTimeout(function(){
+                    $('#top-alert').find('button').click();
+                    $(that).removeClass('disabled').prop('disabled',false);
+                },1500);
+            }
+        }
+		
+		var uploadLimit = 10;
+		function closeLogo(obj,id){			
+	      	var _this = $(obj);
+	      	var zhuPic = $("#img_path").val();
+	      	var imgSrc = _this.parents(".upload-pre-item").find("img").attr("src");
+      		$.post("{:U('Goods/removePic')}",{path:imgSrc,id:id},function (res) {
+	      	    if(res==0){ 
+	      	    	_this.parents(".upload-pre-item").remove();
+                    if(zhuPic.indexOf(imgSrc)>-1){
+                    	$("#img_path").val("");
+                    }else{                    	
+	                    for(var i = 0;i<goods_img.length;i++){
+	                    	if(goods_img[i].indexOf(imgSrc)>-1){	                    		
+	                    		goods_img.splice(i,1);
+	                    	}
+	                    }
+	                    $("input[name='goods_img']").val(goods_img);
+	                    changeNum();	                    
+	                    $('#upload_picture1').uploadify('settings','uploadLimit', ++uploadLimit);
+                    }
+                    
+                }
+            })
+        }
+		
+		function changeNum(){
+			var s_n = [];
+        	$(".fuPic_box").find('.upload-img-box').find('input').each(function(){
+        		s_n.push($(this).val());
+        	})
+        	if(s_n.length<=0){
+        		sortNum = 0;
+        	}else{
+        		sortNum = Math.max.apply(null, s_n)+1;
+        	}
+			
+		}
+	
+		
+		
+
+        $(function(){        	
+        	$(document).click(function(event){
+        		var doc = $(event.target);
+        		if(doc.hasClass("input_error")){
+        			doc.removeClass("input_error");
+        			doc.parents(".controls").find(".box_error").hide().html("");
+        		}
+        	});	
+        	
+        	
+        	$(".fuPic_box").find('.upload-img-box').on("focus","input",function(){
+        		var val = $(this).val();
+        		$(this).change(function(){
+        			var changeVal = $(this).val();
+        			if(changeVal==""){
+        				layer.alert('排序数字不能为空');
+        				$(this).val(val);
+        				changeNum();
+        			}
+        		})
+        	})
+        	
+        	
+        	//添加商品tab切片
+		    $(".goods_add_tab li").click(function(){
+		    	if(!$(this).hasClass("stat_on")){
+		    		var num = $(".goods_add_tab li").removeClass("stat_on").index($(this).addClass("stat_on"));		    		
+			    	$(".goods_add_info .goods_info_item").hide().eq(num).show();
+			    	verInput();
+			    	$(".goods_add_info .goods_info_item").each(function(e){
+			    		if(e<num){			    			
+			    			if($(this).find(".input_error").length>0){
+			    				$(".goods_add_tab li").eq(e).addClass("tab_error");
+			    			}else{
+			    				$(".goods_add_tab li").eq(e).removeClass("tab_error")
+			    			}			    			
+			    		}
+			    		
+			    	})
+			    	
+		    	}
+		    	
+		    })
+        	
+        	
+        	function verInput(){
+        		var proBrand = $("select[name='brand_id']").val();
+	            var proType = $("select[name='category']").val();
+	            var proName = $("input[name='goods_name']").val();
+	            var shopPrice = $("input[name='price']").val();	
+	            var img_path = $("input[name='logo']").val();
+	            if(proBrand==""||proType==""||proName==""||shopPrice==""||img_path==""){
+	            	if(proBrand==""){
+	            		$("select[name='brand_id']").addClass("input_error").parents(".controls").find(".box_error").show().html("请选择商品品牌");
+	            	}
+	            	if(proType==""){
+	            		$("select[name='category']").addClass("input_error").parents(".controls").find(".box_error").show().html("请选择商品分类");
+	            	}
+	            	if(proName==""){
+	            		$("input[name='goods_name']").addClass("input_error").parents(".controls").find(".box_error").show().html("商品中文名称不能为空");
+	            	}
+	            	if(shopPrice==""){
+	            		$("input[name='price']").addClass("input_error").parents(".controls").find(".box_error").show().html("本店售价不能为空");
+	            	}
+	            	if(img_path==""){
+	            		$("input[name='logo']").addClass("input_error").parents(".controls").find(".box_error").show().html("请上传主图");
+	            	}
+	            }else{
+	            	return true;
+	            }
+        	}
+            
+            
+            $("#submit").click(function(){            	
+				if(verInput()){
+					$("#merchants_window_form").submit();
+				}else{
+					layer.alert('请填写《基本信息和商品图片》必填项！');
+					return false;
+				}
+         	});
+            
+            
+            $("input[name='com_type']").each(function(){
+            	deli_type($(this));
+            });
+            
+           	$("input[name='com_type']").click(function(){
+           		deli_type($(this));
+           	});
+		 	
+		 	function deli_type(_this){
+		 		if(_this.prop("checked")==true&&_this.val()==3){
+           			$(".deli_type").show();
+           			$(".deli_type input[name='deli_type']").first().prop("checked",true);
+           		}else{
+           			$(".deli_type").hide();
+           			$(".deli_type input[name='deli_type']").prop("checked",false);
+           		}
+		 	}
+			
+			
+        })
+
+        
+        
+    </script>
+</block>

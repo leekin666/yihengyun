@@ -1,0 +1,46 @@
+<extend name="Public/base"/>
+
+<!-- 边栏 -->
+<div class="sidebar">
+    <!-- 子导航 -->
+    <block name="sidebar">
+        <div id="subnav" class="subnav">
+            <notempty name="_extra_menu">
+                {// 动态扩展菜单 //}
+                {:extra_menu($_extra_menu,$__MENU__)}
+            </notempty>
+            <volist name="__MENU__.child" id="sub_menu">
+                <!-- 子导航 -->
+                <notempty name="sub_menu">
+                    <div class="left_list">
+                        <notempty name="key"><h3><i class="icon unicon-fold"></i>{$key}</h3></notempty>
+                        <ul class="side-sub-menu">
+                            <volist name="sub_menu" id="menu">
+                                <li>
+                                    <a class="item" href="{$menu.url|U}">{$menu.title}</a>
+                                </li>
+                            </volist>
+                        </ul>
+                    </div>
+                </notempty>
+                <!-- /子导航 -->
+            </volist>
+        </div>
+    </block>
+    <!-- /子导航 -->
+</div>
+<!-- /边栏 -->
+
+<block name="body">
+
+</block>
+
+<block name="script">
+    <script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav("{:U('Index/index')}");
+
+    </script>
+</block>

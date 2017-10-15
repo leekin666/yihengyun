@@ -1,0 +1,208 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>{$meta_title}</h2>
+	</div>
+	<div class="cf">		
+		<div class="fr">
+			<if condition="$act eq 'index'"><a class="btn btn-primary brand-btnM" href="{:U('Goods/add')}">新 增</a></if>
+			<if condition="$act eq 'index'"><a class="btn btn-default" href="{:U('Goods/recycle')}">回收站</a></if>
+
+            <!--<button class="btn ajax-post" url="{:U('User/changeStatus',array('method'=>'resumeUser'))}" target-form="ids">启 用</button>-->
+            <!--<button class="btn ajax-post" url="{:U('User/changeStatus',array('method'=>'forbidUser'))}" target-form="ids">禁 用</button>-->
+            <!--<button class="btn ajax-post confirm" url="{:U('User/changeStatus',array('method'=>'deleteUser'))}" target-form="ids">删 除</button>-->
+        </div>
+
+        <!-- 高级搜索 -->
+		<div class="search-form fl cf">
+			<if condition="$act neq 'recycle'">
+				<select class="search-condition" onchange="searchStatus($(this))" <if condition="$act eq 'check'"> url="{:U('Goods/check')}" <elseif condition="$act eq 'recycle'"/>url="{:U('Goods/recycle')}"<else/> url="{:U('Goods/index')}"</if> name="status" value="{:I('status')}">
+					<option value="-1" <if condition="$status eq -1"> selected </if>>全部状态</option>
+					<option value='1' <if condition="$status eq 1"> selected </if>>上架</option>
+					<option value='0' <if condition="$status eq 0"> selected </if>>下架</option>
+					<option value='40' <if condition="$status eq 40"> selected </if>>平台冻结</option>
+					<!--<option>正常</option>-->
+				</select>
+			</if>
+			<div class="sleft mr20">
+				<input type="text" name="nickname" class="search-input" value="{:I('nickname')}" placeholder="请输入搜索信息">
+				<a class="sch-btn" href="javascript:;" id="search" <if condition="$act eq 'check'"> url="{:U('Goods/check')}" <elseif condition="$act eq 'recycle'"/>url="{:U('Goods/recycle')}"<else/> url="{:U('Goods/index')}"</if>>查询</a>
+			</div>
+			
+		</div>
+		<!--<div class="search-form fr cf">
+			<div class="sleft">
+				<input type="text" name="nickname" class="search-input" value="{:I('nickname')}" placeholder="请输入用户昵称或者ID">
+				<a class="sch-btn" href="javascript:;" ><i class="btn-search"></i></a>
+			</div>
+		</div>-->
+		<!--<div class="search-nav search-form" id="search" <if condition="$act eq 'check'"> url="{:U('Goods/check')}" <elseif condition="$act eq 'recycle'"/>url="{:U('Goods/recycle')}" <else/> url="{:U('Goods/index')}" </if>>-->
+			<!--<label class="search-nav-label">品牌ID:<br><input type="text" name="id"  value="{:I('id')}" /></label>-->
+			<!--<label class="search-nav-label">中文名称:<br><input type="text" name="brand_name"  value="{:I('brand_name')}"/></label>-->
+			<!--<label class="search-nav-label">英文名称：<br><input type="text" name="brand_letter"  value="{:I('brand_letter')}"/></label>-->
+			<!--<label class="search-nav-label">国家：<br><input type="text" name="country"  value="{:I('country')}"/></label>-->
+			<!--<label class="search-nav-label">品牌成立：<br><input type="text" name="create_date"  value="{:I('create_date')}"/></label>-->
+			<!--<label class="search-nav-label">品牌描述：<br><input type="text" name="desc_cn"  value="{:I('desc_cn')}"/></label>-->
+
+		<!--</div>-->
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th width="3%" class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th width="7%" class="">编号</th>
+		<!--<th class="">店铺ID</th>-->
+		<th width="8%" class="">商品图片</th>
+		<th width="14%" class="">中文名称</th>
+		<!--<th class="">口号</th>-->
+		<!--<th class="">口号英文</th>-->
+		<th width="12%" class="">品牌名称</th>
+		<th width="10%" class="">分类</th>
+		<!--<th class="">添加时间</th>-->
+		<!--<th class="" width="6%">可卖数</th>-->
+		<th width="8%" class="">单价</th>
+		<th class="" width="10%">创建时间</th>
+		<th class="">运营</th>
+		<if condition="$act neq 'recycle'"><th class="">状态</th></if>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="_list">
+		<form id="submitForm" action="{:U('Goods/remove')}" method="post">
+			<volist name="_list" id="vo">
+			<tr class="">
+				<td><input class="ids" type="checkbox" name="id[]" value="{$vo.goods_id}" /></td>
+				<td>{$vo.goods_sn}</td>
+				<!--<td>{$vo.store_id}</td>-->
+				<td><img src="{$vo.main_img}?x-oss-process=image/resize,m_pad,h_50,w_50" style="width: 50px; height: 50px;"></td>
+				<td>{$vo.goods_name}</td>
+				<!--<td><span>{$vo.slogan}</span></td>-->
+				<!--<td><span>{$vo.slogan_letter}</span></td>-->
+				<td>{$vo.brand_name}</td>
+				<td>{$vo.category_name}</td>
+				<!--<td>{$vo.add_date|date="Y-m-d H:i:s",###}</td>-->
+				<!--<td>{$vo.num}</td>-->
+				<td>￥{$vo.price}</td>
+				<td>{$vo.add_date}</td>
+				<td class="operate"><if condition="$vo.is_new eq 1"><span style="background: #ff8300">新品</span></if><if condition="$vo.is_hot eq 1"><span style="background: #ff5f3d">热</span></if><if condition="$vo.is_boutique eq 1"><span style="background: #3c8dbc">精</span></if><if condition="$vo.returned eq 1"><span style="background: #ffc947">包退</span></if><if condition="$vo.flash eq 1"><span  style="background: #ff876e">闪速</span></if><if condition="$vo.help_sales eq 1"><span style="background: #00b5e9">助售</span></if></td>
+				<if condition="$act eq 'index'"><td><if condition="$vo.goods_status eq 40"><em style="color: #d9534f; font-style: normal;font-size: 12px;">平台冻结<else /><if condition="$vo.is_onsale eq 0" ><em style="color: #d9534f; font-style: normal;font-size: 12px;">已下架</em><else/><em style="color: #337ab7;font-style: normal;font-size: 12px;">已上架</em></if></if></td><elseif condition="$act eq 'check'"/><td><if condition="$vo.goods_status eq 0" >审核中<else/>已驳回</if></td><esle/></if>
+				<td class="operate-td">
+					<!--<a href="{:U('Goods/look?id='.$vo[goods_id])}" class="brandImg-url brand-btnM">查看</a>-->
+					<if condition="$act eq 'index'">
+						<a href="{:U('Goods/look?id='.$vo['goods_id'])}" title="查看" class="brandImg-url brand-btnM"><span class="look-bgImg"></span></a>
+						<if condition="$vo.goods_status neq 40"><a class="brand-btnM brandImg-url" title="编辑" href="{:U('Goods/edit?id='.$vo['goods_id'])}"><span class="edit-bgImg"></span></a></if>
+					<elseif condition="$act eq 'recycle'"/>
+						<a href="{:U('Goods/recycle_look?id='.$vo['goods_id'])}" title="查看" class="brandImg-url brand-btnM"><span class="look-bgImg"></span></a>
+					</if>
+
+					<!--<a class="brandImg-url confirm ajax-get" title="删除" href="{:U('Goods/recovery_del?id='.$vo['goods_id'].'&store_id='.$vo['store_id'])}">删除</a>	-->
+				</td>
+            </tr>
+			</volist>
+		</form>
+		<else/>
+		<td colspan="9" class="text-center no-content"> 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+		<if condition="$act eq 'recycle'">
+			<button class="btn  brand-freeze ajax-post confirm submit-btn brand-btnM btn-success" url="{:U('Goods/recovery')}" target-form="ids">恢复</button>
+			<button class="btn btn-danger brand-freeze ajax-post confirm submit-btn" url="{:U('Goods/recovery_remove')}" target-form="ids">删除</button>
+		<elseif condition="$act eq 'index'"/>
+			<button class="btn btn-success brand-freeze ajax-post confirm submit-btn brand-btnM" url="{:U('Goods/on_sale')}" target-form="ids">上架</button>
+			<button class="btn btn-warning brand-freeze ajax-post confirm submit-btn brand-btnM" url="{:U('Goods/off_sale')}" target-form="ids">下架</button>
+			<button class="btn btn-danger brand-freeze ajax-post confirm submit-btn" url="{:U('Goods/remove')}" target-form="ids">删除</button>
+		<elseif condition="$act eq 'check'"/>
+			<!--<button class="btn btn-warning brand-freeze ajax-post confirm submit-btn" url="{:U('Goods/remove')}" target-form="ids">驳 回</button>-->
+		</if>
+
+		<div class="page-fr">{$_page}</div>
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+//	$(".submit-btn").click(function(){
+//        $("#submitForm").submit();
+//	})
+	function  upperCase(value) {
+	    var brandId = $("#brandId").val();
+        var chineseName = $("#chineseName").val();
+        var englishName = $("#englishName").val();
+        var country = $("#country").val();
+        var brandCreate = $("#brandCreate").val();
+        var brandDesc = $("#brandDesc").val();
+        $.post('{:U(Brand/index)}',{id:brandId,brand_name:chineseName,brand_letter:englishName,country:country,create_date:brandCreate,desc_cn:brandDesc},function () {
+            window.location.href = '{:U(Brand/index)}';
+        })
+    }
+
+		//搜索功能
+		$("#search").click(function(){
+			var url = $(this).attr('url');
+			var query  = $('.search-form').find('input').serialize();			
+			query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+			query = query.replace(/^&/g,'');
+            if(query){
+                if( url.indexOf('?')>0 ){
+                    url += '&' + query;
+                }else{
+                    url += '?' + query;
+                }
+                window.location.href = url;
+            }
+		});
+		//回车搜索
+		$(".search-input").keyup(function(e){
+			if(e.keyCode === 13){
+				$("#search").click();
+				return false;
+			}
+		});
+
+		function  searchStatus(_this) {
+		var status = _this.val();
+            var url = _this.attr('url');
+            var query  = $('.search-form').find('select').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if(query){
+                if( url.indexOf('?')>0 ){
+                    url += '&' + query;
+                }else{
+                    url += '?' + query;
+                }
+                window.location.href = url;
+            }
+
+
+
+//		$.post("{:U('Goods/index')}",{status:status},function (res) {
+//			return false;
+//        })
+        }
+    //导航高亮
+//	if("{$act}" == "check"){
+//		highlight_subnav('{:U('Goods/check')}');
+//	}else if("{$act}" == "recycle"){
+//		highlight_subnav('{:U('Goods/recycle')}');
+//	}else{
+//		highlight_subnav('{:U('Goods/index')}');
+//	}
+
+
+
+
+
+	</script>
+
+</block>

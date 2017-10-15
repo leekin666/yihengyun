@@ -1,0 +1,35 @@
+<extend name="Base/common"/>
+
+
+<block name="body">
+	
+	<div class="content">
+		<div class="banner brand-banner hide" style="">
+			<div class="w w1200 relative">
+				<div class="brand-banner-wp">
+					<a href="https://www.dscmall.cn/" target="_blank"><img src="__PUBLIC__/Mall/img/data/1490573204950514232.png" width="1920" height="300"></a>
+				</div>
+			</div>
+		</div>
+        <div class="brand-main" ectype="brandMain">
+            <div class="w w1200">
+               <div class="brand-title"><span>国家馆</span></div>
+                <div class="brand-list" ectype="brandList">
+                    <ul ectype="items">
+						<foreach name="country_list" item="list">
+							<li>
+								<a href="{:U('Country/detail?country_id='.$list[id])}" class="img" target="_blank" style="background: url(__PUBLIC__/Mall/img/{$list.url}) no-repeat center center; background-size: cover;"></a>
+								<div class="b-logo">
+									<a href="{:U('Country/detail?country_id='.$list[id])}" class="follow" data-bid="204"><span ectype="follow_span">点击进入</span></a>
+									<img src="__PUBLIC__/Mall/img/{$list.image}" alt="{$list.name}">
+								</div>
+								<div class="slogan">{$list.name}</div>
+							</li>
+						</foreach>
+                    </ul>
+                </div>
+            </div>
+        </div>
+		<input type="hidden" name="user_id" value="0">
+    </div>
+</block>

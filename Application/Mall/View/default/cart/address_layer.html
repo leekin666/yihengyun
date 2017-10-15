@@ -1,0 +1,88 @@
+<div class="user-form foreg-form">
+    <form action="javascript:;" method="get" name="theForm" id="theForm" class="user-form">
+        <div class="form-row">
+            <div class="form-label"><span class="red">*</span>收货人：</div>
+            <div class="form-value">
+                <input type="text" class="form-input" value="{$consignee.consignee}" maxlength="20" name="consignee" id="consignee_name">
+                <span id="consigneeNameNote" class="status error hide"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label"><span class="red">*</span>手机号码：</div>
+            <div class="form-value">
+                <input type="text" class="form-input" maxlength="11" name="mobile" value="{$consignee.mobile}" id="consignee_mobile">
+                <span class="fl">固定电话：</span>
+                <input type="text" class="form-input" maxlength="20" value="{$consignee.tel}" name="tel" id="consignee_phone">
+                <span id="consigneeMobileTelNote" class="status error hide">{$lang.input_contact}</span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label form-label-lh"><span class="red">*</span>所在地区：</div>
+            <div class="form-value" ectype="regionLinkage">
+                
+                <dl class="mod-select mod-select-small" ectype="smartdropdown" id="selProvinces_">
+                    <dt>
+                        <span class="txt" ectype="txt">省/直辖市</span>
+                        <input type="hidden" value="{$consignee.province}" name="province">
+                    </dt>
+                    <dd ectype="layer">                       
+                    </dd>
+                </dl>
+                <dl class="mod-select mod-select-small" ectype="smartdropdown" id="selCities_">
+                    <dt>
+                        <span class="txt" ectype="txt">市</span>
+                        <input type="hidden" value="{$consignee.city}" name="city">
+                    </dt>
+                    <dd ectype="layer">
+                    </dd>
+                </dl>
+                
+                <dl class="mod-select mod-select-small" ectype="smartdropdown" id="selDistricts_" >
+                    <dt>
+                        <span class="txt" ectype="txt">区/县</span>
+                        <input type="hidden" value="{$consignee.district}" name="district">
+                    </dt>
+                    <dd ectype="layer"></dd>
+                </dl>
+                <span id="consigneeEreaNote" class="status error hide"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label"><span class="red">*</span>详细地址：</div>
+            <div class="form-value">
+                <input type="text" class="form-input form-input-long" name="address" value="{$consignee.address}" id="consignee_address">
+                <span id="consigneeAddressNote" class="status error hide">{$consignee.address}</span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label">身份证号：</div>
+            <div class="form-value">
+                <input type="text" class="form-input" name="id_number" value="{$consignee.id_number}" id="id_number">
+                <span id="idNumberNote" class="status error"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label">邮编：</div>
+            <div class="form-value">
+                <input type="text" class="form-input" name="zipcode" value="{$consignee.zipcode}" id="consignee_zipcode">
+                <span id="consigneeZipcodeNote" class="status error"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label">邮箱：</div>
+            <div class="form-value">
+                <input type="text" class="form-input" name="email" value="{$consignee.email}" id="consignee_email">
+                <span id="emailNote" class="status error hide">{$consignee.email}</span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label">地址别名：</div>
+            <div class="form-value"><input type="text" class="form-input fl" value="{$consignee.sign_building}" name="sign_building" id="consignee_sign_building"><div class="notic">
+设置一个易记的名称，如：'送到家里'、'送到公司' </div></div>
+            <span id="consigneeAliasNote" class="status error hide">{$consignee.sign_building}</span>
+        </div>        
+        
+        <input name="goods_flow_type" value="101" type="hidden">
+        <input name="address_id" value="{$consignee.address_id}" type="hidden">
+    </form>
+</div>

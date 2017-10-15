@@ -1,0 +1,224 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <div class="look_brand form-horizontal look-listInfo goods_look">
+    	<!--<div class="look-sum">-->
+    		<!--<p>品牌录入时间：<span>{$vo.create_date|date="Y-m-d H:i:s",###}</span></p>-->
+    		<!--<p>SKU数量：<span>23件</span></p>-->
+    	<!--</div>-->
+    	<div class="form-item">
+    		<h2 class="look_tit">基本信息</h2>           
+        </div>
+        <div class="form-item">
+        	<label class="look-label">商品分类</label>
+            <div class="look-info">
+                	保健品
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">商品品牌</label>
+            <div class="look-info">
+                	普丽普莱
+            </div>            
+        </div>        
+        <div class="form-item">
+        	<label class="look-label">商品中文名称</label>
+            <div class="look-info">
+                {$_goods_info.goods_name}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">商品英文名称</label>
+            <div class="look-info">
+                {$_goods_info.goods_letter}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">商品编码</label>
+            <div class="look-info">
+                {$_goods_info.goods_sn}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">条形码</label>
+            <div class="look-info">
+                {$_goods_info.store_sn}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">本店售价</label>
+            <div class="look-info">
+                {$_goods_info.price}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">市场售价</label>
+            <div class="look-info">
+                {$_goods_info.market_price}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">库存数</label>
+            <div class="look-info">
+                {$_goods_info.num}件
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">商品重量</label>
+            <div class="look-info">
+                {$_goods_info.weight}克
+            </div>
+        </div>
+        <!--<div class="form-item">-->
+        	<!--<label class="look-label">商品类型</label>-->
+            <!--<div class="look-info">-->
+                <!--{$_goods_info.}-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-item">
+        	<label class="look-label">发货方式</label>
+            <div class="look-info">
+                保税仓
+            </div>
+        </div>
+        <div class="form-item pt20">
+    		<h2 class="look_tit">商品图片</h2>           
+        </div>
+        <div class="form-item">
+        	<label class="look-label">商品主图</label>
+            <div class="look-info proImg">
+                <span><img src="{$_goods_info.main_img}" /><i></i></span>
+            </div>
+        </div>
+        <div class="form-item hidden" lt="{$_goods_info.goods_img_arr}" <if condition="$_goods_info.goods_img_arr neq ''">style="display:block"</if>>
+        	<label class="look-label">商品辅图</label>
+            <div class="look-info proImg">
+                <foreach name="_goods_info.goods_img_arr" item="vo">
+                    <span><img src="{$vo}" /><i></i></span>
+                </foreach>
+            </div>
+        </div>
+        <div class="form-item pt20">
+    		<h2 class="look_tit">商品详情</h2>           
+        </div>
+        <div class="form-item">
+        	<label class="look-label">中文详细描述</label>
+            <div class="look-info">
+                {$_goods_info.}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">英文详细描述</label>
+            <div class="look-info">
+                保税仓
+            </div>
+        </div>        
+        <div class="form-item pt20">
+    		<h2 class="look_tit">其他信息</h2>           
+        </div>        
+        <div class="form-item">
+        	<label class="look-label">中文简介</label>
+            <div class="look-info">
+                保税仓
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">英文简介</label>
+            <div class="look-info">
+                保税仓
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">商家备注</label>
+            <div class="look-info">
+                {$_goods_info.note}
+            </div>
+        </div>
+        <div class="form-item pt20">
+    		<h2 class="look_tit">运营信息</h2>           
+        </div>
+        <div class="form-item">
+        	<label class="look-label">运营标签</label>
+            <div class="look-info icon_txt">
+                	<span>新</span>
+                	<span>热</span>
+                	<span>精</span>
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">商品服务</label>
+            <div class="look-info icon_txt">
+                	<span>包退</span>
+                	<span>闪速</span>
+            </div>
+        </div>
+        <div class="form-item hidden">
+        	<label class="look-label">审核后状态</label>
+            <div class="look-info">
+                	立即上架
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">是否为助售商品</label>
+            <div class="look-info">
+                	否
+            </div>
+        </div>
+        
+        <div class="form-item" style="margin-left: 100px;">
+			<button class="btn btn-info brand-btnM" onclick="javascript:history.back(-1);return false;">返 回</button>
+        	<button class="btn btn-warning brand-btnM" >预览</button>
+            
+            <if condition="$act eq 'look'">
+
+                <if condition="$_goods_info['goods_status'] eq 40">
+                    <a class="btn btn-danger confirm ajax-get" title="平台冻结" href="#">平台冻结</a>
+                <else />
+                    <a class="btn btn-primary brand-btnM" title="编辑" href="{:U('Goods/edit?id='.$_goods_info['goods_id'])}">编辑</a>
+                    <?php if($_goods_info['is_onsale'] == 1){?>
+                        <a class="btn btn-warning confirm ajax-get brand-btnM" title="下架" href="<?php echo U('Goods/off_sale?id='.$_goods_info['goods_id']);?>">下架</a>
+                    <?php }else{?>
+                        <a class="btn btn-success confirm ajax-get brand-btnM" title="上架" href="<?php echo U('Goods/on_sale?id='.$_goods_info['goods_id']);?>">上架</a>
+                    <?php }?>
+                    <a class="btn btn-danger confirm ajax-get brand-btnM" title="删除" href="{:U('Goods/remove?id='.$_goods_info['goods_id'].'&store_id='.$vo['store_id'])}">删除</a>
+                </if>
+            </if>
+            <if condition="$act eq 'recycle_look'">
+                <a class="btn btn-success confirm ajax-get" title="恢复" href="{:U('Goods/recovery?id='.$_goods_info['goods_id'])}">恢复</a>
+                <a class="btn btn-danger confirm ajax-get" title="删除" href="{:U('Goods/recovery_remove?id='.$_goods_info['goods_id'])}">删除</a>
+            </if>
+            <!--<if condition="$vo['status'] eq 1"><a class="btn btn-warning"  title="{$vo.status|getstatus}" href="{:U('Goods/freeze?id='.$_goods_info['goods_id'].'&store_id='.$vo['store_id'].'&type='.$vo['status'])}">{$vo.status|getstatus}</a></if>-->
+            <!--<if condition="$act eq 'recycle_look'"><a class="btn btn-danger confirm ajax-get" title="删除" href="{:U('Goods/recovery_del?id='.$_goods_info['goods_id'].'&store_id='.$vo['store_id'])}">删除</a></if>-->
+            
+        </div>
+    </div>
+</block>
+
+<block name="script">
+	<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        //导航高亮
+        if("{$act}" == 'recycle_look'){
+            highlight_subnav('{:U('Goods/recycle_look')}');
+        }else{
+            highlight_subnav('{:U('Goods/index')}');
+        }
+
+
+        $('#time-start').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true,
+            pickerPosition:'top-right'
+        });
+    </script>
+</block>

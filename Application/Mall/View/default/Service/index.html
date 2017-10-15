@@ -1,0 +1,123 @@
+<extend name="Base/common"/>
+<block name="body">
+	
+	<div class="w1200 service-container">
+		<!--筛选条件-->
+		<div class="service-filter">
+			<div class="one-nav">
+				<div class="serNav-all">一级分类：</div>
+				<div class="ser-oneNav">
+					<a href="/mall/service/index/first_cat/0/second_cat/{$second_cat}" <if condition="!$first_cat">class="service-active"</if>>全部</a>
+					<foreach name="cat_fic_first" item="vo">
+					<a href="/mall/service/index/first_cat/{$vo.id}/second_cat/0" <if condition="$vo['id'] eq $first_cat">class="service-active"</if>>{$vo.name}</a>
+					</foreach>
+				</div>
+			</div>
+			<div class="one-nav">
+				<div class="serNav-all">二级分类：</div>
+				<div class="ser-oneNav">
+					<a href="/mall/service/index/first_cat/{$first_cat}/second_cat/0" <if condition="!$second_cat">class="service-active"</if>>全部</a>
+                    <foreach name="cat_fic_second" item="vo">
+                        <a href="/mall/service/index/first_cat/{$first_cat}/second_cat/{$vo.id}" <if condition="$vo['id'] eq $second_cat">class="service-active"</if>>{$vo.name}</a>
+                    </foreach>
+				</div>
+			</div>
+		</div>
+		 <div class="filter">
+        		<div class="filter-wrap">
+				    <div class="filter-sort">
+                        <if condition="$sort eq 'id' && $order eq 'DESC'">
+				            <a href="/mall/service/index/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/id/order/ASC#goods_list" <if condition="$sort eq 'id'">class="curr"</if>>综合<i class="iconfont icon-arrow-down"></i></a>
+                        <else/>
+                            <a href="/mall/service/index/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/id/order/DESC#goods_list" <if condition="$sort eq 'id'">class="curr"</if>>综合<i class="iconfont icon-arrow-up"></i></a>
+                        </if>
+                        <if condition="$sort eq 'update_time' && $order eq 'DESC'">
+                            <a href="/mall/service/index/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/update_time/order/ASC#goods_list"  <if condition="$sort eq 'update_time'">class="curr"</if>>新品<i class="iconfont icon-arrow-down"></i></a>
+                        <else/>
+                            <a href="/mall/service/index/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/update_time/order/DESC#goods_list"  <if condition="$sort eq 'update_time'">class="curr"</if>>新品<i class="iconfont icon-arrow-up"></i></a>
+                        </if>
+                        <if condition="$sort eq 'price' && $order eq 'DESC'">
+                            <a href="/mall/service/index/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/price/order/ASC#goods_list" <if condition="$sort eq 'price'">class="curr"</if>>价格<i class="iconfont icon-arrow-down"></i></a>
+                        <else/>
+                            <a href="/mall/service/index/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/price/order/DESC#goods_list" <if condition="$sort eq 'price'">class="curr"</if>>价格<i class="iconfont icon-arrow-up"></i></a>
+                        </if>
+				    </div>
+				    <div class="filter-range">
+				        <div class="fprice" style="border-right: none;">
+				        	<form method="GET" action="/mall/service/index/style/{$style}/p/{$p}/sort/{$sort}/order/{$order}" class="sort" name="listform">
+                                <div class="fP-box">
+				                    <input type="text" name="price_min" class="f-text price-min" autocomplete="off" maxlength="6" placeholder="￥" id="price-min" value="{$price_min|default=0}">
+				                    <span>&nbsp;~&nbsp;</span>
+				                    <input type="text" name="price_max" class="f-text price-max" autocomplete="off" maxlength="6" placeholder="￥" id="price-max" value="{$price_max}">
+				                </div>
+				                <div class="fP-expand">
+				                	<a class="ui-btn-s ui-btn-clear" href="javascript:void(0);" id="clear_price">清空</a>
+									<a href="javascript:void(0);" class="ui-btn-s ui-btn-s-primary ui-btn-submit">确定</a>
+				                </div>
+				            </form>
+				        </div>
+				        <div class="fcheckbox">
+				                <div class="checkbox_items">
+				                <div class="checkbox_item ">
+				                    <input type="checkbox" name="fk-type" checked="checked" class="ui-checkbox" value="" id="store-checkbox-013" >
+				                    <label class="ui-label" for="store-checkbox-013">仅显示有货</label>
+				                    <i id="input-i1" rev=""></i>
+				                    <i id="input-i2" rev=""></i>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+    				<div class="filter-right">
+		                <div class="button-page">
+				            <span class="pageState"><span>1</span>/1</span>
+				            <a href="javascript:void(0);" title="上一页"><i class="iconfont icon-left"></i></a>
+				            <a href="javascript:void(0);" title="下一页"><i class="iconfont icon-right"></i></a>
+				        </div>
+				        <!--<div class="styles">
+				            <ul class="items" ectype="fsortTab">
+				                <li class="item" data-type="large"><a href="javascript:void(0)" title="大图模式"><span class="iconfont icon-switch-grid"></span>大图</a></li>
+				                <li class="item" data-type="samll"><a href="javascript:void(0)" title="小图模式"><span class="iconfont icon-switch-list"></span>小图</a></li>
+				            </ul>
+				        </div>-->
+            		</div>
+				</div>
+            </div>
+			
+		<!--虚拟商品列表-->
+		<form>
+			<div class="service-brand-list">
+			<ul>
+                <foreach name="_lists" item="vo">
+				<li class="serviceInfo">
+					<div class="service-padding">
+						<div class="ser-img">
+							<a href="{:U('Service/detail?id='.$vo[goods_id])}">
+                                <if condition="!$vo['goods_img']['m'][0]">
+                                    <img src="__PUBLIC__/Mall/img/default_goodsimg.png" />
+                                    <else/>
+                                    <img src="{$vo['goods_img']['m'][0]}" />
+                                </if>
+                            </a>
+                        </div>
+						<div class="serHeight-span ser-span-fr">
+							<span class="money-left">￥{$vo.price}</span>
+							<span class="sum-right">已售2035</span>
+						</div>
+						<div class="serHeight-span">
+							<span>{$vo.goods_name}</span>
+						</div>
+						<div class="serHeight-span">
+							<span>{$vo.store_name}</span>
+						</div>
+					</div>					
+				</li>
+                </foreach>
+			</ul>
+		</div>
+		</form>
+		
+	</div>
+	
+
+
+</block>

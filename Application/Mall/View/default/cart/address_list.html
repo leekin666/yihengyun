@@ -1,0 +1,40 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="consignee-warp">
+    <notempty name="user_address">
+        <foreach name="user_address" item="address">
+        <div class="fl address-list">
+        	<if condition='$consignee[address_id] neq $address[address_id]'>        		
+	            <a href="javascript:void(0);" data-itemsAddressId="{$address.address_id}"  class="edit default" ectype="dialog_checkout" data-value='{"divId":"set_default","url":"/Mall/Cart/setDefaultAddress","width":450,"height":50,"title":"设置默认收货地址"}'>设为默认</a>
+        	</if>
+	            <a href="javascript:void(0);" data-itemsAddressId="{$address.address_id}" class="edit" ectype="dialog_checkout" data-value='{"divId":"edit_address","url":"/Mall/Cart/addressEdit","width":900,"title":"修改收货人地址"}'>修改</a>
+	            <a href="javascript:void(0);" data-itemsAddressId="{$address.address_id}" class="delete" ectype="dialog_checkout" data-value='{"divId":"del_address","url":"/Mall/Cart/deleteAddress","width":450,"height":50,"title":"删除收货人地址"}'>删除</a>
+	            
+	       	<div class="cs-w-item <if condition='$consignee[address_id] eq $address[address_id]'>cs-selected</if>" data-addressid="{$address.address_id}" ectype="cs-w-item">
+	            <div class="item-tit">
+	                <h3 class="username">{$address.consignee}</h3>
+	                <span class="remark">{$address.sign_building}</span>
+	                <if condition='$consignee[address_id] eq $address[address_id]'><span class="tag">默认地址</span></if>
+	            </div>
+	            <div class="item-tel">
+	                <span class="contact">{$address.mobile}</span>
+	            </div>
+	            <div class="item-address">{$address.address_list}</div>
+	            <i class="icon"></i>	            
+	            <input type="radio"  <if condition='$consignee[address_id] eq $address[address_id]'>checked="checked"</if> class="ui-radio" name="consignee_radio" value="{$address.address_id}" id="radio_{$address.address_id}" class="hookbox" />
+	        </div>
+        </div>
+        </foreach>
+        <div class="cs-w-item">
+            <a href="javascript:void(0);" class="add-new-address" ectype="dialog_checkout" data-value='{"divId":"new_address","id":0,"url":"/Mall/Cart/addressEdit","width":900,"height":450,"title":"新增收货人地址"}'>
+                <i class="iconfont icon-add-quer"></i><span>添加新地址</span>
+            </a>
+        </div>
+    <else/>
+        <div class="cs-w-item">
+            <a href="javascript:void(0);" class="add-new-address" ectype="dialog_checkout" data-value='{"divId":"new_address","id":0,"url":"/Mall/Cart/addressEdit","width":900,"height":450,"title":"新增收货人地址"}'>
+                <i class="iconfont icon-add-quer"></i><span>添加新地址</span>
+            </a>
+        </div>
+    </notempty>
+    <div class="clear"></div>
+</div>

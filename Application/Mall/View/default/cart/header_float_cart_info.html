@@ -1,0 +1,101 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<div class="shopCart-con dsc-cm">
+    <a href="/Mall/Cart">
+		<i class="iconfont icon-carts"></i>
+		<span>我的购物车</span>
+		<em class="count cart_num">{$num}</em>
+	</a>
+</div>
+<div class="dorpdown-layer" ectype="dorpdownLayer">
+    <notempty name="list">
+    <div class="settleup-content">
+        <div class="mc">
+            <ul>
+                <foreach name="list" item="vo">
+                <li id="cart_items_{$vo.goods_id}">
+                    <div class="p-img"><a href="/Mall/Goods/index/id/{$vo.goods_id}.html"  target="_blank"><img src="{$vo['images']['m'][0]}" width="50" height="50" /></a></div>
+                    <div class="p-name"><a href="/Mall/Goods/index/id/{$vo.goods_id}.html" target="_blank">{$vo.goods_name}</a></div>
+                    <div class="p-number">
+                        <span class="num" id="goods_number_{$vo.goods_id}">{$vo.number}</span>
+                        <div class="count">
+                            <a href="javascript:void(0);"  id="min_number" onclick="changenum({$vo.goods_id},1)" class="count-add"><i class="iconfont icon-up"></i></a>
+                            <a href="javascript:void(0);" onclick="changenum({$vo.goods_id}, -1)" class="count-remove"><i class="iconfont icon-down"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-oper">
+                        <div class="price">{$vo.price}</div>
+                        <a href="javascript:void(0);" onClick="deleteCartGoods({$vo.goods_id},0)" class="remove">删除</a>
+                    </div>
+                </li>
+                </foreach>
+            </ul>
+        </div>
+
+        <div class="mb">
+            <input name="cart_value" id="cart_value" value="{$cart_value}" type="hidden" />
+            <div class="p-total">共{$num}件商品&nbsp;&nbsp;共计：{$totle}</div>
+            <a href="/Mall/cart/" class="btn-cart">去购物车结算</a>
+        </div>
+    </div>
+    <else/>
+    <div class="prompt"><div class="nogoods"><b></b><span>购物车中还没有商品，赶紧选购吧！</span></div></div>
+    </notempty>
+</div>
+
+<script type="text/javascript">
+function changenum(goods_id, diff)
+{
+	console.log(111)
+	var cValue = $('#cart_value').val();
+    var goods_number =diff;
+// 
+//	if(goods_number < 1)
+//	{
+//		return false;	
+//	}
+//	else
+//	{
+		change_goods_number(goods_id,goods_number, cValue);
+//	}
+}
+function change_goods_number(goods_id, goods_number,  cValue)
+{
+	if(cValue != '' || cValue == 'undefined'){
+	   var cValue = $('#cart_value').val(); 
+	}   
+	Ajax.call('/Mall/cart/addcart/', 'goods_id=' + goods_id+'&goods_number='+goods_number, change_goods_number_response, 'POST', 'JSON');               
+}
+function change_goods_number_response(result)
+{    
+	console.log(result)
+	var goods_id = result.goods_id;           
+    if (result.error == 0)
+    {
+       $('#goods_number_' +goods_id).text(result.goods_number);//更新数量
+	   $(".p-total").html("共"+result.subtotal_number+"件商品&nbsp;&nbsp;共计："+result.goods_subtotal);
+       $('#goods_subtotal_' +goods_id).html(result.goods_subtotal);//更新小计
+       if (result.goods_number <= 0)
+        {
+			//数量为零则隐藏所在行
+            $('#cart_items_' +goods_id).slideUp(250,function(){
+				$('#cart_items_' +goods_id).remove();
+			});
+        }   
+		$(".cart_num").html(result.subtotal_number);
+	}
+//	else if (result.message != '')
+//	{
+//		$('#goods_number_' +goods_id).val(result.cart_Num);//更新数量
+//		alert(result.message);
+//	}                
+}
+
+//$(function(){
+//	$(".shopCart").hover(function(){
+//		$(this).addClass("hover");
+//	},function(){
+//		$(this).removeClass("hover");
+//	})
+//})
+</script>

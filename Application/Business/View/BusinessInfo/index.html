@@ -1,0 +1,171 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <div class="form-horizontal look-listInfo">
+	    <ul class="goods_add_tab controls">
+			<li class="stat_on">企业信息</li>
+			<li>资质信息</li>
+			<li>店铺信息</li>
+			<li>联系人信息</li>
+		</ul>
+		<div class="goods_add_info">
+			<div class="goods_info_item" style="display: block;">
+				<div class="form-item">
+		            <label class="look-label">公司名称：</label>
+		            <div class="look-info">
+		                             {$_bussiness_info.b_name}
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		            <label class="look-label">统一社会信用代码：</label>
+		            <div class="look-info">
+		                {$_bussiness_info.credit_code}
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		        	<label class="look-label">类型：</label>
+		            <div class="look-info">
+						<if condition="$_bussiness_info.type eq 0">有限责任公司<else/>股份公司</if>
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		        	<label class="look-label">住所：</label>
+		            <div class="look-info">
+		                             {$_bussiness_info.address}
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		        	<label class="look-label">成立时间：</label>
+		            <div class="look-info">
+		                {$_bussiness_info.add_date}
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="look-label">营业期限：</label>
+		            <div class="look-info">
+		                {$_bussiness_info.start_term} - {$_bussiness_info.end_term}
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="look-label">注册资本：</label>
+		            <div class="look-info">
+		                {$_bussiness_info.registered_capital}万元
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="look-label">经营范围：</label>
+		            <div class="look-info">
+		                             {$_bussiness_info.scope_business}
+		            </div>
+		        </div>
+			</div>
+				<div class="goods_info_item">
+					<foreach name="qualification" item="list" key="key">
+						<div class="form-item">
+							<label class="look-label">资质{$key+1}：</label>
+							<div class="look-info">
+								{$list.name}
+							</div>
+						</div>
+						<div class="form-item">
+							<label class="look-label">公司银行账号：</label>
+							<div class="look-info">
+								{$list.account_number}
+							</div>
+						</div>
+						<div class="form-item">
+							<label class="look-label">开户银行支行名称：</label>
+							<div class="look-info">
+											 {$list.bank_name}
+							</div>
+						</div>
+						<div class="form-item">
+							<label class="look-label">开户银行支行联行号：</label>
+							<div class="look-info">
+								{$list.union_line_number}
+							</div>
+						</div>
+						<div class="form-item">
+							<label class="look-label">开户银行支行所在地：</label>
+							<div class="look-info">
+											 {$list.bank_address}
+							</div>
+						</div>
+						<div class="form-item">
+							<label class="look-label">平台账户：</label>
+							<div class="look-info">
+								{$list.platform_account}
+							</div>
+						</div>
+					</foreach>
+				</div>
+			<div class="goods_info_item">
+				<div class="form-item">
+		            <label class="look-label">店铺名称：</label>
+		            <div class="look-info">
+		                           {$store.name}
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		            <label class="look-label">主营类目：</label>
+		            <div class="look-info">
+								{$store.category}
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		        	<label class="look-label">详细类目：</label>
+		            <div class="look-info">
+		            	{$store.detail_category}
+		            </div>            
+		        </div>
+			</div>
+			<div class="goods_info_item">
+					<div class="form-item">
+						<label class="look-label">法定代表人姓名：</label>
+						<div class="look-info">
+							{$_bussiness_info.legal_representative}
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="look-label">身份证号：</label>
+						<div class="look-info">
+							{$_bussiness_info.id_number}
+						</div>
+				   </div>
+					<div class="form-item">
+						<label class="look-label">联系电话：</label>
+						<div class="look-info">
+							{$_bussiness_info.mobile}
+						</div>
+					</div>
+			</div>
+	    </div>
+    </div>  
+    
+    
+</block>
+
+<block name="script">
+
+    <script type="text/javascript">
+        //导航高亮
+        if("{$act}" == 'index'){
+            highlight_subnav('{:U('Business/index')}');
+        }else if("{$act}" == 'qualification'){
+            highlight_subnav('{:U('Business/qualification')}');
+        }else{
+            highlight_subnav('{:U('Business/index')}');
+        }
+        
+        
+        $(".goods_add_tab li").click(function(){
+	    	if(!$(this).hasClass("stat_on")){
+	    		$(".goods_add_info .goods_info_item").hide().eq($(".goods_add_tab li").removeClass("stat_on").index($(this).addClass("stat_on"))).show();   	
+	    	}	    	
+	    });
+        
+    </script>
+</block>

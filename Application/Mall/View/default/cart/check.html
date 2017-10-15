@@ -1,0 +1,297 @@
+<extend name="Base/common"/>
+
+
+<block name="body">
+	<script type="text/javascript">
+	var json_languages ={"ok":"确定","determine":"确定","cancel":"取消","drop":"删除","edit":"编辑","remove":"移除","follow":"关注","pb_title":"提示","Prompt_information":"提示信息","title":"提示","not_login":"您尚未登录","close":"关闭","cart":"购物车","js_cart":"购物车","all":"全部","go_login":"去登陆","select_city":"请选择市","comment_goods":"评论商品","submit_order":"提交订单","sys_msg":"系统提示","no_keywords":"请输入搜索关键词！","adv_packup_one":"请去后台广告位置","adv_packup_two":"里面设置广告！","more":"更多","Please":"请去","set_up":"设置！","login_phone_packup_one":"请输入手机号码","more_options":"更多选项","Pack_up":"收起","no_attr":"没有更多属性了","search_Prompt":"可输入汉字,拼音查找品牌","most_input":"最多只能选择5项","multi_select":"多选","checkbox_Packup":"请收起全部多选","radio_Packup":"请收起全部单选","contrast":"对比","empty_contrast":"清空对比栏","Prompt_add_one":"最多只能添加4个哦^_^","Prompt_add_two":"您还可以继续添加","button_compare":"比较选定商品","exist":"您已经选择了%s","count_limit":"最多只能选择4个商品进行对比","goods_type_different":"%s和已选择商品类型不同无法进行对比","compare_no_goods":"您没有选定任何需要比较的商品或者比较的商品数少于 2 个。","btn_buy":"购买","is_cancel":"取消","select_spe":"请选择商品属性","Province":"请选择所在省份","City":"请选择所在市","District":"请选择所在区域","Street":"请选择所在街道","Detailed_address_null":"详细地址不能为空","Select_attr":"请选择属性","Focus_prompt_one":"您已关注该店铺！","Focus_prompt_login":"您尚未登录商城会员，不能关注！","Focus_prompt_two":"登录商城会员。","store_focus":"店铺关注。","Focus_prompt_three":"您确实要关注所选店铺吗？","Focus_prompt_four":"您确实要取消关注店铺吗？","Focus_prompt_five":"您要关注该店铺吗？","Purchase_quantity":"超过限购数量.","My_collection":"我的收藏","shiping_prompt":"该地区暂不支持配送","Have_goods":"有货","No_goods":"很抱歉，无货啦","No_shipping":"很抱歉，无法配送","Deliver_back_order":"下单后立即发货","Time_delivery":" 时发货","goods_over":"此商品暂时售完","Stock_goods_null":"商品库存不足","purchasing_prompt_two":"对不起，该商品已经累计超过限购数量","day_not_available":"当日无货","day_yes_available":"当日有货","Already_buy":"已购买","Already_buy_two":"件商品达到限购条件,无法再购买","Already_buy_three":"件该商品,只能再购买","goods_buy_empty_p":"商品数量不能少于1件","goods_number_p":"商品数量必须为数字","search_one":"请填写筛选价格","search_two":"请填写筛选左边价格","search_three":"请填写筛选右边价格","search_four":"左边价格不能大于或等于右边价格","jian":"件","letter":"件","inventory":"存货","move_collection":"移至我的收藏","select_shop":"请选择套餐商品","Parameter_error":"参数错误","screen_price":"请填写筛选价格","screen_price_left":"请填写筛选左边价格","screen_price_right":"请填写筛选右边价格","screen_price_dy":"左边价格不能大于或等于右边价格","invoice_ok":"保存发票信息","invoice_desc_null":"输入内容不能为空！","invoice_desc_number":"您最多可以添加3个公司发票！","invoice_packup":"请选择或填写发票抬头部分！","invoice_tax_null":"请填写纳税人识别码","add_address_10":"最多只能添加10个收货地址","msg_phone_not":"手机号码不正确","captcha_not":"验证码不能为空","captcha_xz":"请输入4位数的验证码","captcha_cw":"验证码错误","Detailed_map":"详细地图","email_error":"邮箱格式不正确！","bid_prompt_null":"价格不能为空!","bid_prompt_error":"价格输入格式不正确！","mobile_error_goods":"手机格式不正确！","null_email_goods":"邮箱不能为空","select_store":"请选择门店！","Product_spec_prompt":"请选择商品规格类型","reply_desc_one":"回复帖子内容不能为空","go_shoping":"去购物","highest_price":"已是最高价！","lowest_price":"已是最低价！","no_history":"您已清空最近浏览过的商品","receive_coupons":"领取优惠券","Immediate_use":"立即使用","no_enabled":"关闭","Purchase_restrictions":"购买数量不能少于1件","remove_checked_goods":"删除选中的商品","go_up":"继续","back_cart":"返回购物车","save":"保存","delivery_Prompt":"该区域没有提货点!","delivery_Prompt_two":"请选择提货时间段!","checked_address":"请选择收货地址!","no_store":"该地区没有门店!","buy_more":"最多领取","a_goods":"个商品","drop_goods":"删除商品？","drop_desc":"您可以选择移到收藏，或删除商品。","Move_collection":"移到收藏","Move_desc":"移动后选中商品将不在购物车中显示。","confirm_default_address":"您确定要设置为默认收货地址吗？","confirm_drop_address":"您确定要删除该收货地址吗？","please_checked_address":"您还没有选择收货地址！","cart_empty_goods":"您的购物车中没有商品！","confirm_Move_collection":"移动后选中商品将不在购物车中显示！","Shipping_address":"收货地址","add_shipping_address":"添加收货地址","no_delivery":"暂不支持该地区配送。","delivery_information":"配送信息","pay_password_packup_null":"支付密码不能为空！","pay_password_packup_error":"您的支付密码有误！","flow_no_payment":"您必须选定一个支付方式","flow_no_shipping":"您必须选定一个配送方式","Mobile_error":"手机号格式不正确！","phone_error":"电话号码格式不正确！","order_detail":"订单详情","down_detail":"收起详情","payTitle":"正在支付","select_consigne":"请选择所在国家","consignee_legitimate_email":"您输入的邮件地址不是一个合法的邮件地址","consignee_legitimate_phone":"手机号码不合法","input_Consignee_name":"请您填写收货人姓名","con_Preservation":"保存收货人信息","Preservation":"保存","add_invoice":"新增单位发票"}
+		
+	</script>
+	<div class="container">
+        <form action="/Mall/order/createOrder" method="post" name="doneTheForm"  class="validator" id="theForm" onsubmit="return checkOrderForm(this)">
+            <div class="w w1200">
+        	<div class="checkout-warp">            	
+                <div class="ck-step" id="consignee_list">
+                	<div class="ck-step-tit">
+                        <h3>收货人信息</h3>
+                       <!-- <a href="user.php?act=address_list" class="extra-r" target="_blank">管理收货人地址</a>-->
+                    </div>
+                    <div class="ck-step-cont" id="consignee-addr">
+                    	<include file="cart/address_list"/>
+                    </div>
+                </div>       
+                                
+            	<div class="ck-step checkout">
+                	<div class="ck-step-tit">
+                    	<h3>支付方式</h3>
+                    </div>
+                    <div class="ck-step-cont">
+                    	<div class="payment-warp">
+                            <div class="payment-list" ectype="paymentType">
+                                <!--<div class="p-radio-item payment-item" data-value='{"type":"cod","payid":"16","allow":""}'>
+									<span>
+                                        <input type="radio"  isCod="1" name="payment" class="ui-radio" value="16" />
+                                        <input type="radio"  name="pay_code" class="ui-radio" value="cod" />
+                                        货到付款                                        
+									</span>
+                                    <b></b>
+                                </div>-->
+								<div class="p-radio-item payment-item item-selected" data-value='{"type":"onlinepay","payid":"15","allow":""}'>
+										<span>
+                                            <input type="radio"  isCod="0" name="payment" class="ui-radio" value="15" checked="checked" />
+                                            <input type="radio"  name="pay_code" class="ui-radio" value="onlinepay" />
+                                            在线支付                                       
+										</span>
+                                        <b></b>
+                                    </div>
+									                                    																		<!--<div class="p-radio-item payment-item" data-value='{"type":"balance","payid":"11","allow":""}'>
+										<span>
+                                            <input type="radio"  isCod="0" name="payment" class="ui-radio" value="11" />
+                                            <input type="radio"  name="pay_code" class="ui-radio" value="balance" />
+                                            余额支付                                        </span>
+                                        <b></b>
+                                    </div>-->
+									                                    																		<!--<div class="p-radio-item payment-item" data-value='{"type":"bank","payid":"10","allow":""}'>
+										<span>
+                                            <input type="radio"  isCod="0" name="payment" class="ui-radio" value="10" />
+                                            <input type="radio"  name="pay_code" class="ui-radio" value="bank" />
+                                            银行汇款/转帐                                        </span>
+                                        <b></b>
+                                    </div>-->
+									                                                                                                							</div>
+                        </div>
+                    </div>
+                </div>   
+                                
+                
+                
+                <div class="ck-step">
+                	<div class="ck-step-tit">
+                    	<h3>商品信息</h3>
+                        <a href="/mall/cart/index" class="extra-r">返回购物车</a>
+                    </div>
+                    <div class="ck-step-cont">
+    <div class="ck-goods-warp" id="goods_inventory">
+        <div class="ck-goods-list">
+            <foreach name="list" item="vo">
+            <div class="ck-goods-item" ectype="shoppingList">
+                <div class="ck-goods-tit">
+                    <div class="ck-store">
+                        <a href="" target="_blank" class="shop-name">{$vo.store_name}</a>
+                    </div>
+                </div>
+                <foreach name="vo.goods" item="v">
+                <div class="ck-goods-cont">
+                    <div class="cg-item last">
+                        <div class="c-col cg-name">
+                            <input name="cart_info[]" type="hidden" value="0|4_840_0_0">
+                            <a href="{:U('/mall/goods/index/id/'.$v['goods_id'])}" target="_blank">
+                                <div class="p-img "><img src="{$v.images.m.0}" width="48" height="48"></div>
+                                <div class="p-info">
+                                    <div class="p-name">{$v.goods_name}</div>
+                                    <div class="p-attr"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="c-col cg-price">
+                            <span class="fr cl"><em>¥</em>{$v.price}</span>
+                        </div>
+                        <div class="c-col cg-number">x{$v.number}</div>
+                        <div class="c-col cg-state">
+                            <span>
+                                有货
+                                <input name="rec_number" type="hidden" id="{$v.goods_id}" value="0">
+                                <input name="shipping_prompt" type="hidden" id="{$v.goods_id}" value="1">
+                            </span>
+                        </div>
+                        <div class="c-col cg-sum"><em>¥</em>{$v.sum_price}</div>
+                        <div class="cg-item-line"></div>
+                        <i class="dian"></i>
+                    </div>
+                    <input name="goods_id[]" type="hidden" value="{$v['goods_id']}">
+                </div>
+                </foreach>
+            </div>
+            </foreach>
+        </div>
+    </div>
+                        <div class="ck-order-remark">
+                            <input name="postscript" type="text" id="remarkText" maxlength="45" size="15" class="text" placeholder="订单备注 限60个字" autocomplete="off" onblur="if(this.value==''||this.value=='订单备注 限60个字'){this.value='订单备注 限60个字';this.style.color='#cccccc'}" onfocus="if(this.value=='订单备注 限60个字') {this.value='';};this.style.color='#666';">
+                            <span class="prompt">提示：请勿填写有关支付、收货、发票方面的信息</span>
+                        </div>
+                    </div>
+                </div>    
+
+             
+            </div>
+            <div id="ECS_ORDERTOTAL">
+			
+<div class="order-summary">
+    <div class="statistic">
+        <div class="list">
+            <span><em>{$num}</em> 件商品，总商品金额：</span>
+            <em class="price" id="warePriceId"><em>¥</em>{$totle}</em>
+        </div>
+                                                                <div class="list">
+            <span>应付总额：</span>
+            <em class="price-total"><em>¥</em>{$totle}</em>
+        </div>
+                    </div>
+</div>   
+
+<div class="checkout-foot">
+    <input name="goods_flow_type" value="101" type="hidden">
+    <input name="rec_number_str" value="" type="hidden">
+	<input name="shipping_prompt_str" value="" type="hidden">
+    <input type="hidden" id="store_id" name='store_id' value="0"/>
+    <input type="hidden" id="store_seller" value="" name="store_seller">
+    <input type="hidden" value="0" name="warehouse_id">
+    <input type="hidden" value="1" name="area_id">
+    <div class="btn-area">
+            <input type="submit" id="submit-done" class="submit-btn" value="提交订单">
+    </div>
+    <div class="d-address">
+                    <span id="sendAddr">寄送至：</span>
+                <span id="sendMobile">收货人：&nbsp;&nbsp;</span>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+function add_info(){
+	var add_str="";
+	var doc = $(".consignee-warp .address-list .cs-selected");
+	if($(".consignee-warp .address-list .cs-w-item").hasClass("cs-selected")){
+		add_str+=doc.find(".username").text()+"&nbsp;&nbsp;";
+		add_str+=doc.find(".item-tel .contact").text();
+	}
+	$("#sendAddr").html("寄送至："+$.trim(doc.find(".item-address").text()));
+	$("#sendMobile").html("收货人：&nbsp;&nbsp;"+add_str)
+}
+add_info()
+$(function(){
+	
+	
+//	$(":input[name='order_bonus_sn']").val('');
+//	
+//	$("input[name='rec_number']").each(function(index, element) {
+//      if($(element).val() == 1){
+//			var store_id = document.getElementById('store_id').value;
+//			var warehouse_id = $(":input[name='warehouse_id']").val();
+//			var area_id = $(":input[name='area_id']").val();
+//			
+//			(store_id > 0) ? store_id : 0;
+//			$(".checkout-foot .btn-area").removeClass('no_shipping');
+//			$(".checkout-foot .btn-area").addClass('no_goods');
+//			$(".checkout-foot .btn-area").attr('data-url', 'ajax_dialog.php?act=goods_stock_exhausted&warehouse_id=' + warehouse_id + '&area_id=' + area_id + '&store_id=' + store_id + '&store_seller=');
+//			$(".checkout-foot .btn-area").html('<input type="button" class="submit-btn" value="'+json_languages.submit_order+'"/>');
+//			return false;
+//		}
+//  });
+//	
+//	var rec_number = new Array();
+//	$("input[name='rec_number']").each(function(index, element) {	
+//		if($(element).val() == 1){
+//			rec_number.push($(element).attr('id'));
+//		}
+//  });
+//	
+//	$("input[name='rec_number_str']").val(rec_number);
+//	
+//	$("input[name='shipping_prompt']").each(function(index, element) {
+//		
+//		var store_id = Number($(".checkout-foot :input[name='store_id']").val());
+//		
+//      if($(element).val() == 1 && store_id == 0){
+//			var store_id = document.getElementById('store_id').value;
+//			var warehouse_id = $(":input[name='warehouse_id']").val();
+//			var area_id = $(":input[name='area_id']").val();
+//			
+//			(store_id > 0) ? store_id : 0;
+//			$(".checkout-foot .btn-area").removeClass('no_goods');
+//			$(".checkout-foot .btn-area").addClass('no_shipping');
+//			$(".checkout-foot .btn-area").attr('data-url', 'ajax_dialog.php?act=shipping_prompt&warehouse_id=' + warehouse_id + '&area_id=' + area_id + '&store_id=' + store_id + '&store_seller=');
+//			$(".checkout-foot .btn-area").html('<input type="button" class="submit-btn" value="'+json_languages.submit_order+'"/>');
+//			return false;			
+//		}
+//  });
+//	
+//	var shipping_prompt = new Array();
+//	$("input[name='shipping_prompt']").each(function(index, element) {	
+//		if($(element).val() == 1){
+//			shipping_prompt.push($(element).attr('id'));
+//		}
+//  });
+//	
+//	$("input[name='shipping_prompt_str']").val(shipping_prompt);
+//	
+//		
+//	$(document).on("click","#submit-done",function(){
+//		var value = new Array();
+//		var rec_id = new Array();
+//		var shipping_list = $(":input[name='shipping[]']");
+//		var cart_list = $(":input[name='cart_info[]']");
+//		var store_id = Number($(".checkout-foot :input[name='store_id']").val());
+//		
+//		if(store_id > 0){
+//			$("form[name='doneTheForm']").submit();
+//		}else{
+//			shipping_list.each(function(index, element) {
+//				
+//				var val = $(this).data("sellerid") + "-" + $(this).val();
+//				
+//				value.push(val);
+//			});
+//			
+//			cart_list.each(function(index, element) {
+//				rec_id.push($(this).val());
+//			});
+//			
+//			var warehouse_id = $(":input[name='warehouse_id']").val();
+//			var area_id = $(":input[name='area_id']").val();
+//			var where = '&warehouse_id=' + warehouse_id + '&area_id=' + area_id + '&store_id=' + store_id + '&store_seller=';
+//			
+//			Ajax.call('ajax_dialog.php', 'act=flow_shipping&shipping_list=' + value + '&rec_id=' + rec_id + where, notShippingResponse, 'POST', 'JSON');
+//		}
+//	});
+//	
+//	function notShippingResponse(result){
+//		
+//		if(result.error == 1){
+//			pb({
+//				id:'noGoods',
+//				title:json_languages.No_shipping,
+//				width:670,
+//				ok_title:json_languages.go_up, 	//按钮名称
+//				cl_title:json_languages.back_cart, 	//按钮名称
+//				content:result.content, 	//调取内容
+//				drag:false,
+//				foot:true,
+//				onOk:function(){
+//					$("form[name='stockFormCart']").submit();
+//				},
+//				onCancel:function(){
+//					location.href = "flow.php";
+//				}
+//			});
+//			$('.pb-ok').addClass('color_df3134');
+//		}else{
+//			$("form[name='doneTheForm']").submit();
+//		}
+//	}
+});
+</script>            </div>
+            <!--<input name="sc_guid" value="EB5503A8-4311-46B2-A0E4-CD391487344B" type="hidden">-->
+			<!--<input name="sc_rand" value="2519" type="hidden">-->
+            <!--<input type="hidden" name="step" value="done" />-->
+            <!--<input type="hidden" name="is_address" value="0" />-->
+        </div>
+        </form>
+    </div>
+    
+</block>

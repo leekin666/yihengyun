@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$meta_title}|易恒云管理平台</title>
+    <link href="__ROOT__/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="__CSS__/base.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/commons.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/module.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/style.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/{$Think.config.COLOR_STYLE}.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/brand.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/goods.css" media="all">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="__STATIC__/jquery-1.10.2.min.js"></script>
+    <![endif]--><!--[if gte IE 9]><!-->
+    <script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.mousewheel.js"></script>
+    <!--<![endif]-->
+    <script type="text/javascript" src="__JS__/layer/layer.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
+    <block name="style">
+        <style>
+            body{padding:20px;}
+        </style>
+    </block>
+</head>
+<body>
+    <div class="edit_user_div">
+        <div class="add_userWrap">
+            <div class="fl">
+                <select id="group" name="group" class="add_userText">
+                    <option value="">==选择权限角色==</option>
+                    <foreach name="_role" item="vo" >
+                        <option value="{$vo.id}">{$vo.title}</option>
+                    </foreach>
+                </select>
+            </div>
+            <span class="line"></span>
+            <div class="add_userBtn">
+                <input type="hidden" id="ids" value="{$ids}">
+                <button class="btn btn-primary brand-btnM" id="submit" type="submit">提交</button>
+                <button class="btn btn-default layui-layer-close" onclick="parent.layer.closeAll();">取消</button>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript" src="__JS__/common.js"></script>
+
+<block name="script">
+    <script type="text/javascript">
+        $(function(){
+            $("#submit").click(function(){
+                var group_id = $("#group").val();
+                var ids = $("#ids").val();
+                if(!group_id){
+                    layer.msg('请选择角色！', {icon: 5});
+                    return false;
+                }
+                $.post(
+                    "{:U()}",
+                    {group_id:group_id,ids:ids},
+                    function(data){
+                        parent.layer.closeAll();
+                        if(data == 'success'){
+                            parent.layer.msg('角色修改成功！');
+                        }else if(data == 'fail'){
+                            parent.layer.msg('角色修改失败！');
+                        }
+                        setTimeout(function(){
+                            parent.window.location.reload();
+                        }, 3000);
+                    }
+                );
+            });
+        })
+    </script>
+</block>
+</body>
+</html>

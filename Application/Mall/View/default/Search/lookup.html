@@ -1,0 +1,28 @@
+<notempty name="is_show">
+    <if condition="$search_type eq 'goods'">
+        <ul id="suggestions_list_id">
+            <input type="hidden" value="1" name="selectKeyOne" id="keyOne" />
+            <foreach name="cat" item="v">
+            <li onmouseover="_over(this);" onmouseout="_out(this);">&nbsp;&nbsp;&nbsp;在<a class='cate_user' href="{:U('/Mall/category/index/id/'.$v['cat_id'])}" style='color:#ec5151;'>{$v.top}>{$v.crrent}</a>分类下搜索</li>
+            </foreach>
+            <!--<li style="height:1px; overflow:hidden; border-bottom:1px #eee solid; margin-top:-1px;"></li>-->
+            <foreach name="list_goods" item="v" key="k">
+            <li <if condition="$k eq 0">class="goods_item"</if> onmouseover="_over(this);" onmouseout="_out(this);" title="{$v.goods_name}" onClick="javascript:fill('{$v.goods_name}');">
+                <div class="left-span">&nbsp;{$v.goods_name_style}</div>
+                &nbsp;<b></b>
+            </li>
+            </foreach>
+        </ul>
+    </if>
+    <if condition="$search_type eq 'store'">
+        <ul id="suggestions_list_id">
+            <input type="hidden" value="1" name="selectKeyOne" id="keyOne" />
+            <foreach name="list_shop" item="v" key="k">
+                <li onmouseover="_over(this);" onmouseout="_out(this);" title="{$v.name}" onClick="javascript:fill('{$v.name}');">
+                <div class="left-span">&nbsp;{$v.name_style}</div>
+                &nbsp;<b></b>
+                </li>
+            </foreach>
+        </ul>
+    </if>
+</notempty>

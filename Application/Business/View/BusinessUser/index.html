@@ -1,0 +1,280 @@
+<extend name="Public/base" />
+
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <div class="cf">
+        <div class="fr">
+            <if condition="$act eq 'index'"><a class="btn btn-primary add-bg" onclick="show_addUser()">+ 添加账号</a></if>
+            <!--<button class="btn ajax-post" url="{:U('User/changeStatus',array('method'=>'resumeUser'))}" target-form="ids">启 用</button>-->
+            <!--<button class="btn ajax-post" url="{:U('User/changeStatus',array('method'=>'forbidUser'))}" target-form="ids">禁 用</button>-->
+            <!--<button class="btn ajax-post confirm" url="{:U('User/changeStatus',array('method'=>'deleteUser'))}" target-form="ids">删 除</button>-->
+        </div>
+        <!-- 高级搜索 -->
+        <div class="search-form fl cf">
+            <select class="search-condition" id="search_status">
+                <option value="">全部状态</option>
+                <foreach name="status" item="vo" key="key">
+                    <option value='{$key}' <if condition="$status_val neq null and $status_val eq $key">selected</if>>{$vo}</option>
+                </foreach>
+            </select>
+            <div class="sleft">
+                <input type="text" name="keywords_val" class="search-input" value="{$keywords_val}" placeholder="请输入搜索信息">
+                <a class="btn-primary sch-btn" title="查询" href="javascript:;" id="search" url="{:U('BusinessUser/index')}">查询</a>
+            </div>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+        <table class="">
+            <thead>
+            <tr>
+                <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                <th width="8%">编号</th>
+                <th width="12%">账号</th>
+                <th width="10%">姓名</th>
+                <th width="12%">手机号</th>
+                <th width="12%">邮箱</th>
+                <th width="10%">权限角色</th>
+                <th width="15%">最后登录时间</th>
+                <th class="" width="10%">状态</th>
+                <th class="" width="15%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="_list">
+                <volist name="_list" id="vo">
+                    <tr class="">
+                        <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></td>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.username}</td>
+                        <td>{$vo.user_name}</td>
+                        <td>{$vo.mobile}</td>
+                        <td>{$vo.email}</td>
+                        <!--<td>{$vo.create_date|default=''|date='Y',###}年</td>-->
+                        <td>{$vo.title}</td>
+                        <td>{$vo.last_login_time}</td>
+                        <td>{$vo.x_status}</td>
+                        <td class="operate-td">
+							<!--<a title="查看" href="#" class="brand-btnM brandImg-url">查看</a>-->
+							<a title="编辑" class="brand-btnM brandImg-url edit_user" onclick="show_addUser({$vo['id']})" ><span class="edit-bgImg"></span></a>
+							<a title="重置密码" href="#" class="brandImg-url ajax-get" onclick="restart({$vo['id']})"><span class="restPw-bgImg"></span></a>
+                        </td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="11" class="text-center no-content"> 暂时还没有内容! </td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+    <div class="page">
+        <button title="冻结" class="btn btn-success brand-freeze brand-btnM ajax-post confirm" url="{:U('BusinessUser/changeStatus',array('status'=>'1'))}" target-form="ids">启用</button>
+        <button title="冻结" class="btn btn-warning brand-freeze brand-btnM ajax-post confirm" url="{:U('BusinessUser/changeStatus',array('status'=>'0'))}" target-form="ids">禁用</button>
+        <button title="删除" class="btn btn btn-danger brand-freeze ajax-post confirm" url="{:U('BusinessUser/changeStatus',array('status'=>'-1'))}" target-form="ids">删除</button>
+        <div class="page-fr">{$_page}</div>
+    </div>
+
+
+    <!--添加账户-->
+    <div class="add_user_div_wrap hidden">
+	    <div class="add_userWrap clearfix">
+	    		<div class="fl add_user_div"><b>*</b><span>账号</span><input id="user" name="user" class="add_userText" type="text" placeholder="账号"/></div>
+
+				<div class="fl add_user_div"><b>*</b><span>密码</span><input id="pwd" name="pwd" class="add_userText" type="text" placeholder="密码"/></div>
+				<div class="fl add_user_div"><b>*</b><span>权限角色</span><select id="per" name="per" class="add_userText">
+					<option value="">权限角色</option>
+                    <foreach name="_role" item="vo" >
+					    <option value="{$vo.id}">{$vo.title}</option>
+                    </foreach>
+				</select></div>
+				<span class="line"></span>
+				<div class="fl add_user_div"><span>姓名</span><input class="add_userText" type="text" id="name" name="name" placeholder="姓名"/></div>
+				<div class="fl add_user_div"><span>手机号</span><input class="add_userText" type="text" id="tel" name="tel" placeholder="手机号"/></div>
+				<div class="fl add_user_div"><span>邮箱</span><input class="add_userText" type="text" id="email" name="email" placeholder="邮箱"/></div>
+				<div class="add_userBtn">
+					<button class="btn btn-default brand-btnM ajax-post layui-layer-close1" onclick="layer.closeAll()">取消</button>
+					<a class="btn btn-primary brand-btnM" onclick="add_userSubmit()">提交</a>
+					<input type="hidden" name="edit" value="0" />
+					<input type="hidden" name="edit_id" value="" />
+				</div>
+
+		</div>
+	</div>
+</block>
+
+<block name="script">
+    <script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+    <script type="text/javascript">
+        //导航高亮
+        if("{$act}" == 'index'){
+            highlight_subnav('{:U('BusinewssUser/index')}');
+        }
+        //搜索功能
+        $("#search").click(function(){
+            var url = $(this).attr('url');
+            var status = $("#search_status").val();
+            var query  = $('.search-form').find('input').serialize();
+            if(status){
+                query += '&status_val=' + status;
+            }
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if( url.indexOf('?')>0 ){
+                url += '&' + query;
+            }else{
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+
+        //回车搜索
+        $(".search-input").keyup(function(e){
+            if(e.keyCode === 13){
+                $("#search").click();
+                return false;
+            }
+        });
+
+        //状态搜索
+        $("#search_status").change(function(){
+            var url = $("#search").attr('url');
+            var status = $(this).val();
+            var query  = $('.search-form').find('input').serialize();
+            if(status){
+                query += '&status_val=' + status;
+            }
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if( url.indexOf('?')>0 ){
+                url += '&' + query;
+            }else{
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+
+//      $(function(){
+//          $(".edit_user").click(function(){
+//              var url = $(this).attr('url');
+//              layer.open({
+//                  type: 2,
+//                  title: '编辑',
+//                  shadeClose: true,
+//                  shade: false,
+//                  maxmin: true, //开启最大化最小化按钮
+//                  area: ['380px', '500px'], //宽高
+//                  content: url
+//              });
+//          })
+//      })
+
+		function show_addUser(_id){
+			var str = "";
+			var tit = "添加账号";
+			if(_id){
+				$.post("{:U('/Business/BusinessUser/is_edit')}",{'id':_id},function(res){
+					var res = JSON.parse(res);
+					if(res.status==2){
+						tit = "编辑账号";
+						str = $(".add_user_div_wrap").html();
+						showLayer(tit,str,res.data);
+					}
+				})
+			}else{
+				str = $(".add_user_div_wrap").html();
+				showLayer(tit,str,'');
+			}
+		}
+
+		function showLayer(tit,str,data){
+			layer.open({
+			  type: 1 //Page层类型
+			  ,area: ['380px', '600px']
+			  ,title: tit
+			  ,shadeClose: true
+			  ,shade: 0.6 //遮罩透明度
+			  ,maxmin: true //允许全屏最小化
+			  ,anim: 1 //0-6的动画形式，-1不开启
+			  ,content: str
+			});
+			if(data){
+				$(".layui-layer-content #user").val(data.username);
+				$(".layui-layer-content #pwd").parents(".add_user_div").remove();
+				$(".layui-layer-content #per").val(data.gid);
+	            $(".layui-layer-content #name").val(data.user_name);
+	            $(".layui-layer-content #tel").val(data.mobile);
+	            $(".layui-layer-content #email").val(data.email);
+	            $(".layui-layer-content input[name='edit']").val(1);
+	            $(".layui-layer-content input[name='edit_id']").val(data.id);
+			}
+		}
+		function add_userSubmit(){
+			var user = $(".layui-layer-content #user").val();
+			var pwd = $(".layui-layer-content #pwd").val();
+			var per = $(".layui-layer-content #per").val();
+            var name = $(".layui-layer-content #name").val();
+            var tel = $(".layui-layer-content #tel").val();
+            var email = $(".layui-layer-content #email").val();
+            var edit = $(".layui-layer-content input[name='edit']").val();
+            var edit_id = $(".layui-layer-content input[name='edit_id']").val();
+//            alert(edit_id);return false;
+			if(user==""||pwd==""||per==""){
+				layer.alert('请填写必填项！');
+				return false;
+			}else{
+				if(edit==1){
+                    $.post("{:U('business/BusinessUser/edit')}",{'id':edit_id,'user':user,'per':per,'name':name,'tel':tel,'email':email}, function (data) {
+                        if(data==1){
+                            alert("修改成功！");
+                            location.href='/business/BusinessUser/index';
+                        }else if(data==-1){
+                            alert("修改失败！");
+                        }
+                    });
+				}else{
+						$.post("{:U('BusinessUser/add')}",{'user':user,'pwd':pwd,'per':per,'name':name,'tel':tel,'email':email}, function (data) {
+	                    if(data==1){
+	                        alert("添加成功！");
+	                        location.href='/business/BusinessUser/index';
+	                    }else if(data==-1){
+	                        alert("添加失败！");
+	                    }else if(data==-2){
+	                        alert("此用户不能再添加！");
+	                    }else if(data==-3){
+                            alert("手机格式不合法！");
+                        }else if(data==-4){
+                            alert("手机号不为空！");
+                        }else if(data==-5){
+                            alert("邮箱格式不正确！");
+                        }else if(data==-6){
+                            alert("邮箱不为空！");
+                        }else {
+                            alert("账号异常！");
+                        }
+	                });
+				}
+
+			}
+		}
+
+        function restart(id){
+            var id = id;
+//            alert(id);return false;
+            $.post("{:U('/business/BusinessUser/restart')}",{'id':id}, function (data) {
+                if(data==1){
+                    alert("重置密码成功！");
+                    location.href='/business/BusinessUser/index';
+                }else if(data==-1){
+                    alert("重置密码失败！");
+                }
+            });
+        }
+
+
+    </script>
+
+</block>

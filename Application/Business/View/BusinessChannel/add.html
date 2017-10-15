@@ -1,0 +1,805 @@
+
+
+<extend name="Public/base"/>
+
+<block name="body">
+	<link rel="stylesheet" type="text/css" href="../../../../Public/Admin/css/laydate.css">
+	<script type="text/javascript" src="__JS__/layer/laydate.js"></script>
+	<div class="main-title">
+		<h2>{$meta_title}</h2>
+	</div>
+	<form action="{:U('')}" method="post" class="form-horizontal">
+		<div class="form-horizontal look-listInfo">
+			<ul class="goods_add_tab controls">
+				<li class="stat_on">基本信息</li>
+				<li>渠道信息</li>
+			</ul>
+			<!--基本信息-->
+			<div class="goods_add_info ditch-list">
+				<div class="goods_info_item" style="display: block;">
+					<div class="form-item">
+						<label class="look-label">计划名：</label>
+						<div class="look-info">
+							<input type="text" name="plan" class="text input-large fl" value="{$_row.name}" required />
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="look-label">计划描述：</label>
+						<div class="look-info">
+							<input type="text" name="plan_desc"  class="text input-large fl" value="{$_row.desc}" required/>
+						</div>
+					</div>
+					<!--<div class="form-item">
+                        <label class="look-label">起始日期：</label>
+                        <div class="look-info">
+                            <input type="text" id="star" name="star" class="planInput text input-large fl" placeholder="选择开始时间" required>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <label class="look-label">截至日期：</label>
+                        <div class="look-info">
+                            <input type="text" id="end" name="end" class="planInput text input-large fl" placeholder="选择结束时间" required>
+                            <span class="error-only" style="display: none;">请选择合适的时间范围</span>
+                        </div>
+                    </div>-->
+					<!--<div class="form-item">
+                        <label class="look-label" style="vertical-align: top;">计划类型：</label>
+                        <div class="look-info" style="width: 800px;">
+                            <select class="plan-type" name="plan_type">
+                                <option value="">请选择类型</option>
+                                <foreach name="_status" item="vo" key="key">
+                                    <option value='{$key}'>{$vo}</option>
+                                </foreach>
+                            </select>
+                             <select class="plan-list" style="display: none;" name="plan_cycle">
+                                <option value="">请选择周期</option>
+                                <foreach name="_cycle_status" item="c_o" key="c_k">
+                                    <option value='{$c_k}'>{$c_o}</option>
+                                </foreach>
+                            </select>
+                            <p class="error-week" style="display: none;">必须选择一天</p>-->
+					<!--每天-->
+					<!--<div class="planDay" style="display: none;">
+                        <div class="layui-inline ">
+                           <input type="text" id="test1" name="test1" class="planInput text input-large fl" placeholder="选择开始时间"><span>至</span>
+                           <input type="text" id="test2" name="test2" class="planInput text input-large" placeholder="选择结束时间">
+                           <p class="error-p">请选择合适的时间范围</p>
+                        </div>
+                    </div>-->
+					<!--每周-->
+					<!--<div class="planWeek plan-label" style="display: none;">
+                        <div class="planWeek-list plan-error">
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周日</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周一</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周二</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周三</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周四</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周五</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周六</label>
+                        </div>
+                        <div class="layui-inline ">
+                           <input type="text" id="test3" name="test3" class="planInput text input-large fl" placeholder="选择开始时间"><span>至</span>
+                           <input type="text" id="test4" name="test4" class="planInput text input-large" placeholder="选择结束时间">
+                           <p class="error-p">请选择合适的时间范围</p>
+                        </div>
+                    </div>-->
+					<!--每月（天）-->
+					<!--<div class="planMonth" style="display: none;">
+                        <div class="planMonth-list">
+                            <ul class="planMonth-day plan-error">
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li>4</li>
+                                <li>5</li>
+                                <li>6</li>
+                                <li>7</li>
+                                <li>8</li>
+                                <li>9</li>
+                                <li>10</li>
+                                <li>11</li>
+                                <li>12</li>
+                                <li>13</li>
+                                <li>14</li>
+                                <li>15</li>
+                                <li>16</li>
+                                <li>17</li>
+                                <li>18</li>
+                                <li>19</li>
+                                <li>20</li>
+                                <li>21</li>
+                                <li>22</li>
+                                <li>23</li>
+                                <li>24</li>
+                                <li>25</li>
+                                <li>26</li>
+                                <li>27</li>
+                                <li>28</li>
+                                <li>29</li>
+                                <li>30</li>
+                                <li>31</li>
+                            </ul>
+                        </div>
+                        <div class="layui-inline ">
+                           <input type="text" id="test5" name="test5" class="planInput text input-large fl" placeholder="选择开始时间"><span>至</span>
+                           <input type="text" id="test6" name="test6" class="planInput text input-large" placeholder="选择结束时间">
+                           <p class="error-p">请选择合适的时间范围</p>
+                        </div>
+                    </div>-->
+					<!--每月（周）-->
+					<!--<div class="planMonweek plan-label" style="display: none;">
+                        <div class="planWeek-list planMweek-num plan-error">
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>第一周</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>第二周</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>第三周</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>第四周</label>
+                        </div>
+                        <div class="planWeek-list planMday-num plan-error">
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周日</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周一</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周二</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周三</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周四</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周五</label>
+                            <label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput"/>周六</label>
+                        </div>
+                        <div class="layui-inline ">
+                           <input type="text" id="test7" name="test7" class="planInput text input-large fl" placeholder="选择开始时间"><span>至</span>
+                           <input type="text" id="test8" name="test8" class="planInput text input-large" placeholder="选择结束时间">
+                           <p class="error-p">请选择合适的时间范围</p>
+                        </div>
+                    </div>
+               </div>
+            </div>-->
+
+				</div>
+				<!--<div class="goods_info_item">
+                    <div class="brand-all">
+                        <div class="brandAll-condition">
+                            <label><input type="checkbox" class="check-all"/>全选</label>
+                            <select class="fl" name="category">
+                                <option value="">品类</option>
+                                <volist name="_goods_type" id="g_o">
+                                    <option value="{$g_o.id}">{$g_o.name}</option>
+                                    <volist name="g_o._child" id="z_o">
+                                        <option value="{$z_o.id}">{$z_o.name}</option>
+                                        <volist name="z_o._child" id="y_o">
+                                            <option value="{$y_o.id}">{$y_o.name}</option>
+                                        </volist>
+                                    </volist>
+                                </volist>
+
+                            </select>
+                            <input type="text" class="text"/>
+                            <button id="btn">查询</button>
+                            <span class="all-sales allTall-img">销量</span>
+                            <span class="all-price allLow-img">售价</span>
+                        </div>
+                        <ul class="brandAll-ul">
+                            <volist name="_goods_list" id="g_o">
+                                <li>
+                                    <input type="checkbox" name="checkbox"/>
+                                    <span value="{$g_o.goods_id}">{$g_o.goods_name}</span>
+                                </li>
+                            </volist>
+
+                        </ul>
+                    </div>
+                    <div class="brand-part">
+                        <div class="brandAll-condition">
+                            <label><input type="checkbox" class="check-all" checked="checked"/>全选</label>
+                            <select name="categorys">
+                                <option value="">品类</option>
+                                <volist name="_goods_type" id="g_o">
+                                    <option value="{$g_o.id}">{$g_o.name}</option>
+                                    <volist name="g_o._child" id="z_o">
+                                        <option value="{$z_o.id}">{$z_o.name}</option>
+                                        <volist name="z_o._child" id="y_o">
+                                            <option value="{$y_o.id}">{$y_o.name}</option>
+                                        </volist>
+                                    </volist>
+                                </volist>
+                            </select>
+                            <input type="text" class="text"/>
+                            <button id="btns">查询</button>
+                            <span class="all-sales allTall-img">销量</span>
+                            <span class="all-price allLow-img">售价</span>
+                        </div>
+                        <ul class="brandAll-ul">
+
+                        </ul>
+                    </div>
+                </div>-->
+
+				<div class="goods_info_item">
+					<div class="overflow-list">
+						<foreach name="_channel" item="c_o" key="c_k">
+							<?php $arr_list=array(); ?>
+							<div class="ditch-info">
+								<img src="{$c_o.channel_logo}"/>
+								<p>{$c_o.desc}</p>
+								<div class="ditch-infoCheckbox">
+									<notempty name="_cont">
+										<?php $arr_info=array(); ?>
+										<volist name="_cont" id="z_v" key="z_k">
+											<?php $arr_list[] = $z_v['id'];?>
+											<?php $arr_info[] = $z_v['level'];?>
+										</volist>
+										<?php if(count($arr_list) == 1){ ?>
+										<if condition="in_array($c_o['id'],$arr_list)">
+											<foreach name="c_o.level" item="e_v" key="e_k">
+												<?php $arr=array(); ?>
+
+												<volist name="z_v.level" id="y_v">
+													<?php $arr[] = $y_v['id'];?>
+												</volist>
+
+												<if condition="in_array($e_v['id'],$arr)">
+													<label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput" checked="checked" name="level[]"  value="{$e_v.id}" />{$e_v.column_name}zzz</label>
+													<else />
+													<label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput" name="level[]"  value="{$e_v.id}" />{$e_v.column_name}bbb</label>
+												</if>
+											</foreach>
+											<else />
+											<foreach name="c_o.level" item="e_v" key="e_k">
+												<label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput" name="level[]"  value="{$e_v.id}" />{$e_v.column_name}ccc</label>
+											</foreach>
+										</if>
+										<?php }else{ ?>
+										<if condition="in_array($c_o['id'],$arr_list)">
+											<foreach name="c_o.level" item="f_v" key="f_k">
+												<?php $arrs=array(); ?>
+												<volist name="_cont" id="m_v" key="m_k">
+													<volist name="m_v.level" id="n_v">
+														<?php $arrs[] = $n_v['id'];?>
+													</volist>
+												</volist>
+												<if condition="in_array($f_v['id'],$arrs)">
+													<label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput" checked="checked" name="level[]"  value="{$f_v.id}" />{$f_v.column_name}zzz</label>
+													<else />
+													<label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput" name="level[]"  value="{$f_v.id}" />{$f_v.column_name}bbb</label>
+												</if>
+											</foreach>
+										</if>
+										<?php } ?>
+										<else />
+										<foreach name="c_o.level" item="e_v" key="e_k">
+											<label class="ditch-labelCheckbox"><input type="checkbox" class="plan-labelInput" name="level[]"  value="{$e_v.id}" />{$e_v.column_name}6666</label>
+										</foreach>
+									</notempty>
+								</div>
+								<input type="hidden" name="channel_id[]" id="channel_id" value="{$c_o.id}">
+							</div>
+						</foreach>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" name ="pid" value="{$_row.id}">
+		<button class="btn btn-primary" type="submit">提交计划</button>
+	</form>
+
+</block>
+
+<block name="script">
+
+	<script type="text/javascript">
+		//周期计划时间选项判断
+		//  	$('.dicth-btn').click(function(){
+		//  		if($('.plan-type').val() == 1){
+		//  			if($('.plan-list').val() == 2){
+		//  				$('.planDay input[type="text"]').attr('required','ture');
+		//  			}
+		//  			if($('.plan-list').val() == 3){
+		//  				$('.planWeek input[type="text"]').attr('required','ture');
+		//  				var checked=$(".planWeek input[type='checkbox']:checked"); 
+		//		            if(checked.length==0){  
+		//		                $('.error-week').css('display','inline-block');
+		//		                return false;  
+		//		            }
+		//									}
+		//  			if($('.plan-list').val() == 4){
+		//  				$('.planMonth input[type="text"]').attr('required','ture');
+		//  				var actLi=$('.planMonth li.active');
+		//  				if(actLi.length == 0){
+		//  					$('.error-week').css('display','inline-block');
+		//		                return false;  
+		//  				}
+		//  			}
+		//  			if($('.plan-list').val() == 5){
+		//  				$('.planMonweek input[type="text"]').attr('required','ture');
+		//  				var checkedW=$(".planMweek-num input[type='checkbox']:checked");
+		//  				var checkedD=$(".planMday-num input[type='checkbox']:checked"); 
+		//		            if(checkedW.length == 0 || checkedD.length == 0){  
+		//		                $('.error-week').css('display','inline-block');
+		//		                return false;  
+		//		            }
+		//			}
+		//  	}
+		//  });
+		//		//错误提示
+		//  	$('.plan-error').click(function(){
+		//  		var $dis = $('.error-week').css('display','inline-block');
+		//  		if($dis){
+		//  			$('.error-week').css('display','none')
+		//  		}
+		//  	})
+		//导航高亮
+		if("{$act}" == 'add'){
+			highlight_subnav('{:U('BusinessChannel/add')}');
+		}else{
+			highlight_subnav('{:U('BusinessChannel/edit')}');
+		}
+
+
+		$(".goods_add_tab li").click(function(){
+			$(".goods_add_tab li").removeClass("inputVal");
+			if(!$(this).hasClass("stat_on")){
+				$(".goods_add_info .goods_info_item").hide().eq($(".goods_add_tab li").removeClass("stat_on").index($(this).addClass("stat_on"))).show();
+			}
+		});
+
+
+
+		$('.dicth-btn').click(function(){
+			var inputVal = $('.ditch-list input[type="text"]').val();
+			var checkedW=$(".ditch-infoCheckbox input[type='checkbox']:checked");
+			var chk_value =[];
+			if(inputVal == ''){
+				$('.goods_add_tab li:first-child').addClass("inputVal");
+				alert("请填写基本信息")
+				return false;
+			}
+			if(checkedW.length == 0){
+				$('.goods_add_tab li:last-child').addClass("inputVal");
+				alert("请选择渠道")
+				return false;
+			}
+//		$(".ditch-infoCheckbox input[type='checkbox']:checked").each(function(){
+//			var chanenl=$(this).parent().parent().parent().siblings('input').val();
+//			chk_value.push(chanenl);
+//		});
+//		console.log(chanenl);
+
+
+		});
+
+		$(function(){
+			$('.ditch-info').each(function(){
+				var _this=$(this);
+				var _len = 0;
+				var hidd = _this.find('.plan-labelInput');
+				console.log(hidd.length);
+				if(hidd.length == 0){
+					console.log(123);
+					$(this).find('input[type="hidden"]').attr('disabled','disabled');
+				}
+				$(this).find('.plan-labelInput').each(function(){
+					if ($(this).is(":checked")) {
+						_len++;
+						_this.find('input[type="hidden"]').removeAttr('disabled');
+					}
+					if(_len==0){
+						_this.find('input[type="hidden"]').attr('disabled','disabled');
+					}
+				})
+			})
+
+		})
+
+
+
+		$('.ditch-info input').click(function(e){
+			var $that=$(this).parents('.ditch-info');
+			var _len = 0;
+//		var $this=$(this).val();
+			$(this).parents(".ditch-info").find(".plan-labelInput").each(function(){
+				if($(this).is(":checked")){
+					_len++;
+					$that.find('input[type="hidden"]').removeAttr('disabled');
+				}
+				if(_len ==0){
+					$that.find('input[type="hidden"]').attr('disabled','disabled');
+				}
+			})
+		})
+
+
+		//      //运营计划 显示模块
+		//      $('.plan-type').change(function(){
+		//          //alert($(this).children('option:selected').val());
+		//          if($('.plan-type').val() == 0 || ''){
+		//              $('.plan-list').css('display','none');
+		//              $(this).siblings().css('display','none');
+		//          }
+		//          if($('.plan-type').val() == 1){
+		//              $('.plan-list').css('display','inline-block');
+		//          }
+		//      });
+		//      //周期计划 显示模块
+		//      $('.plan-list').change(function(){
+		//          if($('.plan-list').val() == 2){
+		//          	$(this).siblings('div').css('display','none');
+		//          	$(".error-p").css('display','none');
+		//              $('.planDay').css('display','block');
+		//          }
+		//          if($('.plan-list').val() == 3){
+		//          	$(this).siblings('div').css('display','none');
+		//          	$(".error-p").css('display','none');
+		//              $('.planWeek').css('display','block');
+		//          }
+		//          if($('.plan-list').val() == 4){
+		//          	$(this).siblings('div').css('display','none');
+		//          	$(".error-p").css('display','none');
+		//              $('.planMonth').css('display','block');
+		//
+		//          }
+		//          if($('.plan-list').val() == 5){
+		//          	$(this).siblings('div').css('display','none');
+		//          	$(".error-p").css('display','none');
+		//              $('.planMonweek').css('display','block');
+		//
+		//          }
+		//      });
+		//
+		//      $('.planMonth-day li').click(function(){
+		//      	if($(this).hasClass('active')){
+		//      		$(this).removeClass('active');
+		//      	}
+		//      	else{
+		//      		$(this).addClass('active');
+		//      	}
+		//      });
+
+
+		//日历
+		//		var staVal = $('#test1').val();
+		//   	var endVal = $('#test2').val();
+		//仅一次计划开始时间
+		//		laydate.render({
+		//          elem: '#star'
+		//          ,type: 'datetime'
+		//          ,done: function(value, date, endDate){
+		//           	staVal = value;
+		//          }
+		//
+		//      });
+		// 		//仅一次计划结束时间
+		//  	laydate.render({
+		//	        elem: '#end'
+		//	        ,type: 'datetime'
+		//	        ,done: function(value, date, endDate){
+		//	            endVal = value;
+		//	            Only();
+		//	        }
+		//      });
+		//		//每天开始时间
+		//      laydate.render({
+		//          elem: '#test1'
+		//          ,type: 'time'
+		//          ,done: function(value, date, endDate){
+		//           	staVal = value;
+		//          }
+		//
+		//      });
+		// 		//每天结束时间
+		//  	laydate.render({
+		//	        elem: '#test2'
+		//	        ,type: 'time'
+		//	        ,done: function(value, date, endDate){
+		//	            endVal = value;
+		//	            Star();
+		//	        }
+		//      });
+		//      //每周开始时间
+		//      laydate.render({
+		//          elem: '#test3'
+		//          ,type: 'time'
+		//          ,done: function(value, date, endDate){
+		//           staVal = value;
+		//          }
+		//
+		//      });
+		// 		//每周结束时间
+		//  	laydate.render({
+		//	        elem: '#test4'
+		//	        ,type: 'time'
+		//	        ,done: function(value, date, endDate){
+		//	            endVal = value;
+		//	            Star();
+		//	        }
+		//      });
+		//      //每月（天）开始时间
+		//      laydate.render({
+		//          elem: '#test5'
+		//          ,type: 'time'
+		//          ,done: function(value, date, endDate){
+		//           staVal = value;
+		//          }
+		//
+		//      });
+		// 		//每月（天）结束时间
+		//  	laydate.render({
+		//	        elem: '#test6'
+		//	        ,type: 'time'
+		//	        ,done: function(value, date, endDate){
+		//	            endVal = value;
+		//	            Star();
+		//	        }
+		//      });
+		//      //每月（周）开始时间
+		//      laydate.render({
+		//          elem: '#test7'
+		//          ,type: 'time'
+		//          ,done: function(value, date, endDate){
+		//           staVal = value;
+		//          }
+		//
+		//      });
+		// 		//每月（周）结束时间
+		//  	laydate.render({
+		//	        elem: '#test8'
+		//	        ,type: 'time'
+		//	        ,done: function(value, date, endDate){
+		//	            endVal = value;
+		//	            Star();
+		//	        }
+		//      });
+		//		function Star(){
+		//			var str = '2000-01-01 ';
+		//   		var staM = new Date(str+staVal).getTime();
+		//   		var endM = new Date(str+endVal).getTime();
+		//   		console.log(staM);
+		//   		console.log(endM);
+		//   		if(endM<staM || endM==staM){
+		//		     	$(".error-p").css('display','inline-block');
+		//		    }
+		//   		if(endM >staM){
+		//		     	$(".error-p").css('display','none');
+		//		    }
+		//		}
+		//		function Only(){
+		//   		var staM = new Date(staVal).getTime();
+		//   		var endM = new Date(endVal).getTime();
+		//   		console.log(staM);
+		//   		console.log(endM);
+		//   		if(endM<staM || endM==staM){
+		//		     	$(".error-only").css('display','inline-block');
+		//		    }
+		//   		if(endM >staM){
+		//		     	$(".error-only").css('display','none');
+		//		    }
+		//		}
+		//全选
+		//       (function(){
+		//		 	$('.check-all').click(function(e){
+		//		 		e=e||window.event;
+		//		 		var nodes=$(e.target).parent().parent().parent().find('ul input[type=checkbox]');
+		//				for(var i=0;i<nodes.length;i++){
+		//					nodes[i].checked=e.target.checked
+		//				}
+		//
+		//				var li_List = [];
+		//				var $li = $(e.target).parent().parent().parent().find('li');
+		//				$li.find('span').each(function(index,elem){
+		//			        li_List.push($(elem).attr('value'));
+		//			    })
+		//			    li_List = JSON.stringify(li_List.join(','));
+		//			    console.log(li_List); //打印全选span的val
+		//				var $lis = $(e.target).parent().parent().parent().find('li');
+		//				$lis.remove();
+		//				var $content = $(e.target).parent().parent().parent().siblings().find('ul');
+		//				$content.append($lis);
+		//
+		//
+		//		 	});
+		//	 	})();
+		//	 	 (function(){
+		//		 	$('.all-price').click(function(e){
+		//		 		e=e||window.event;
+		//		 		var classVal=$(e.target).hasClass('allTall-img');
+		//		 		if(classVal == true){  //下降
+		//					var desc = 'desc';
+		//					$.post("{:U('BusinessChannel/get_sale')}",{'desc':desc}, function (data) {
+		//						var res = JSON.parse(data);
+		//						if(res.status == 1){
+		//							return false;
+		//						}
+		//					});
+		//		 		}
+		//		 		if(classVal == false){  //上升
+		//					var desc = 'asc';
+		//					$.post("{:U('BusinessChannel/get_sale')}",{'desc':desc}, function (data) {
+		//						var res = JSON.parse(data);
+		//						if(res.status == 1){
+		//							var data = res.data;
+		//							for(var i in data){
+		//							   	console.log(data[i].goods_name);
+		//							   	var $ulHtml='<ul class="brandAll-ul">'
+		//							  				'+<li><input type="checkbox" name="checkbox" />'
+		//							  				'+<span value="data[i].goods_id">data[i].goods_name</span></li></ul>';
+		//							}
+		//							$('.brand-all').append($ulHtml);
+		//							return false;
+		//						}
+		//					});
+		//		 		}
+
+
+		//				for(var i=0;i<nodes.length;i++){
+		//					nodes[i].checked=e.target.checked;
+		//				}
+		//				var li_List = [];
+		//				var $li = $(e.target).parent().parent().parent().find('li');
+		//				$li.find('span').each(function(index,elem){
+		//			        li_List.push($(elem).attr('value'));
+		//			    })
+		//			    li_List = JSON.stringify(li_List.join(','));
+		//			    console.log(li_List); //打印全选span的val
+		//				var $lis = $(e.target).parent().parent().parent().find('li');
+		//				$lis.remove();
+		//				var $content = $(e.target).parent().parent().parent().siblings().find('ul');
+		//				$content.append($lis);
+		//
+
+		//		 	});
+		//	 	})();
+
+		//单选框
+		//	 	$('input[type=checkbox]').click(function(e){
+		//	 		e=e||window.event;
+		//	 		var node=$(e.target).parent().parent(),
+		//	 			n1=node.find('input[type=checkbox]'),
+		//	 			n2=node.find('input[type=checkbox]:checked'),
+		//	 			all=node.parent().find('div label input[type=checkbox]');
+		//	 		n1.length==n2.length?(all[0].checked=true):(all[0].checked=false);
+		//
+		//		 	});
+		//
+		//        $('.brandAll-condition span').click(function(){
+		//        	if($(this).hasClass('allTall-img')){
+		//        		$(this).removeClass('allTall-img');
+		//        		$(this).addClass('allLow-img');
+		//        	}
+		//        	else{
+		//        		$(this).addClass('allTall-img');
+		//        		$(this).removeClass('allLow-img');
+		//        	}
+		//        });
+		//		$(".brand-all ul").on("click","input",function(){
+		//			var $li = $(this).closest('li');
+		//			var goods_id = $(this).siblings('span').attr("value");
+		//			if($(this).prop('checked')){
+		//				$li.remove();
+		//				$('.brand-part ul').append($li);
+		//				$.post("{:U('BusinessChannel/put_goods')}",{'goods_id':goods_id}, function () {
+		//
+		//				});
+		//			}
+		//		})
+		//
+		//		$(".brand-part ul").on("click","input",function(){
+		//			var $li = $(this).closest('li');
+		//			if($(this).prop('checked',false)){
+		//				$li.remove();
+		//				$('.brand-all ul').append($li);
+		//			}
+		//		})
+		//
+		//    	$(".brand-all").on("click",".check-all",function(){
+		//    		var li_List = [];
+		//    		var $li = $(".brand-all ul").find("li");
+		//			$li.find('span').each(function(index,elem){
+		//			})
+		//			var goods_id = li_List.join(',');
+		//			$.post("{:U('BusinessChannel/put_goods')}",{'goods_id':goods_id}, function () {
+		//
+		//			});
+		//		});
+		//
+		//		$("select[name='category']").change(function(){
+		//			var category_id = $(this).val();
+		//			$.post("{:U('BusinessChannel/get_goods_info')}",{'category_id':category_id}, function () {
+		//
+		//			});
+		//		})
+		//
+		//		$("select[name='categorys']").change(function(){
+		//			var category_id = $(this).val();
+		//			$.post("{:U('BusinessChannel/get_goodslog_info')}",{'category_id':category_id}, function () {
+		//
+		//			});
+		//		})
+		//
+		//		$("#btn").click(function(){
+		//			var category_id = $("select[name='category']").val();
+		//			alert(category_id);return false;
+		//			$.post("{:U('BusinessChannel/get_goods_info')}",{'desc':desc}, function () {
+		//
+		//			});
+		//		})
+		//	 	$('input[type=checkbox]').click(function(e){
+		//	 		e=e||window.event;
+		//	 		var node=$(e.target).parent().parent(),
+		//	 			n1=node.find('input[type=checkbox]'),
+		//	 			n2=node.find('input[type=checkbox]:checked'),
+		//	 			all=node.parent().find('div label input[type=checkbox]');
+		//	 		n1.length==n2.length?(all[0].checked=true):(all[0].checked=false);
+		//
+		//		 	});
+		//
+		//      $('.brandAll-condition span').click(function(){
+		//      	if($(this).hasClass('allTall-img')){
+		//      		$(this).removeClass('allTall-img');
+		//      		$(this).addClass('allLow-img');
+		//      	}
+		//      	else{
+		//      		$(this).addClass('allTall-img');
+		//      		$(this).removeClass('allLow-img');
+		//      	}
+		//      });
+		//		$(".brand-all ul").on("click","input",function(){
+		//			var $li = $(this).closest('li');
+		//			var goods_id = $(this).siblings('span').attr("value");
+		//			if($(this).prop('checked')){
+		//				$li.remove();
+		//				$('.brand-part ul').append($li);
+		//				$.post("{:U('BusinessChannel/put_goods')}",{'goods_id':goods_id}, function () {
+		//
+		//				});
+		//			}
+		//		})
+		//
+		//		$(".brand-part ul").on("click","input",function(){
+		//			var $li = $(this).closest('li');
+		//			if($(this).prop('checked',false)){
+		//				$li.remove();
+		//				$('.brand-all ul').append($li);
+		//			}
+		//		})
+		//
+		//  	$(".brand-all").on("click",".check-all",function(){
+		//  		var li_List = [];
+		//  		var $li = $(".brand-all ul").find("li");
+		//			$li.find('span').each(function(index,elem){
+		//			})
+		//			var goods_id = li_List.join(',');
+		//			$.post("{:U('BusinessChannel/put_goods')}",{'goods_id':goods_id}, function () {
+		//
+		//			});
+		//		});
+		//
+		//		$("select[name='category']").change(function(){
+		//			var category_id = $(this).val();
+		////			alert(category_id);return false;
+		//			$.post("{:U('BusinessChannel/get_goods_info')}",{'category_id':category_id}, function () {
+		//
+		//			});
+		//		})
+		//
+		//		$("select[name='categorys']").change(function(){
+		//			var category_id = $(this).val();
+		////			alert(category_id);return false;
+		//			$.post("{:U('BusinessChannel/get_goodslog_info')}",{'category_id':category_id}, function () {
+		//
+		//			});
+		//		})
+		//
+		//		$("#btn").click(function(){
+		//			var category_id
+		//			alert(111);return false;
+		//			$.post("{:U('BusinessChannel/get_goods_info')}",{'desc':desc}, function () {
+		//
+		//			});
+		//		})
+		//  	$(".brand-all").on("click",".check-all",function(){
+		//  		var li_List = [];
+		//  		var $li = $(".brand-all ul").find("li");
+		//			$li.find('span').each(function(index,elem){
+		//		        li_List.push($(elem).attr('value'));
+		//		    })
+		//		    li_List = JSON.stringify(li_List.join(','));
+		//		    console.log(li_List);
+		//		});
+	</script>
+</block>

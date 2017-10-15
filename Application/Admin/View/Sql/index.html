@@ -1,0 +1,100 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>BBC商品导入接口</h2>
+	</div>
+	<div class="cf">
+		<div class="fr">
+			<if condition="$act eq 'index'"><a class="btn btn-primary brand-btnM" href="{:U('Goods/add')}">新 增</a></if>
+			<if condition="$act eq 'index'"><a class="btn btn-default" href="{:U('Goods/recycle')}">回收站</a></if>
+
+            <!--<button class="btn ajax-post" url="{:U('User/changeStatus',array('method'=>'resumeUser'))}" target-form="ids">启 用</button>-->
+            <!--<button class="btn ajax-post" url="{:U('User/changeStatus',array('method'=>'forbidUser'))}" target-form="ids">禁 用</button>-->
+            <!--<button class="btn ajax-post confirm" url="{:U('User/changeStatus',array('method'=>'deleteUser'))}" target-form="ids">删 除</button>-->
+        </div>
+
+    <div class="page">
+		<a class="btn-danger" href="{:U('Sql/addgoods')}">商品导入<a/>
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+//	$(".submit-btn").click(function(){
+//        $("#submitForm").submit();
+//	})
+	function  upperCase(value) {
+	    var brandId = $("#brandId").val();
+        var chineseName = $("#chineseName").val();
+        var englishName = $("#englishName").val();
+        var country = $("#country").val();
+        var brandCreate = $("#brandCreate").val();
+        var brandDesc = $("#brandDesc").val();
+        $.post('{:U(Brand/index)}',{id:brandId,brand_name:chineseName,brand_letter:englishName,country:country,create_date:brandCreate,desc_cn:brandDesc},function () {
+            window.location.href = '{:U(Brand/index)}';
+        })
+    }
+
+		//搜索功能
+		$("#search").click(function(){
+			var url = $(this).attr('url');
+			var query  = $('.search-form').find('input').serialize();			
+			query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+			query = query.replace(/^&/g,'');
+            if(query){
+                if( url.indexOf('?')>0 ){
+                    url += '&' + query;
+                }else{
+                    url += '?' + query;
+                }
+                window.location.href = url;
+            }
+		});
+		//回车搜索
+		$(".search-input").keyup(function(e){
+			if(e.keyCode === 13){
+				$("#search").click();
+				return false;
+			}
+		});
+
+		function  searchStatus(_this) {
+		var status = _this.val();
+            var url = _this.attr('url');
+            var query  = $('.search-form').find('select').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if(query){
+                if( url.indexOf('?')>0 ){
+                    url += '&' + query;
+                }else{
+                    url += '?' + query;
+                }
+                window.location.href = url;
+            }
+
+
+
+//		$.post("{:U('Goods/index')}",{status:status},function (res) {
+//			return false;
+//        })
+        }
+    //导航高亮
+//	if("{$act}" == "check"){
+//		highlight_subnav('{:U('Goods/check')}');
+//	}else if("{$act}" == "recycle"){
+//		highlight_subnav('{:U('Goods/recycle')}');
+//	}else{
+//		highlight_subnav('{:U('Goods/index')}');
+//	}
+
+
+
+
+	</script>
+
+</block>

@@ -1,0 +1,26 @@
+<extend name="Base/common"/>
+<block name="body">
+	<div class="channel-banner" style="background:url(/Public/Mall/img/data/1490147943339835424.jpg) center center no-repeat; height:600px">
+	</div>
+	<div class="w w1200 channel-list">
+		<ul class="clearfix">
+			<foreach name="_list" item="vo">
+				<li class="fl">
+					<a href="{:U('Channel/detail?id='.$vo[id])}" class="clearfix">
+						<img src="{$vo.channel_logo}" width="150" height="150" />
+						<div class="channel-item-txt">
+							{$vo.channel_name}
+						</div>
+						<div class="channel-item-data">
+							<p><span>销售额：</span>30亿/年</p>
+							<p><span>流量：</span>20万DAU</p>
+							<p><span>转化率：</span>30.5%</p>
+						</div>
+					</a>
+				</li>
+			</foreach>
+		</ul>
+	</div>
+
+
+</block>

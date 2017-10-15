@@ -1,0 +1,119 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+	<script type="text/javascript" src="__JS__/myQuerys.js"></script>
+	<script type="text/javascript" src="__JS__/commons.js"></script>
+	<div class="main-title">
+		<h2>
+            <if condition="$category_id eq C('AD_CAROUSEL')">
+				轮播广告管理
+			<else/>合作伙伴广告管理
+			</if>
+		</h2>
+	</div>
+	<div class="tab-wrap">
+		<div class="tab-content">
+			<form action="{:U('upload')}" method="post" class="form-horizontal">
+				<div class="form-item">
+					<label class="item-label">广告图名称<span class="check-tips">（广告名称，当图片无法正常显示时，将会显示该文字）</span></label>
+					<div class="controls">
+						<input type="text" class="text input-large" name="name" value="" required="required">
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">广告链接到...<span class="check-tips">（点击图片时，链接到的位置）</span></label>
+					<div class="controls">
+						<input type="text" class="text input-large" name="url" value="" required="required">
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">排序<span class="check-tips">（在广告位上的显示顺序）</span></label>
+					<div class="controls">
+						<input type="text" class="text input-small" name="sort" value="0">
+					</div>
+				</div>
+				<div id="tab1" class="tab-pane in tab1">
+					<div class="controls">
+						<label class="item-label">广告图</label>
+						<input type="file" id="upload_picture">
+						<input type="hidden" name="icon" id="icon" value="{$info['icon']|default=''}"/>
+						<div class="upload-img-box">
+						<notempty name="info['icon']">
+							<div class="upload-pre-item"><img src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+						</notempty>
+						</div>
+					</div>
+					<script type="text/javascript">
+					//上传图片
+				    /* 初始化上传插件 */
+					$("#upload_picture").uploadify({
+				        "height"          : 30,
+				        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+				        "fileObjName"     : "download",
+				        "buttonText"      : "上传图片",
+				        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+				        "width"           : 120,
+				        'removeTimeout'	  : 1,
+				        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+				        "onUploadSuccess" : uploadPicture,
+				        'onFallback' : function() {
+				            alert('未检测到兼容版本的Flash.');
+				        }
+				    });
+					function uploadPicture(file, data){
+				    	var data = $.parseJSON(data);
+				    	var src = '';
+				        if(data.status){
+				        	$("#icon").val(data.id);
+				        	src = data.url || '__ROOT__' + data.path;
+				        	$("#icon").parent().find('.upload-img-box').html(
+				        		'<div class="upload-pre-item"><img src="' + src + '" title="点击显示大图"/><span class="btn ad-img-del" title="删除图片">X</span></div>'
+				        	);
+				        } else {
+				        	updateAlert(data.info);
+				        	setTimeout(function(){
+				                $('#top-alert').find('button').click();
+				                $(that).removeClass('disabled').prop('disabled',false);
+				            },1500);
+				        }
+				    }
+					</script>
+				</div><br/>
+				<div class="form-item">
+					<input type="submit" id="submit" class="btn submit-btn ajax-post" target-form="form-horizontal" value="确 定" />
+					<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		<present name="info.id">
+		Think.setValue("allow_publish", {$info.allow_publish|default=1});
+		Think.setValue("check", {$info.check|default=0});
+		Think.setValue("model[]", {$info.model|json_encode} || [1]);
+		Think.setValue("type[]", {$info.type|json_encode} || [2]);
+		Think.setValue("display", {$info.display|default=1});
+		Think.setValue("reply", {$info.reply|default=0});
+		Think.setValue("reply_model[]", {$info.reply_model|json_encode} || [1]);
+		</present>
+		$(function(){
+			showTab();
+			$("input[name=reply]").change(function(){
+				var $reply = $(".form-item.reply");
+				parseInt(this.value) ? $reply.show() : $reply.hide();
+			}).filter(":checked").change();
+		});
+		//导航高亮
+		if({$category_id} == {:C('AD_CAROUSEL')}) {
+
+			$('.side-sub-menu').find("a[href='{:U('carousel')}']").closest('li').addClass('current');
+		} else if({$category_id} == {:C('AD_COOPREATION')}) {
+
+			$('.side-sub-menu').find("a[href='{:U('cooperation')}']").closest('li').addClass('current');
+		}
+	</script>
+</block>

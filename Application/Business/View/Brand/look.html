@@ -1,0 +1,113 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="form-item">
+    		<h2 class="look_tit">{$meta_title}</h2>           
+    </div>
+    <div class="look_brand form-horizontal look-listInfo">
+    	<div class="look-sum">
+    		<p>品牌录入时间：<span>{$info['add_date'] ? date("Y-m-d",$info['add_date']) : ''}</span></p>
+    		<p>SKU数量：<span>{$count|default=0}件</span></p>
+    	</div>
+        <!--<if condition="$act eq 'check'">-->
+        <!--<div class="form-item">-->
+            <!--<label class="look-label">品牌审核历史：</label>-->
+            <!--<div class="look-info">-->
+                <!--<table id="example2" class="table table-bordered table-hover">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th>编号</th>-->
+                        <!--<th>审核信息</th>-->
+                        <!--<th>审核时间</th>-->
+                        <!--<th>审核人</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<notempty name="rebut">-->
+                    <!--<foreach name="rebut" item="vo">-->
+                        <!--<tr>-->
+                            <!--<td>{$vo.id}</td>-->
+                            <!--<td>{$vo.rebut}</td>-->
+                            <!--<td>{$vo.create_time|date='Y-m-d H:i',###}</td>-->
+                            <!--<td>{$vo.uid|get_nickname}</td>-->
+                        <!--</tr>-->
+                    <!--</foreach>-->
+                    <!--<else/>-->
+                        <!--<td colspan="4" class="text-center"> 暂时还没有审核内容! </td>-->
+                    <!--</notempty>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+            <!--</div>            -->
+        <!--</div>-->
+        <!--</if>-->
+        <div class="form-item">
+        	<label class="look-label">中文名称：</label>
+            <div class="look-info">
+                {$info.brand_name}
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">英文名称：</label>
+            <div class="look-info">
+                {$info.brand_letter}
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">中文描述：</label>
+            <div class="look-info">
+                {$info.desc_cn}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">英文描述：</label>
+            <div class="look-info">
+                {$info.desc_letter}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">品牌口号：</label>
+            <div class="look-info">
+                {$info.slogan}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">官网：</label>
+            <div class="look-info">
+                {$info.web_url}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">国家：</label>
+            <div class="look-info">
+                {$info.country}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">成立时间：</label>
+            <div class="look-info">
+                {$info['create_date'] ? date("Y年",$info['create_date']) : ''}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">LOGO：</label>
+        	<img src="{$info.logo}"  />
+        </div>
+        <div class="form-item">
+            <label class="look-label">状态：</label>
+            <div class="look-info">
+                {$info.x_status}
+            </div>
+        </div>
+        <div class="form-item" style="margin-left: 170px;">
+            <button class="btn btn-info" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav("{:U('Brand/index')}");
+    </script>
+</block>

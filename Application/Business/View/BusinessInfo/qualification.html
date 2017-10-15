@@ -1,0 +1,59 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <div class="form-item">
+    		<h2 class="look_tit">开户银行信息</h2>           
+    </div>
+    <div class="look_brand form-horizontal look-listInfo">
+        <div class="form-item">
+            <label class="look-label">公司银行账号：</label>
+            <div class="look-info">
+                {$qualification.account_number}
+            </div>            
+        </div>
+        <div class="form-item">
+            <label class="look-label">开户银行支行名称：</label>
+            <div class="look-info">
+                             {$qualification.bank_name}
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">开户银行支行联行号：</label>
+            <div class="look-info">
+            	{$qualification.union_line_number}
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">开户银行支行所在地：</label>
+            <div class="look-info">
+                             {$qualification.bank_address}
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">平台账户：</label>
+            <div class="look-info">
+                {$qualification.platform_account}
+            </div>
+        </div>
+    </div>
+        
+    
+    
+</block>
+
+<block name="script">
+
+    <script type="text/javascript">
+        //导航高亮
+        if("{$act}" == 'index'){
+            highlight_subnav('{:U('Business/index')}');
+        }else if("{$act}" == 'qualification'){
+            highlight_subnav('{:U('Business/qualification')}');
+        }else{
+            highlight_subnav('{:U('Business/store')}');
+        }
+    </script>
+</block>

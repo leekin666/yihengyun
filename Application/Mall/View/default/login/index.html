@@ -1,0 +1,38 @@
+<extend name="Base/common"/>
+
+<block name="body">
+	<script type="text/javascript">
+		$(function(){
+			$(".header,.site-nav,.dsc-zoom,.dsc-service,.dsc-help").hide();
+		})
+
+	</script>
+<div class="login">
+        <div class="loginRegister-header">
+            <div class="w w1200">
+                <div class="logo">
+                    <div class="logoImg"><a href="./index.php" class="logo"><img src="__PUBLIC__/Mall/img/common/user_login_logo.png"></a></div>
+                    <div class="logo-span">
+                    	<b style="background:url(__PUBLIC__/Mall/img/common/login_logo_pic.png) no-repeat;"></b>                    </div>
+                </div>
+                <div class="header-href">
+                                    <span>还没有账号<a href="user.php?act=register" class="jump">免费注册</a></span>
+                                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="login-wrap">
+                <div class="w w1200">
+                    <include file="Public/login_made"/>
+                </div>
+
+                <div class="login-banner" style="background:url(__PUBLIC__/Mall/img/data/1488936109167439630.jpg) center center no-repeat;">
+    <div class="w w1200">
+        <div class="banner-bg"></div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</block>

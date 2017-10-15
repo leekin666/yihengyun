@@ -1,0 +1,134 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+	<div class="main-title">
+		<h2>{:isset($info['id'])?'编辑':'新增'}类目</h2>
+	</div>
+	<div class="tab-wrap">
+		<div class="tab-content">
+			<form action="{:U()}" method="post" class="form-horizontal">
+				<!-- 基础 -->
+				<div id="tab1" class="tab-pane in tab1">
+					<div class="form-item">
+						<label class="item-label">上级类目<span class="check-tips"></span></label>
+						<div class="controls">
+							<input type="text" class="text input-large" disabled="disabled" value="{$category['name']|default='无'}"/>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">
+							类目名称<span class="check-tips">（名称不能为空）</span>
+						</label>
+						<div class="controls">
+							<input type="text" name="name" class="text input-large" value="{$info.name|default=''}">
+						</div>
+					</div>
+                    <div class="form-item">
+                        <label class="item-label">描述</label>
+                        <div class="controls">
+                            <label class="textarea input-large">
+                                <textarea name="description">{$info.description|default=''}</textarea>
+                            </label>
+                        </div>
+                    </div>
+					<div class="form-item">
+						<label class="item-label">
+							排序<span class="check-tips">（数字）</span>
+						</label>
+						<div class="controls">
+							<input type="text" name="sort" class="text input-large" value="{$info.sort|default=''}">
+						</div>
+					</div>
+					<div class="controls">
+						<label class="item-label">类目图标</label>
+                        <div class="controls">
+                            <div class="upload-img-box">
+                                <if condition="$info['icon']">
+                                    <div class="upload-pre-item logo_show"><img id="tmp_img" src="{$info.icon}"/><b class="logo-close" onclick="closeLogo(this,'{$info[\'id\']}')"></b><i></i></div>
+                                    <else/>
+                                    <notempty name="info['icon']">
+                                        <div class="upload-pre-item"><img id="tmp_img" src=src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+                                    </notempty>
+                                </if>
+                            </div>
+
+                            <input type="file" id="upload_picture">
+                            <input type="hidden" name="icon" id="icon" value="{$info['icon']|default=''}"/>
+                            <input type="hidden" name="icon" id="img_path" value="{$info.icon}">
+                        </div>
+					</div>
+
+				</div>
+
+				<div class="form-item" style="margin-top: 10px;">
+					<input type="hidden" name="id" value="{$info.id|default=''}">
+					<input type="hidden" name="pid" value="{:isset($category['id'])?$category['id']:$info['pid']}">
+					<button type="submit" id="submit" class="btn btn-primary brand-btnM ajax-post" target-form="form-horizontal">确 定</button>
+					<button class="btn btn-info" onclick="javascript:history.back(-1);return false;">返 回</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		$(function(){
+            //上传图片
+            /* 初始化上传插件 */
+            $("#upload_picture").uploadify({
+                "height"          : 30,
+                "swf"             : "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName"     : "download",
+                "buttonText"      : "上传logo",
+                "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+                "width"           : 120,
+                'removeTimeout'	  : 1,
+                'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+                "onUploadSuccess" : uploadPicture,
+                'onFallback' : function() {
+                    alert('未检测到兼容版本的Flash.');
+                }
+            });
+            function uploadPicture(file, data){
+                var data = $.parseJSON(data);
+                var src = '';
+                if(data.status){
+                    $("#icon").val(data.id);
+                    src = data.url || '__ROOT__' + data.path;
+                    $("#icon").parent().find('.upload-img-box').html(
+                            '<div class="upload-pre-item logo_show"><img src="' + src + '"/><b class="logo-close" onclick="closeLogo(this,\'{$info[\'id\']}\')"></b><i></i></div>'
+                    );
+                    $.post(
+                            "{:U('Admin/up_img_oss')}",
+                            {tmp_img:src},
+                            function(data){
+                                console.log(data);
+                                $('#img_path').val(data);
+                            }
+                    );
+                } else {
+                    updateAlert(data.info);
+                    setTimeout(function(){
+                        $('#top-alert').find('button').click();
+                        $(that).removeClass('disabled').prop('disabled',false);
+                    },1500);
+                }
+            }
+
+            function closeLogo(obj,id){
+                var _this = $(obj);
+                var imgSrc =  _this.parents(".upload-pre-item").find("img").attr("src");
+                $.post("{:U('Admin/removePic')}",{path:imgSrc,id:id},function (res) {
+                    if(res==0){
+                        $("#img_path").val("");
+                        _this.parents(".upload-pre-item").remove();
+                    }
+                })
+            }
+		});
+		//导航高亮
+		highlight_subnav('{:U('Categorymall/index')}');
+	</script>
+</block>

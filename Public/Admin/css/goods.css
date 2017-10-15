@@ -1,0 +1,133 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?pcua8m');
+  src:  url('../fonts/icomoon.eot?pcua8m#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?pcua8m') format('truetype'),
+    url('../fonts/icomoon.woff?pcua8m') format('woff'),
+    url('../fonts/icomoon.svg?pcua8m#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-trash-o:before {
+  content: "\f014";
+}
+.icon-edit:before {
+  content: "\f044";
+}
+.icon-pencil-square-o:before {
+  content: "\f044";
+}
+.icon-eye:before {
+  content: "\f06e";
+}
+.oper-td a{ font-size: 18px; display: inline-block; vertical-align: middle; color: #888; margin-right: 10px;}
+.oper-td a:hover{ border-bottom: none; color: #337ab7;}
+/*-----添加商品----- */
+.form-horizontal .goods_add_tab{  padding-bottom: 0;}
+.form-horizontal .goods_add_tab li{ float: left; padding: 8px 0px; width: 120px; text-align: center; background: #e5e5e5; margin-left: -1px; border-radius: 4px 4px 0 0; margin-right: 10px; border-bottom: 0; cursor: pointer; position: relative;}
+.form-horizontal .goods_add_tab li:hover{ background: #c5c5c5;}
+.form-horizontal .goods_add_tab li:first-child{ margin-left: 0px;}
+.form-horizontal .goods_add_tab li.stat_on{ background: #62b3ff; color: #fff;}
+.form-horizontal .goods_add_tab li.inputVal{	background: red;	color: #fff;}
+.form-horizontal .goods_add_tab li.tab_error{ background: #f00; color: #fff;}
+
+.goods_add_info{ padding-top: 20px; background: #fff; width: 800px; border: 1px solid #ddd; padding: 20px;}
+.goods_info_item{ display: none;}
+.goods_info_item .text{ height: 30px; line-height: 30px; border-color:#ddd}
+.goods_info_item .textarea{ border-color: #ddd;}
+.input_r_text{ position: relative;}
+.input_r_text span{ position: absolute; right: 10px; top: 0px; line-height: 38px;}
+.goods_info_item .radio,
+.goods_info_item .checkbox{ height: auto; line-height: 34px;}
+.goods_info_item .radio label,
+.goods_info_item .checkbox label{ display: inline-block; height: 34px; border: 1px solid #ddd; padding: 0 10px; cursor: pointer;}
+.goods_info_item .radio label:hover,
+.goods_info_item .checkbox label:hover{ background: #f8f8f8;}
+
+
+
+
+.uploadify-queue .uploadify-queue-item{ display: none;}
+.graph{ padding-top: 16px;}
+.graph .upload-pre-item{ margin-right: 20px;}
+.upload-pre-item{ height: 120px; width: 120px; text-align: center; line-height: 120px; background: #eee; }
+.upload-img-box .upload-pre-item img{ max-height: 118px; max-width: 118px;display: inline-block; vertical-align: middle;}
+.upload-img-box .upload-pre-item i{ height: 118px; width: 1px; margin-right: -1px; display: inline-block; vertical-align: middle;}
+.upload-img-box .upload-pre-item input[type='text']{ position: absolute; bottom: -25px; left: 0px; width: 118px; height: 20px; text-align: center; border:1px solid #ccc}
+.form-horizontal .fuPic_box{ padding-bottom: 30px;}
+.form-horizontal .fuPic_box .upload-pre-item{ margin-right: 10px; margin-top: 24px;}
+
+
+
+.operate span{
+    padding: 0 4px;
+    margin-left: 7px;
+    vertical-align: middle;
+    color: #fff;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+}
+.operate span em{
+    color:#FFFFff;
+    font-style: normal;
+    font-size: 12px;
+}
+.mr20{ margin-right: 20px;}
+
+
+
+/*----查看----*/
+.look_tit{ font-weight: 400; color: #31b4e1; font-size: 18px; border-bottom: 1px solid #ddd; padding-bottom: 10px;}
+.goods_look{ margin-left: 20px;}
+.goods_look .form-item .look-label{ width: 140px; font-weight: 400; }
+.goods_look .form-item .look-info{ width: 800px; color: #888;}
+.goods_look .form-item .icon_txt span{ background: #5cb85c; color: #fff; font-size: 12px; line-height: 14px; padding: 1px 4px; margin-right: 6px;}
+.goods_look .form-item .proImg span{ width: 120px; height: 120px; overflow: hidden; text-align: center; border: 1px solid #ddd; float: left; margin-right: 10px; margin-bottom: 10px;}
+.goods_look .form-item .proImg span img{ max-height: 120px; max-width: 120px; vertical-align: middle; border: 0; margin-left: 0; padding: 0; width: auto;}
+.goods_look .form-item .proImg span i{ height: 120px; width: 1px; display: inline-block; vertical-align: middle; margin-right: -1px;}
+
+
+
+/*-----角色权限-----*/
+.add_userWrap{ padding: 20px 30px; box-sizing: border-box; width: 100%;}
+.add_userWrap span{ display: block;  float: left; }
+.add_userWrap span.line{ border-bottom: 1px dotted #ddd; height: 1px; width: 100%;}
+.add_user_div{ width: 100%; position: relative;}
+.add_user_div b{ color: #f00; position: absolute; left: -12px; top: 50%; margin-top: -10px;}
+.add_userWrap .add_userText{ display: block; float: left; border: 1px solid #ccc; padding: 1px 10px; line-height: 40px; width: 100%;box-sizing: border-box; height: 40px; margin-bottom: 7px; margin-top: 7px; transition: all .3s ease 0s; position: relative;}
+.add_userWrap .add_userText:focus{ box-shadow: 0 0 6px rgba(0,0,0,0.2);}
+.add_userWrap .add_userBtn{ text-align: center; padding-top: 10px; float: left; width: 100%;}
+.add_userWrap .add_userBtn .btn{ border-radius: 0; padding: 8px 20px;}
+
+
+.look-listInfo .goods_info_item{ min-height: 330px;}
+.edit_user{ cursor: pointer;}
+.white-span{
+		white-space: nowrap;
+    margin: 6px 0px;
+    display: inline-block;
+}
+.backg-span{
+	background: #337ab7;
+	padding: 2px 6px;
+	margin: 6px 6px 6px 0;
+	display: inline-block;
+	color: #fff;
+}

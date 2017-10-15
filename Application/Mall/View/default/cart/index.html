@@ -1,0 +1,273 @@
+<extend name="Base/common"/>
+
+<block name="body">
+	<div class="container">
+        <div class="w w1200">
+            <empty name="list">
+            <div class="cart-empty">
+                <div class="cart-message">
+                    <div class="txt">购物车快饿瘪了，主人快给我挑点宝贝吧</div>
+                    <div class="info">
+                        <a href="/mall/index" class="btn sc-redBg-btn">马上去逛逛</a>
+                        <if condition="$user_id eq 0">
+                        <a href="javascript:user_login();" class="login">去登录</a>
+                        </if>
+                    </div>
+                </div>
+            </div>
+            <else/>
+            <div class="cart-warp">
+                                <div class="cart-filter">
+                    <div class="cart-stepflex">
+                        <div class="cart-step-item curr">
+                            <span>1.我的购物车</span>
+                            <i class="iconfont icon-arrow-right-alt"></i>
+                        </div>
+                        <div class="cart-step-item">
+                            <span>2.填写订单信息</span>
+                            <i class="iconfont icon-arrow-right-alt"></i>
+                        </div>
+                        <div class="cart-step-item">
+                            <span>3.成功提交订单</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart-table">
+                    <div class="cart-head">
+                        <div class="column c-checkbox">
+                            <div class="cart-checkbox cart-all-checkbox" ectype="ckList">
+                                <input type="checkbox" id="cart-selectall" class="ui-checkbox checkboxshopAll" ectype="ckAll" />
+                                <label for="cart-selectall" class="ui-label-14">全选</label>
+                            </div>
+                        </div>
+                        <div class="column c-goods">商品</div>
+                        <div class="column c-props"></div>
+                        <div class="column c-price">单价（元）</div>
+                        <div class="column c-quantity">数量</div>
+                        <div class="column c-sum">小计</div>
+                        <div class="column c-action">操作</div>
+                    </div>
+                    <div class="cart-tbody" ectype="cartTboy">
+                        <foreach name="list" item="vo">
+                        <div class="cart-item" ectype="shopItem">
+                            <div class="shop">
+                                <div class="cart-checkbox" ectype="ckList">
+                                    <input type="checkbox" id="shopid_{$vo.store_id}" name="checkShop" class="ui-checkbox CheckBoxShop" ectype="ckShopAll" />
+                                    <label for="shopid_{$vo.store_id}" class="ui-label-14">&nbsp;</label>
+                                </div>
+                                <div class="shop-txt">
+									<a href="" class="shop-name self-shop-name">{$vo.store_name}</a>
+                                </div>
+                            </div>
+                            <foreach name="vo.goods" item="v">
+                            <div class="item-list" ectype="itemList">
+                                <div class="item-single">
+                                    <div class="item-item" ectype="item" id="product_{$v.goods_id}" data-goodsid="{$v.goods_id}">
+                                        <div class="item-form">
+                                            <div class="cell s-checkbox">
+                                                <div class="cart-checkbox" ectype="ckList">
+                                                    <input type="checkbox" id="checkItem_{$v.goods_id}" value="{$v.goods_id}" name="checkItem" class="ui-checkbox" ectype="ckGoods" />
+                                                    <label for="checkItem_{$v.goods_id}" class="ui-label-14">&nbsp;</label>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-goods">
+                                                <div class="goods-item">
+                                                    <div class="p-img">
+                                                        <a href="/Mall/Goods/index/id/{$v.goods_id}" target="_blank">
+                                                            <img src="{$v.images.m.0}" width="70" height="70" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="item-msg">
+                                                    	<a href="/Mall/Goods/index/id/{$v.goods_id}" target="_blank">{$v.goods_name}</a>
+                                                        <div class="gds-types"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-props">&nbsp;</div>
+                                            <div class="cell s-price">
+                                                <strong id="goods_price_{$v.goods_id}"><em>¥</em>{$v.price}</strong>
+                                            </div>
+                                            <div class="cell s-quantity">
+                                                <div class="amount-warp">
+                                                    <input type="text" value="{$v.number|default=1}" name="goods_number[{$v.goods_id}]" id="goods_number_{$v.goods_id}" onchange="change_goods_number({$v.goods_id}, this.value)" class="text buy-num" ectype="number" defaultnumber="1">
+                                                    <div class="a-btn">
+                                                        <a href="javascript:void(0);" onclick="changenum({$v.goods_id}, 1)"  class="btn-add"><i class="iconfont icon-up"></i></a>
+                                                        <a href="javascript:void(0);" onclick="changenum({$v.goods_id}, -1)" <if condition="$v.number eq 1">class="btn-reduce btn-disabled"<else/>class="btn-reduce"</if> ><i class="iconfont icon-down"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="tc ftx-03">有货</div>
+                                            </div>
+                                            <div class="cell s-sum">
+                                                <strong id="goods_subtotal_{$v.goods_id}"><font id="_{$v.goods_id}_subtotal"><em>¥</em>{$v.sum_price}</font></strong>
+                                                <div class="cuttip hide">
+                                                	<span class="tit">优惠</span>
+                                                    <span class="price" id="discount_amount_{$v.goods_id}"><em>¥</em>0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-action">
+                                                <a href="javascript:void(0);" id="remove_{$v.goods_id}" ectype="cartOperation" data-goods_id="{$v.goods_id}" data-value='{"divId":"cart_remove","title":"删除"}' class="cart-remove">删除</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </foreach>
+                        </div>
+                        </foreach>
+                    </div>
+                    <div class="cart-tfoot">
+                    	<div class="cart-toolbar">
+                        	<div class="w w1200">
+                            <div class="cart-checkbox cart-all-checkbox" ectype="ckList">
+                                <input type="checkbox" id="toggle-checkboxes-down" class="ui-checkbox checkboxshopAll" ectype="ckAll" />
+                                <label for="toggle-checkboxes-down" class="ui-label-14">全选</label>
+                            </div>
+                        	<div class="operation">
+                                <a href="javascript:void(0);" class="cart-remove-batch" data-divid="cart-remove-batch"   data-title="删除">删除选中的商品</a>
+                            </div>
+                            <div class="toolbar-right">
+                                <div class="comm-right">
+                                    <div class="btn-area">
+                                        <form name="formCart" method="post" action="/mall/cart/check" onsubmit="return get_toCart();">
+                                            <input name="goPay" class="submit-btn" type="submit" value="结 算" />
+                                            <input name="step" value="checkout" type="hidden" />
+                                            <input name="store_seller" value="" type="hidden" id="cart_store_seller" />
+                                            <input name="goods_id" id="cart_value" value="" type="hidden" />
+											<input name="goods_ru" id="goods_ru" value="" type="hidden" />
+                                        </form>
+                                    </div>
+                                    <div class="price-sum" id="total_desc">
+                                        <span class="txt">总价(不含运费)：</span>
+                                        <span class="price sumPrice" id="cart_goods_amount" ectype="goods_total"><em>￥</em><b>{$totle}</b></span>
+                                    </div>
+                                    <div class="amount-sum">已选择<em class="cart_check_num" ectype="cartNum">{$num}</em>件商品</div>
+                                </div>
+                            </div>
+                            </div>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+            </empty>
+        </div>
+    </div>    
+    
+    <script type="text/javascript" src="__JS__/shopping_flow.js"></script>
+    <script type="text/javascript" src="__JS__/checkAll.js"></script>    
+    <script type="text/javascript">
+    	function changenum(rec_id, diff){
+            var cValue = $("#cart_value").val();
+            var goods_number = Number($('#goods_number_' + rec_id).val()) + Number(diff);    
+            if(goods_number < 1){
+				pbDialog("购买数量最少不能为1","",0)
+            }else{
+                change_goods_number(rec_id,goods_number);
+            }
+        }
+		
+        function change_goods_number(rec_id, goods_number){
+            if(cValue != "" || cValue == 'undefined'){
+               var cValue = $("#cart_value").val(); 
+            }
+            if(goods_number <= 0){
+                //pbDialog("数量不能为0","",0);
+                goods_number = 1;
+            }
+
+            var items = $("#checkItem_" +rec_id).parents("*[ectype='promoItem']");
+            var input = items.find("*[ectype='ckGoods']");
+            var str ='';
+            input.each(function(){
+                if($(this).prop('checked')== true){
+                    var val = $(this).val();
+                    str += val + ',';
+                }
+            });
+            str = str.substring(str.length-1,0);
+            Ajax.call('/Mall/cart/addCartOther/', 'goods_id=' + rec_id+'&goods_number='+goods_number, change_goods_number_response, 'POST', 'JSON');              
+        }
+		
+        function change_goods_number_response(result)
+        {
+        	console.log(result)
+            var rec_id = result.goods_id;           
+            if(result.error == 0){
+                $('#goods_number_' +rec_id).val(result.goods_number);//更新数量
+                $('#goods_subtotal_' +rec_id).html(result.goods_price);//更新小计
+                if(result.goods_number == 1){
+                    $('#goods_number_' +rec_id).parents('.amount-warp').find('.btn-reduce').addClass("btn-disabled");
+                }else{
+                    $('#goods_number_' +rec_id).parents('.amount-warp').find('.btn-reduce').removeClass("btn-disabled");
+                }
+                var cValue = $("#cart_value").val();
+                if(cValue != "" || cValue == 'undefined'){
+	               var cValue = $("#cart_value").val(); 
+	            }
+                Ajax.call('/Mall/Cart/cartInfo', 'goods_id=' + cValue, function(res){
+                	$("*[ectype='goods_total'] b").html(res.totle); //优惠节省总金额
+                	$("*[ectype='cartNum'],.cart_num").html(res.num); //商品总数
+                }, 'POST','JSON');
+                
+                
+                
+                
+				
+//				if(result.dis_amount > 0){
+//					$('#discount_amount_' +rec_id).parents('.cuttip').removeClass("hide");
+//				}else{
+//					$('#discount_amount_' +rec_id).parents('.cuttip').addClass("hide");
+//				}
+//				
+//				$('#discount_amount_' +rec_id).html(result.discount_amount);//商品优惠价格
+//				
+//              if(result.goods_number == 1){
+//                  $('#goods_number_' +rec_id).parents('.amount-warp').find('.btn-reduce').addClass("btn-disabled");
+//              }else{
+//                  $('#goods_number_' +rec_id).parents('.amount-warp').find('.btn-reduce').removeClass("btn-disabled");
+//              }
+//              if(result.goods_number <= 0){
+//                  $('#tr_goods_' +rec_id).style.display = 'none'; //数量为零则隐藏所在行
+//                  $('#tr_goods_' +rec_id).innerHTML = '';
+//              }
+//              $('#total_desc').html(result.flow_info);//更新合计
+//              if ($('ECS_CARTINFO')){
+//                  $('#ECS_CARTINFO').html(result.cart_info); //更新购物车数量
+//              }
+//      
+//              if(result.group.length > 0){
+//                  for(var i=0; i<result.group.length; i++){
+//                      $("#" + result.group[i].rec_group).html(result.group[i].rec_group_number);//配件商品数量
+//                      $("#" + result.group[i].rec_group_talId).html(result.group[i].rec_group_subtotal);//配件商品金额
+//                  }
+//              }
+//              
+//              $("#goods_price_" + rec_id).html(result.goods_price);
+//              $("*[ectype='save_total']").html(result.save_total_amount); //优惠节省总金额
+//              $("*[ectype='cartNum']").html(result.subtotal_number); //商品总数
+//      
+//              // 如果是优惠活动内的商品，更新优惠活动局部 qin
+//              if (result.act_id){
+//                  $("#product_promo_" + result.ru_id + "_" + result.act_id).html(result.favourable_box_content);
+//              }
+            }else if(result.message != ''){
+				//更新数量
+                $('#goods_number_' +rec_id).val(result.cart_Num);
+				pbDialog(result.message," ",0,"",90,10);
+            }                
+        }
+		
+		//购物车悬浮框
+		cartScroll();
+		
+		//超值礼包
+		$(".package_goods ul").perfectScrollbar("destroy");
+		$(".package_goods ul").perfectScrollbar();
+    </script>
+    
+    
+    
+    
+    
+    
+    
+</block>

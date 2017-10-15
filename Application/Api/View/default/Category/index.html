@@ -1,0 +1,526 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link rel="stylesheet" type="text/css" href="__CSS__/suggest.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/select.css" />
+	<link rel="stylesheet" type="text/css" href="__JS__/perfect-scrollbar/perfect-scrollbar.min.css" />
+</block>
+
+<block name="body">
+	
+	<script type="text/javascript">
+	$(function(){
+		"{:I('style')}"
+		var _style = "{:I('style')}";
+		console.log(_style)
+		var _url = window.location.href;
+		var s_str = _url.indexOf('style');		
+		var style_str = _url.substring(s_str+6,s_str+7);
+		if(s_str>=0){
+			var b_str = _url.substring(0,s_str+6);
+		}else{
+			var b_str = _url.substring(0);
+		}		
+		var e_str = _url.substring(s_str+7);
+		
+		var _htmlLen = -1;
+		var p_str = _url.indexOf('.html');
+		var p_str_2 = _url.indexOf('.htm');
+		if(p_str>=0){
+			_htmlLen = p_str;
+		}else if(p_str_2>=0){
+			_htmlLen = p_str_2;
+		}
+		var p_before = _url.substring(0,_htmlLen);
+		
+		var main = $("*[ectype='gMain']");
+		if(_style=="g"||_style==""){
+			$("*[ectype='fsortTab'] .item").first().addClass("current");
+			main.find(".gl-warp-large").show();
+			main.find(".gl-warp-samll").hide();
+			if(_style=="g"){				
+				var newUrl =b_str+"l"+ e_str;
+				$("*[ectype='fsortTab'] .item").last().find("a").attr("href",newUrl);
+			}
+			if(_style==""){
+				if(_htmlLen>=0){
+					var newUrl = p_before+"/style/"+"l";
+					$("*[ectype='fsortTab'] .item").last().find("a").attr("href",newUrl);
+				}else{
+					var newUrl = b_str+"/style/"+"l";
+					$("*[ectype='fsortTab'] .item").last().find("a").attr("href",newUrl);
+				}				
+			}			
+		}else if(_style=="l"){
+			$("*[ectype='fsortTab'] .item").last().addClass("current");
+			main.find(".gl-warp-large").hide();
+			main.find(".gl-warp-samll").show();		
+			var newUrl = b_str+"g"+e_str;
+			$("*[ectype='fsortTab'] .item").first().find("a").attr("href",newUrl);			
+		}else{
+			$("*[ectype='fsortTab'] .item").first().addClass("current");
+			main.find(".gl-warp-large").show();
+			main.find(".gl-warp-samll").hide();
+			var newUrl = b_str+"l";
+			$("*[ectype='fsortTab'] .item").last().find("a").attr("href",newUrl);
+		}
+	})
+		
+		
+	</script>
+	<div class="w w1390">
+    	<div class="crumbs-nav">
+			<div class="crumbs-nav-main clearfix">
+				<div class="crumbs-nav-item">
+					<div class="menu-drop">
+						<div class="trigger">
+							<a href="category.php?id=8"><span>鞋靴、箱包、钟表、奢侈品</span></a>
+							<i class="iconfont icon-down"></i>
+						</div>
+        				<div class="menu-drop-main">
+							<ul>
+								<li><a href="category.php?id=353">时尚女鞋</a></li>
+								<li><a href="category.php?id=355">流行男鞋</a></li>
+								<li><a href="category.php?id=357">潮流女包</a></li>
+								<li><a href="category.php?id=359">精品男包</a></li>
+								<li><a href="category.php?id=360">功能箱包</a></li>
+								<li><a href="category.php?id=362">奢侈品</a></li>
+								<li><a href="category.php?id=364">钟表</a></li>
+							</ul>
+						</div>
+        			</div>
+					<i class="iconfont icon-right"></i>		
+				</div>
+				<div class="crumbs-nav-item">
+					<div class="menu-drop">
+						<div class="trigger">
+							<a href="category.php?id=362"><span>奢侈品</span></a>
+							<i class="iconfont icon-down"></i>
+						</div>
+        				<div class="menu-drop-main">
+							<ul>
+								<li><a href="category.php?id=439">箱包</a></li>
+								<li><a href="category.php?id=440">钱包</a></li>
+								<li><a href="category.php?id=441">服饰</a></li>
+								<li><a href="category.php?id=442">腰带</a></li>
+								<li><a href="category.php?id=443">鞋靴</a></li>
+								<li><a href="category.php?id=445">太阳镜/眼镜框</a></li>
+								<li><a href="category.php?id=446">饰品</a></li>
+								<li><a href="category.php?id=447">配件</a></li>
+							</ul>
+						</div>
+        			</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <div class="container">
+    	<div class="w w1390">
+            <div class="selector">                
+				<div class="right-extra" rewrite=0>
+				    <div class="u_cloose">
+				        <dl>
+				            <dt>已选条件：</dt>
+				            <dd>
+                                &nbsp;  
+                            </dd>
+            				<dd class="give_up_all">
+            					<a href="category.php?id=362" class="ftx-05">全部撤销</a>
+            				</dd>
+        				</dl>
+				    </div>
+					<div class="goods_list">
+						<ul class="attr_father">			
+                        	<li class="s-line">
+				                <div class="s-l-wrap brand_img attr_list">
+				                    <div class="s-l-tit brand_name_l">品牌：</div>
+				                    <div class="s-l-value brand_select_more">
+				                        <div class="all_a_z">
+				                            <ul class="a_z">
+				                                <li class="all_brand curr">所有品牌</li>
+                                                <li data-key="A">A</li>
+                                                <li data-key="B">B</li>
+                                                <li data-key="C">C</li>
+                                                <li data-key="D">D</li>
+                                                <li data-key="E">E</li>
+                                                <li data-key="F">F</li>
+                                                <li data-key="G">G</li>
+                                                <li data-key="H">H</li>
+                                                <li data-key="I">I</li>
+                                                <li data-key="J">J</li>
+                                                <li data-key="K">K</li>
+                                                <li data-key="L">L</li>
+                                                <li data-key="M">M</li>
+                                                <li data-key="N">N</li>
+                                                <li data-key="O">O</li>
+                                                <li data-key="P">P</li>
+                                                <li data-key="Q">Q</li>
+                                                <li data-key="R">R</li>
+                                                <li data-key="S">S</li>
+                                                <li data-key="T">T</li>
+                                                <li data-key="U">U</li>
+                                                <li data-key="V">V</li>
+                                                <li data-key="W">W</li>
+                                                <li data-key="X">X</li>
+                                                <li data-key="Y">Y</li>
+                                                <li data-key="Z">Z</li>
+                                                <li class="other_brand">其他</li>
+                            				</ul>
+				                        </div>
+				                        <div class="wrap_brand">  
+				                            <div class="brand_div">
+												<foreach name="brand_list" item="brand">
+                                                <div class="brand_img_word" brand ="Y">
+                                                    <a href="/Home/Category/index/id/{:I('id')}/brand_id/{$brand.brand_id}">
+			                                        	<img src="{$brand.logo}" alt="{$brand.brand_name}" title="{$brand.brand_name}">
+			                                        	<span>{$brand.brand_name}</span>
+			                                        </a>
+                                                </div>
+												</foreach>
+                                        	</div>
+                        				</div>
+				                        <div class="zimu_list">
+				                            <ul class="get_more">
+												<foreach name="brand_list" item="brand">
+													<li class="is_no" brand ="Y" url_id="{$brand.brand_id}"><span class="choose_ico"></span><a class="goods_brand_name" data-url="/Home/Category/index/id/{:I('id')}/brand_id/{$brand.brand_id}">{$brand.brand_name}</a></li>
+												</foreach>
+                                            </ul>
+				                        </div>
+				                        <div class="enter_yes_no">
+				                            <div class="ct_auto">
+				                                <span class="yes_bt botton disabled">确定</span>
+				                                <span class="no_bt botton">关闭</span>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <div class="s-l-opt sl-ext">
+				                        <div class="choose_open s-l-more"><i class="iconfont icon-down"></i></div>
+				                        <div class="choose_more s-l-multiple"><i class="iconfont icon-plus"></i>多选</div>
+				                    </div>
+				                </div>
+				            </li>
+                        
+            
+                        	<li class="s-line">
+				                <dl class="s-l-wrap">
+				                    <div class="s-l-tit filter_attr_name">价格：</div>
+				                    <div class="s-l-value attr_son">
+				                        <div class="price_auto fl">
+                                            <div class="price_range"><a href="category.php?id=362&amp;price_max=5000">0&nbsp;-&nbsp;5000</a></div>				                                                                                                                											<div class="price_range"><a href="category.php?id=362&amp;price_min=25000&amp;price_max=30000">25000&nbsp;-&nbsp;30000</a></div>
+				                        </div>
+				                        <div class="price_auto price_bottom fl">
+				                            <input type="text" title="最低价" name="price_min" class="price_class price_min">
+				                            <span class="price_class span_price_class">-</span>
+				                            <input type="text" title="最高价" name="price_max" class="price_class price_max">
+				                            <button class="price_ok price_class">确定</button>
+				                        </div>
+				                    </div>
+				                </dl>
+				            </li>
+            			</ul>
+    				</div>
+					<div class="click_more s-more"><span class="sm-wrap"><strong>更多选项</strong><i class="iconfont icon-down"></i></span></div>
+				</div>
+            </div>
+            <div class="filter">
+        		<div class="filter-wrap">
+				    <div class="filter-sort">
+				        <a href="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=sort_order&goods_id&order=ASC#goods_list" class="curr">综合<i class="iconfont icon-arrow-down"></i></a>
+				        <a href="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=sales_volume&order=DESC#goods_list" class="">销量<i class="iconfont icon-arrow-up"></i></a>
+				        <a href="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=last_update&order=DESC#goods_list" class="">新品<i class="iconfont icon-arrow-up"></i></a>
+				        <a href="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=comments_number&order=ASC#goods_list" class="">评论数<i class="iconfont icon-arrow-up"></i></a>
+				        <a href="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=shop_price&order=ASC#goods_list" class="">价格<i class="iconfont icon-arrow-up"></i></a>
+				    </div>
+				    <div class="filter-range">
+				        <div class="fprice">
+				        	<form method="GET" action="category.php" class="sort" name="listform">
+                                <div class="fP-box">
+				                    <input type="text" name="price_min" class="f-text price-min" autocomplete="off" maxlength="6" placeholder="￥" id="price-min" value="">
+				                    <span>&nbsp;~&nbsp;</span>
+				                    <input type="text" name="price_max" class="f-text price-max" autocomplete="off" maxlength="6" id="price-max"value="" placeholder="￥">
+				                </div>
+				                <div class="fP-expand">
+				                	<a class="ui-btn-s ui-btn-clear" href="javascript:void(0);" id="clear_price">清空</a>
+									<a href="javascript:void(0);" class="ui-btn-s ui-btn-s-primary ui-btn-submit">确定</a>
+				                </div>
+                                <input type="hidden" name="category" value="362" />
+				                <input type="hidden" name="display" value="grid" id="display" />
+				                <input type="hidden" name="brand" value="" />
+				                <input type="hidden" name="ubrand" value="0" />
+				                <input type="hidden" name="filter_attr" value="0" />
+				                <input type="hidden" name="sort" value="sort_order&goods_id" />
+				                <input type="hidden" name="order" value="DESC" />
+				            </form>
+				        </div>
+				        <div class="fcheckbox">
+				                <div class="checkbox_items">
+				                <div class="checkbox_item ">
+				                    <input type="checkbox" name="fk-type" class="ui-checkbox" value="" id="store-checkbox-011" >
+				                    <label class="ui-label" for="store-checkbox-011">包邮</label>
+				                    <i id="input-i1" rev="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&ship=1&self=0&have=0&sort=sort_order&goods_id&order=DESC#goods_list"></i>
+				                    <i id="input-i2" rev="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&ship=0&self=0&have=0&sort=sort_order&goods_id&order=DESC#goods_list"></i>
+				                </div>
+				                <div class="checkbox_item ">
+				                    <input type="checkbox" name="fk-type" class="ui-checkbox" value="" id="store-checkbox-012" >
+				                    <label class="ui-label" for="store-checkbox-012">自营商品</label>
+				                    <i id="input-i1" rev="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&ship=0&self=1&have=0&sort=sort_order&goods_id&order=DESC#goods_list"></i>
+				                    <i id="input-i2" rev="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&ship=0&self=0&have=0&sort=sort_order&goods_id&order=DESC#goods_list"></i>
+				                </div>
+				                <div class="checkbox_item ">
+				                    <input type="checkbox" name="fk-type" class="ui-checkbox" value="" id="store-checkbox-013" >
+				                    <label class="ui-label" for="store-checkbox-013">仅显示有货</label>
+				                    <i id="input-i1" rev="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&ship=0&self=0&have=1&sort=sort_order&goods_id&order=DESC#goods_list"></i>
+				                    <i id="input-i2" rev="category.php?category=362&display=grid&brand=&ubrand=0&price_min=0&price_max=0&filter_attr=0&ship=0&self=0&have=0&sort=sort_order&goods_id&order=DESC#goods_list"></i>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+    				<div class="filter-right">
+		                <div class="button-page">
+				            <span class="pageState"><span>1</span>/1</span>
+				            <a href="javascript:void(0);" title="上一页"><i class="iconfont icon-left"></i></a>
+				            <a href="javascript:void(0);" title="下一页"><i class="iconfont icon-right"></i></a>
+				        </div>                 
+				        <div class="styles">
+				            <ul class="items" ectype="fsortTab">
+				                <li class="item" data-type="large"><a href="javascript:void(0)" title="大图模式"><span class="iconfont icon-switch-grid"></span>大图</a></li>
+				                <li class="item" data-type="samll"><a href="javascript:void(0)" title="小图模式"><span class="iconfont icon-switch-list"></span>小图</a></li>
+				            </ul>
+				        </div>
+            		</div>
+				</div>    
+            </div>
+			<div class="g-view w">
+			    <div class="goods-list w1390" ectype="gMain">
+                	<div class="gl-warp gl-warp-large">
+        	            <form name="compareForm" action="compare.php" method="post" onSubmit="return compareGoods(this);" class="goodslistForm" data-state="0">
+                        	<ul>
+								<foreach name="_lists" item="vo">
+				                <li class="gl-item">
+				                    <div class="gl-i-wrap">
+				                        <div class="p-img">
+											<a href="goods.php?id={$vo.goods_id}" target="_blank">
+												<if condition="!$vo['goods_img']['m'][0]">
+													<img src="__PUBLIC__/Home/images/default_goodsimg.png" />
+												<else/>
+													<img src="{$vo['goods_img']['m'][0]}" />
+												</if>
+											</a>
+										</div>
+                                        <div class="sider" style="height: 30px;">
+                                        	<notempty name="vo.goods_img.f">
+						                        <ul>												
+													<foreach name="vo.goods_img.f" item="v">
+														<li>
+															<img src="{$v}" width="26" height="26" />
+														</li>
+													</foreach>												
+	                                           </ul>
+					                        </notempty>
+					                    </div>
+                                        <div class="p-lie">
+                            				<div class="p-price">
+                                                <em>¥</em>{$vo.price}
+											</div>
+                            				<div class="p-num">已售<em>10</em>件</div>
+                        				</div>
+				                        <div class="p-name"><a href="goods.php?id={$vo.goods_id}" title="{$vo.goods_name}" target="_blank">{$vo.goods_name}</a></div>
+				                        <div class="p-store">
+				                            <a href="" title="{$vo.store_name}" class="store" target="_blank">{$vo.store_name}</a>
+                                        	<a href="javascript:;" id="IM" onclick="openWin(this)" ru_id="0" class="p-kefu p-c-violet"><i class="iconfont icon-kefu"></i></a>
+                                                        
+                        				</div>
+                                        <div class="p-activity">
+											<if condition="$vo['is_new'] eq 1">
+												<span class="tag tac-mn">
+													<i class="i-left"></i>
+													新品
+													<i class="i-right"></i>
+												</span>
+											</if>
+											<if condition="$vo['is_hot'] eq 1">
+												<span class="tag tac-mh">
+													<i class="i-left"></i>
+														热卖
+													<i class="i-right"></i>
+												</span>
+											</if>
+											<if condition="$vo['is_boutique'] eq 1">
+												<span class="tag tac-mb">
+													<i class="i-left"></i>
+														精品
+													<i class="i-right"></i>
+												</span>
+											</if>
+											<if condition="$vo['is_cross'] eq 1">
+												<span class="tag tac-sr">
+													<i class="i-left"></i>
+														 跨境
+													<i class="i-right"></i>
+												</span>
+											</if>
+                                        </div>
+                                        <div class="p-operate">
+				                            <a href="javascript:void(0);" id="compareLink">
+				                                <input id="{$vo.goods_id}" type="checkbox" name="duibi" class="ui-checkbox" onClick="Compare.add(this, {$vo[goods_id]},'{$vo.goods_name}','0', '{$vo[goods_img][m][0]}', '<em>¥</em>{$vo.price}', '<em>¥</em>{$vo.market_price}')">
+				                                <label class="ui-label" for="841">对比</label>
+				                            </a>
+                            				<a href="javascript:collect({$vo[goods_id]});" class="choose-btn-coll"><i class="iconfont icon-zan-alt"></i>收藏</a>
+                                            <a href="javascript:void(0);" onClick="javascript:addToCart({$vo[goods_id]},0,event,this,'flyItem');" rev="images/201703/thumb_img/0_thumb_G_1490209163537.jpg" data-dialog="addCart_dialog" data-divid="addCartLog" data-title="请选择属性" class="addcart">
+                                    			<i class="iconfont icon-carts"></i>加入购物车                                
+                                            </a>
+                                        </div>                        
+                                    </div>
+                				</li>
+								</foreach>
+            				</ul>
+                        </form>
+                        <div id="flyItem" class="fly_item"><img src="" width="40" height="40"></div>
+			        </div>
+			        <div class="gl-warp gl-warp-samll">
+        	            <form name="compareForm_cat" id="compareForm_cat" action="compare.php" method="post" onSubmit="return compareGoods(this);" class="goodslistForm" data-state="0">
+                        	<ul>
+                        		<foreach name="_lists" item="vo">
+                                <li class="gl-h-item ">
+				                    <div class="gl-i-wrap">
+				                        <div class="col col-1">
+				                            <div class="p-img">
+				                            	<a href="goods.php?id={$vo.goods_id}" target="_blank">	
+				                            		<if condition="$vo[goods_img][m][0]">
+				                            			<img src="{$vo[goods_img][m][0]}"
+				                            			<else/>
+				                            			<img src="__PUBLIC__/Home/images/default_goodsimg.png" />
+				                            		</if>
+				                            	</a>
+				                            </div>
+				                            <div class="p-right">
+				                                <div class="p-name"><a href="goods.php?id={$vo.goods_id}" title="{$vo.goods_name}" target="_blank">{$vo.goods_name}</a></div>
+				                                <div class="p-lie">
+				                                    <div class="p-num">销量：10</div>
+				                                    <div class="p-comm">评价：10</div>
+				                                </div>
+				                            </div>
+				                        </div>
+				                        <div class="col col-2">
+				                            <div class="p-store">
+				                                <a href="" title="{$vo.store_name}" target="_blank">{$vo.store_name}</a>
+				                                <a href="javascript:;" id="IM" onclick="openWin(this)" ru_id="0" class="p-kefu"><i class="iconfont icon-kefu"></i></a>				                                                        
+				                            </div>
+				                        </div>
+				                        <div class="col col-3">
+				                            <div class="p-price">
+				                                <div class="shop-price">
+                                                    <em>¥</em>{$vo.price}                                                                    
+				                                </div>
+				                                <div class="original-price"><em>¥</em>{$vo.market_price}</div>
+				                            </div>
+				                        </div>
+				                        <div class="col col-4">
+				                            <div class="p-operate">
+				                                <a href="javascript:void(0);" id="compareLink">
+					                                <input id="duibi_841" type="checkbox" name="duibi" class="ui-checkbox" onClick="Compare.add(this, {$vo.goods_id},'{$vo.goods_name}','0', '{$vo[goods_img][m][0]}', '<em>¥</em>{$vo.price}', '<em>¥</em>{$vo.market_price}')">
+					                                <label class="ui-label" for="duibi_841">对比</label>
+				                            	</a>
+				                            	<a href="javascript:collect({$vo.goods_id});" class="choose-btn-coll">
+				                            		<i class="iconfont icon-zan-alt"></i>收藏
+				                            	</a>
+				                            	<a href="javascript:void(0);" onClick="javascript:addToCart({$vo.goods_id},0,event,this,'flyItem2');" rev="{$vo[goods_img][m][0]}" data-dialog="addCart_dialog" data-id="" data-divid="addCartLog" data-url="" data-title="请选择属性" class="addcart">
+				                                    <i class="iconfont icon-carts"></i>加入购物车                                
+				                            	</a>				                                                                                        
+				                            </div>
+				                        </div>
+				                    </div>
+                				</li>
+                				</foreach>                                                               
+            				</ul>
+                        </form>
+                        <div id="flyItem2" class="fly_item2"><img src="" width="40" height="40"></div>
+			        </div>
+			        <input type="hidden" value="2" id="region_id" name="region_id">
+			        <input type="hidden" value="19" id="area_id" name="area_id">
+			        <div class="clear"></div>
+    			</div>    
+			</div>
+			<div class="pages-inner">
+				{$_page}
+			</div>			
+            <div class="p-panel-main guess-love">
+            	<div class="ftit ftit-delr"><h3>猜你喜欢</h3></div>
+                <div class="gl-list clearfix">
+                	<ul class="clearfix">
+                    	<li class="opacity_img">
+                        	<div class="p-img"><a href="goods.php?id=684" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1489109583798.jpg" width="190" height="190"></a></div>
+                            <div class="p-price">
+                                <em>¥</em>555.00                                                            
+                            </div>
+                        	<div class="p-name">
+                        		<a href="goods.php?id=684" target="_blank">【情侣款】Camel骆驼男靴 时尚潮流英伦风马丁靴高帮皮靴 爆卖1万双！ 情侣马丁靴 好评如潮</a>
+                        	</div>
+                        	<div class="p-num">已售<em>35</em>件</div>
+                        </li>
+                        <li class="opacity_img">
+                        	<div class="p-img"><a href="goods.php?id=684" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1489109583798.jpg" width="190" height="190"></a></div>
+                            <div class="p-price">
+                                <em>¥</em>555.00                                                            
+                            </div>
+                        	<div class="p-name">
+                        		<a href="goods.php?id=684" target="_blank">【情侣款】Camel骆驼男靴 时尚潮流英伦风马丁靴高帮皮靴 爆卖1万双！ 情侣马丁靴 好评如潮</a>
+                        	</div>
+                        	<div class="p-num">已售<em>35</em>件</div>
+                        </li>
+                        <li class="opacity_img">
+                        	<div class="p-img"><a href="goods.php?id=684" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1489109583798.jpg" width="190" height="190"></a></div>
+                            <div class="p-price">
+                                <em>¥</em>555.00                                                            
+                            </div>
+                        	<div class="p-name">
+                        		<a href="goods.php?id=684" target="_blank">【情侣款】Camel骆驼男靴 时尚潮流英伦风马丁靴高帮皮靴 爆卖1万双！ 情侣马丁靴 好评如潮</a>
+                        	</div>
+                        	<div class="p-num">已售<em>35</em>件</div>
+                        </li>
+                        <li class="opacity_img">
+                        	<div class="p-img"><a href="goods.php?id=684" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1489109583798.jpg" width="190" height="190"></a></div>
+                            <div class="p-price">
+                                <em>¥</em>555.00                                                            
+                            </div>
+                        	<div class="p-name">
+                        		<a href="goods.php?id=684" target="_blank">【情侣款】Camel骆驼男靴 时尚潮流英伦风马丁靴高帮皮靴 爆卖1万双！ 情侣马丁靴 好评如潮</a>
+                        	</div>
+                        	<div class="p-num">已售<em>35</em>件</div>
+                        </li>
+                        <li class="opacity_img">
+                        	<div class="p-img"><a href="goods.php?id=684" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1489109583798.jpg" width="190" height="190"></a></div>
+                            <div class="p-price">
+                                <em>¥</em>555.00                                                            
+                            </div>
+                        	<div class="p-name">
+                        		<a href="goods.php?id=684" target="_blank">【情侣款】Camel骆驼男靴 时尚潮流英伦风马丁靴高帮皮靴 爆卖1万双！ 情侣马丁靴 好评如潮</a>
+                        	</div>
+                        	<div class="p-num">已售<em>35</em>件</div>
+                        </li>
+                        <li class="opacity_img">
+                        	<div class="p-img"><a href="goods.php?id=684" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1489109583798.jpg" width="190" height="190"></a></div>
+                            <div class="p-price">
+                                <em>¥</em>555.00                                                            
+                            </div>
+                        	<div class="p-name">
+                        		<a href="goods.php?id=684" target="_blank">【情侣款】Camel骆驼男靴 时尚潮流英伦风马丁靴高帮皮靴 爆卖1万双！ 情侣马丁靴 好评如潮</a>
+                        	</div>
+                        	<div class="p-num">已售<em>35</em>件</div>
+                        </li>
+                        <li class="opacity_img">
+                        	<div class="p-img"><a href="goods.php?id=684" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1489109583798.jpg" width="190" height="190"></a></div>
+                            <div class="p-price">
+                                <em>¥</em>555.00                                                            
+                            </div>
+                        	<div class="p-name">
+                        		<a href="goods.php?id=684" target="_blank">【情侣款】Camel骆驼男靴 时尚潮流英伦风马丁靴高帮皮靴 爆卖1万双！ 情侣马丁靴 好评如潮</a>
+                        	</div>
+                        	<div class="p-num">已售<em>35</em>件</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

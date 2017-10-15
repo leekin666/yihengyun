@@ -1,0 +1,301 @@
+<div class="site-nav" id="site-nav" data-userid="{$user_id}">
+    <div <if condition="$is_short_menu">class="w w1200"<else/>class="w w1200"</if>>
+        <div class="fl">
+			<div class="txt-info" id="ECS_MEMBERZONE">
+                <if condition="$user_id eq 0">
+				<a href="javascript:user_login()" class="link-login red">请登录</a>
+                <else/>
+                <span>您好 &nbsp;<a>{$user_name}</a></span>
+                <span>，欢迎来到&nbsp;<a alt="首页" title="首页" href="/mall/index">易恒云</a></span>
+                <span>[<a href="/mall/public/logout">退出</a>]</span>
+                </if>
+
+            </div>
+        </div>
+        <ul class="quick-menu fr">
+            <li>
+                <div class="dt"><a href="{:U('/Mall/brand')}">品牌</a></div>
+            </li>
+            <li class="spacer"></li>
+            <li>
+                <div class="dt"><a href="{:U('/Mall/search/goods')}">商品</a></div>
+            </li>
+            <li class="spacer"></li>
+            <li>
+                <div class="dt"><a href="{:U('/Mall/search/channel')}">渠道</a></div>
+            </li>
+            <li class="spacer"></li>
+            <li>
+                <div class="dt"><a href="{:U('/Mall/Service')}">服务</a></div>
+            </li>            
+        </ul>
+    </div>
+</div>
+
+<!--购物车头部-->
+<if condition="$is_cart">
+<div class="header header-cart">
+	<if condition="$is_check">
+    <div class="w w1200">
+        <div class="logo">
+            <div class="logoImg"><a href="/mall"><img src="__PUBLIC__/Mall/img/logo.png" /></a></div>
+            <div class="tit">结算页</div>
+        </div>
+        <div class="cart-stepflex">
+	        <div class="cart-step-item cur">
+	            <span>1.我的购物车</span>
+	            <i class="iconfont icon-arrow-right-alt"></i>
+	        </div>
+	        <div class="cart-step-item curr">
+	            <span>2.填写订单信息</span>
+	            <i class="iconfont icon-arrow-right-alt"></i>
+	        </div>
+	        <div class="cart-step-item ">
+	            <span>3.成功提交订单</span>
+	        </div>
+	    </div>
+    </div>
+    <elseif condition="$is_orderSuccess"/>
+    <div class="w w1200">
+        <div class="logo">
+            <div class="logoImg"><a href="/mall"><img src="__PUBLIC__/Mall/img/logo.png"></a></div>
+            <div class="tit">结算页</div>
+        </div>
+                <div class="cart-stepflex">
+            <div class="cart-step-item cur">
+                <span>1.我的购物车</span>
+                <i class="iconfont icon-arrow-right-alt"></i>
+            </div>
+            <div class="cart-step-item cur">
+                <span>2.填写订单信息</span>
+                <i class="iconfont icon-arrow-right-alt"></i>
+            </div>
+            <div class="cart-step-item curr">
+                <span>3.成功提交订单</span>
+            </div>
+        </div>
+    </div>
+    <else/>
+    <div class="w w1200">
+        <div class="logo">
+            <div class="logoImg"><a href="/mall"><img src="__PUBLIC__/Mall/img/logo.png" /></a></div>
+            <div class="tit">购物车（<em ectype="cartNum"></em>）</div>
+        </div>
+        <div class="dsc-search">
+            <ul class="dsc-search-tab clearfix">
+                <li class="current" search-type="goods">商品</li>
+                <li search-type="store">店铺</li>
+                <li search-type="channel">渠道</li>
+            </ul>
+            <div class="form">
+                <form id="searchForm" name="searchForm" method="get" action="{:U('/Mall/search/goods')}" onSubmit="return checkSearchForm()" class="search-form">
+                    <input autocomplete="off" onkeyup="lookup(this.value)" name="keywords" type="text" id="keyword" value="{$keyword}"  class="search-text" placeholder="输入关键字"/>
+                    <input type="hidden" name="store_search_cmt" value="0">
+                    <button type="submit" class="button button-goods" onclick="checkstore_search_cmt(0)" >搜索</button>
+                    <input type="hidden" name="search_type" value="goods" />
+                </form>
+                <div class="suggestions_box" id="suggestions" style="display:none;">
+                    <div class="suggestions_list" id="auto_suggestions_list">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>    
+    </if>
+</div>
+<else/>
+<!--其它头部-->
+<div class="header">
+    <div <if condition="$is_short_menu">class="w w1200"<else/>class="w w1200"</if>>
+        <div class="logo">
+            <div class="logoImg"><a href="/mall"><img src="__PUBLIC__/Mall/img/logo.png" /></a></div>
+				<!--<div class="logoAdv"><a href="#"><img src="__PUBLIC__/Mall/img/ecsc-join.gif" /></a></div>-->
+	        </div>
+        <div class="dsc-search">
+        	<ul class="dsc-search-tab clearfix">
+        		<li class="current" search-type="goods">商品</li>
+        		<li search-type="store">店铺</li>
+        		<li search-type="channel">渠道</li>
+        	</ul>
+            <div class="form">
+                <form id="searchForm" name="searchForm" method="get" action="{:U('/Mall/search/goods')}" onSubmit="return checkSearchForm()" class="search-form">
+                    <input autocomplete="off" onkeyup="lookup(this.value)" name="keywords" type="text" id="keyword" value="{$keyword}"  class="search-text" placeholder="输入关键字"/>
+                    <input type="hidden" name="store_search_cmt" value="0">
+                    <button type="submit" class="button button-goods" onclick="checkstore_search_cmt(0)" >搜索</button>
+                    <input type="hidden" name="search_type" value="goods" />
+                </form>
+                <div class="suggestions_box" id="suggestions" style="display:none;">
+                    <div class="suggestions_list" id="auto_suggestions_list">
+                        &nbsp;
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="shopCart" data-ectype="dorpdown" id="ECS_CARTINFO" data-carteveval="0">        
+			<div class="shopCart-con dsc-cm">
+                <a href="/Mall/Cart">
+					<i class="iconfont icon-carts"></i>
+					<span>我的购物车</span>
+					<em class="count cart_num">0</em>
+				</a>
+			</div>
+			<div class="dorpdown-layer" ectype="dorpdownLayer">
+	        	<div class="prompt"><div class="nogoods"><b></b><span>购物车中还没有商品，赶紧选购吧！</span></div></div>
+	    </div>	
+			       
+        </div>
+    </div>
+</div>
+
+<div class="nav dsc-zoom" ectype="dscNav">
+    <div <if condition="$is_short_menu">class="w w1200"<else/>class="w w1200"</if>>
+        <div <if condition="$is_show_category">class="categorys"<else/>class="categorys site-mast"</if>>
+            <div class="categorys-type"><a href="/Mall/Category/categorylist" target="_blank">全部商品分类</a></div>
+            <div class="categorys-tab-content">
+            	<div class="categorys-items" id="cata-nav">
+					<volist name="category_list" id="g_o">
+			        <div class="categorys-item" ectype="cateItem" data-id="858" data-eveval="0">
+				        <div class="item item-content">
+	                        <i class="iconfont iconfont-menu icon-icon{$l_n}"></i>
+	                        <div class="categorys-title">
+	                			<strong>
+	                                <a href="{:U('category/index?id='.$g_o['id'])}" target="_blank">{$g_o.name}</a>
+	                            </strong>
+	                        </div>
+				        </div>
+				        <div class="categorys-items-layer" ectype="cateLayer">
+				            <div class="cate-layer-con clearfix">
+				                <div class="cate-layer-left">
+				                    <div class="cate_channel" ectype="channels_858">
+				                    	<ul class="h4 clearfix">
+				                    		<volist name="g_o.child" id="f_v">
+				                    			<li><a href="{:U('category/index?id='.$f_v['id'])}" target="_blank">{$f_v.name}</a></li>
+				                    		</volist>
+				                    	</ul>
+										
+											<!--<a href="{:U('category/index?id='.$f_v['id'])}" target="_blank">{$f_v.name}</a>-->
+										
+									</div>
+				                    <div class="cate_detail" ectype="subitems_858">
+														
+										<div class="brand-channel clearfix" id="h-brand_0" data-type="range" data-lift="品牌"> 
+											<div ectype="homeBrand">
+											    <div class="brand-list" id="recommend_brands" data-value="204,93,110,113,116,195,79,95,76,126,73,122,98,82,101,85,105">
+										        	<ul>
+														<volist name="g_o.brand" id="a_v">
+								                        <li>
+											                <div class="brand-img"><a href="{:U('brand/detail?id='.$a_v['id'])}" target="_blank"><img src="{$a_v.logo}"/></a></div>
+											                <div class="brand-mash">													                    
+											                    <div class="coupon"><a href="{:U('brand/detail?id='.$a_v['id'])}" target="_blank">{$a_v.brand_name}</a></div>
+											                </div>
+											            </li>
+														</volist>
+								                    </ul>
+								        			<!--<a href="javascript:void(0);" ectype="changeBrand" class="refresh-btn"><i class="iconfont icon-rotate-alt"></i><span>换一批</span></a>-->
+											    </div>
+											</div>
+											<div class="spec" data-spec="" data-title="undefined"></div>
+				                        </div>							
+									</div>
+				                </div>						                
+				            </div>
+				        </div>
+				        <div class="clear"></div>
+				    </div>
+					</volist>
+
+	        	</div>            
+	        </div>
+	    </div>
+    	<div class="nav-main" id="nav">
+            <ul class="navitems">
+                <li><a href="/Mall/Index" class="curr">首页</a></li>
+                <li><a href="/Mall/Brand"  >品牌专区</a></li>
+                <li><a href="/Mall/country"  >国家馆</a></li>
+                <li><a href="{:U('category/index',array('id'=>0,'is_cross'=>3))}"  >保税产品</a></li>
+                <li><a href="{:U('category/index',array('id'=>0,'is_cross'=>1))}"  >国内产品</a></li>
+                <li><a href="/Mall/category/index/id/0/is_cross/3,4"  >跨境产品</a></li>
+                <li><a href="/Mall/Channel/"  >渠道专区</a></li>
+                <li><a href="/Mall/Service"  >服务专区</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+</if>
+
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    //tab切片，高亮搜索块当前切片选项
+    var s_type = getQueryString("search_type");
+    if(s_type!=null){
+        $("input[name='search_type']").val(s_type);
+        var search_url = $("#searchForm").attr("action");
+        var search_url_str = search_url.substring(0,search_url.indexOf('search/')+7);
+        var new_url = search_url_str+s_type+".html";
+        $("#searchForm").attr("action",new_url);
+        $(".dsc-search-tab li").each(function () {
+            if($(this).attr("search-type")==s_type){
+                $(this).addClass('current').siblings().removeClass('current');
+            }
+        });
+    }
+
+
+    //高亮导航
+    var win_url = window.location.pathname;
+//    $(".navitems li").each(function () {
+//        var a_url = $(this).find("a").attr("href");
+//        if(win_url.indexOf(a_url)>=0){
+//            $(".navitems li a").removeClass("curr");
+//            $(this).find("a").addClass("curr");
+//        }
+//    });
+
+
+    if(win_url.indexOf('Mall/Index')>-1||win_url.indexOf('Mall/Index.html')>-1||win_url.indexOf('Mall/index')>-1){
+        hightNav(0);
+    }
+
+    if(win_url.indexOf('/Mall/Brand')>-1||win_url.indexOf('/mall/brand')>-1||win_url.indexOf('/Mall/brand')>-1){
+        hightNav(1);
+    }
+
+    if(win_url.indexOf('/Mall/country')>-1||win_url.indexOf('/mall/country')>-1||win_url.indexOf('/Mall/Country')>-1){
+        hightNav(2);
+    }
+
+    if(win_url.indexOf('is_cross/3')>-1){
+        hightNav(3);
+    }
+
+    if(win_url.indexOf('is_cross/1')>-1){
+        hightNav(4);
+    }
+
+    if(win_url.indexOf('/is_cross/3,4')>-1){
+        hightNav(5);
+    }
+
+    if(win_url.indexOf('/Mall/Channel')>-1||win_url.indexOf('/mall/Channel')>-1||win_url.indexOf('/Mall/Channel')>-1){
+        hightNav(6);
+    }
+
+    if(win_url.indexOf('/Mall/Service')>-1||win_url.indexOf('/mall/Service')>-1||win_url.indexOf('/mall/Service')>-1){
+        hightNav(7);
+    }
+
+
+    function hightNav(_index) {
+        $(".navitems li a").removeClass("curr");
+        $(".navitems li a").eq(_index).addClass("curr");
+    }
+
+</script>

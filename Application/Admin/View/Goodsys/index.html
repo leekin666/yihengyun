@@ -1,0 +1,154 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>{$meta_title}</h2>
+	</div>
+	<div class="cf">		
+		<div class="fr">
+			<if condition="$act eq 'index'"><a class="btn btn-default" href="{:U('Goodsys/recycle')}">回收站</a></if>
+        </div>
+
+        <!-- 高级搜索 -->
+		<div class="search-form fl cf">
+			<if condition="$act neq 'recycle'">
+				<select class="search-condition" onchange="searchStatus($(this))" <if condition="$act eq 'check'"> url="{:U('Goodsys/check')}" <elseif condition="$act eq 'recycle'"/>url="{:U('Goodsys/recycle')}"<else/> url="{:U('Goodsys/index')}"</if> name="status" value="{:I('status')}">
+					<option value="-1" <if condition="$status eq -1"> selected </if>>全部状态</option>
+					<option value='1' <if condition="$status eq 1"> selected </if>>上架</option>
+					<option value='0' <if condition="$status eq 0"> selected </if>>下架</option>
+					<option value='40' <if condition="$status eq 40"> selected </if>>平台冻结</option>
+					<!--<option>正常</option>-->
+				</select>
+			</if>
+			<div class="sleft mr20">
+				<input type="text" name="nickname" class="search-input" value="{:I('nickname')}" placeholder="请输入搜索信息">
+				<a class="sch-btn" href="javascript:;" id="search" <if condition="$act eq 'check'"> url="{:U('Goodsys/check')}" <elseif condition="$act eq 'recycle'"/>url="{:U('Goodsys/recycle')}"<else/> url="{:U('Goodsys/index')}"</if>>查询</a>
+			</div>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th width="3%" class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th width="7%" class="">编号</th>
+		<!--<th class="">店铺ID</th>-->
+		<th width="8%" class="">商品图片</th>
+		<th width="14%" class="">中文名称</th>
+		<!--<th class="">口号</th>-->
+		<!--<th class="">口号英文</th>-->
+		<th width="12%" class="">品牌名称</th>
+		<th width="10%" class="">分类</th>
+		<!--<th class="">添加时间</th>-->
+		<!--<th class="" width="6%">可卖数</th>-->
+		<th width="8%" class="">单价</th>
+		<th class="" width="10%">创建时间</th>
+		<th class="">运营</th>
+		<if condition="$act neq 'recycle'"><th class="">状态</th></if>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="_list">
+		<form id="submitForm" action="{:U('Goodsys/remove')}" method="post">
+			<volist name="_list" id="vo">
+			<tr class="">
+				<td><input class="ids" type="checkbox" name="id[]" value="{$vo.goods_id}" /></td>
+				<td>{$vo.goods_sn}</td>
+				<!--<td>{$vo.store_id}</td>-->
+				<td><img src="{$vo.main_img}?x-oss-process=image/resize,m_pad,h_50,w_50" style="width: 50px; height: 50px;"></td>
+				<td>{$vo.goods_name}</td>
+				<!--<td><span>{$vo.slogan}</span></td>-->
+				<!--<td><span>{$vo.slogan_letter}</span></td>-->
+				<td>{$vo.brand_name}</td>
+				<td>{$vo.category_name}</td>
+				<!--<td>{$vo.add_date|date="Y-m-d H:i:s",###}</td>-->
+				<!--<td>{$vo.num}</td>-->
+				<td>￥{$vo.price}</td>
+				<td>{$vo.add_date}</td>
+				<td class="operate" ><if condition="$vo.is_new eq 1"><span style="background: #ff8300">新品</span></if><if condition="$vo.is_hot eq 1"><span style="background: #ff5f3d">热</span></if><if condition="$vo.is_boutique eq 1"><span style="background: #3c8dbc">精</span></if><if condition="$vo.returned eq 1"><span style="background: #ffc947">包退</span></if><if condition="$vo.flash eq 1"><span  style="background: #ff876e">闪速</span></if><if condition="$vo.help_sales eq 1"><span style="background: #00b5e9">助售</span></if></td>
+				<if condition="$act eq 'index'"><td><if condition="$vo.goods_status eq 40"><em style="color: #d9534f; font-style: normal;font-size: 12px;">平台冻结<else /><if condition="$vo.is_onsale eq 0" ><em style="color: #d9534f; font-style: normal;font-size: 12px;">已下架</em><else/><em style="color: #337ab7;font-style: normal;font-size: 12px;">已上架</em></if></if></td><elseif condition="$act eq 'check'"/><td><if condition="$vo.goods_status eq 0" >审核中<else/>已驳回</if></td><esle/></if>
+				<if condition="$act eq 'index'">
+					<td class="operate-td"><a href="{:U('Goodsys/look?id='.$vo['goods_id'])}" title="查看" class="brandImg-url brand-btnM"><span class="look-bgImg"></span></a></td>
+				<elseif condition="$act eq 'recycle'"/>
+					<td class="operate-td"><a href="{:U('Goodsys/recycle_look?id='.$vo['goods_id'])}" title="查看" class="brandImg-url brand-btnM"><span class="look-bgImg"></span></a></td>
+				</if>
+            </tr>
+			</volist>
+		</form>
+		<else/>
+		<td colspan="9" class="text-center no-content"> 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+		<if condition="$act eq 'recycle'">
+			<button class="btn  brand-freeze ajax-post confirm submit-btn brand-btnM btn-success" url="{:U('Goodsys/recycle_remove')}" target-form="ids">删除</button>
+		<elseif condition="$act eq 'index'"/>
+			<button class="btn btn-success brand-freeze ajax-post confirm submit-btn brand-btnM" url="{:U('Goodsys/on_sale')}" target-form="ids">解冻</button>
+			<button class="btn btn-warning brand-freeze ajax-post confirm submit-btn brand-btnM" url="{:U('Goodsys/off_sale')}" target-form="ids">冻结</button>
+		<!--<elseif condition="$act eq 'check'"/>-->
+			<!--<button class="btn btn-warning brand-freeze ajax-post confirm submit-btn" url="{:U('Goodsys/remove')}" target-form="ids">驳 回</button>-->
+		</if>
+		<!--<button class="btn btn-danger brand-freeze ajax-post confirm submit-btn" url="{:U('Goodsys/remove')}" target-form="ids">删除</button>-->
+		<div class="page-fr">{$_page}</div>
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+		//搜索功能
+		$("#search").click(function(){
+			var url = $(this).attr('url');
+			var query  = $('.search-form').find('input').serialize();			
+			query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+			query = query.replace(/^&/g,'');
+            if(query){
+                if( url.indexOf('?')>0 ){
+                    url += '&' + query;
+                }else{
+                    url += '?' + query;
+                }
+                window.location.href = url;
+            }
+		});
+		//回车搜索
+		$(".search-input").keyup(function(e){
+			if(e.keyCode === 13){
+				$("#search").click();
+				return false;
+			}
+		});
+
+		function  searchStatus(_this) {
+		var status = _this.val();
+            var url = _this.attr('url');
+            var query  = $('.search-form').find('select').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if(query){
+                if( url.indexOf('?')>0 ){
+                    url += '&' + query;
+                }else{
+                    url += '?' + query;
+                }
+                window.location.href = url;
+            }
+        }
+		//导航高亮
+		if("{$act}" == "recycle"){
+			highlight_subnav('{:U('Goodsys/recycle')}');
+		}
+		if("{$act}" == "look"){
+			highlight_subnav('{:U('Goodsys/look')}');
+		}else{
+			highlight_subnav('{:U('Goodsys/index')}');
+		}
+	</script>
+
+</block>

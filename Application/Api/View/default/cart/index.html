@@ -1,0 +1,635 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link rel="stylesheet" type="text/css" href="__CSS__/suggest.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/select.css" />
+	<link rel="stylesheet" type="text/css" href="__JS__/perfect-scrollbar/perfect-scrollbar.min.css" />
+</block>
+
+<block name="body">
+	<div class="container">
+        <div class="w w1200">
+            
+            <div class="cart-warp">
+                                <div class="cart-filter">
+                    <div class="cart-stepflex">
+                        <div class="cart-step-item curr">
+                            <span>1.我的购物车</span>
+                            <i class="iconfont icon-arrow-right-alt"></i>
+                        </div>
+                        <div class="cart-step-item">
+                            <span>2.填写订单信息</span>
+                            <i class="iconfont icon-arrow-right-alt"></i>
+                        </div>
+                        <div class="cart-step-item">
+                            <span>3.成功提交订单</span>
+                        </div>
+                    </div>
+                    <div class="sp-area store-selector">
+                        <div class="text-select" id="area_address" ectype="areaSelect">
+                            <span class="txt">配送至</span>
+                            <div class="selector">
+								
+<div class="tit">
+    <span>上海&nbsp;上海&nbsp;</span><i class="iconfont icon-down"></i>
+</div>
+<div class="area-warp" id="area_list">
+	    <ul class="tab" id="select_area">
+        <li onclick="region.selectArea(this, 1);" value="25" id="province_li">上海<i class="sc-icon-right"></i></li>
+        <li onclick="region.selectArea(this, 2);" value="321" id="city_li">上海<i class="sc-icon-right"></i></li>
+        <li class="curr" onclick="region.selectArea(this, 3);" value="" id="district_type"><i class="sc-icon-right"></i></li>
+    </ul>
+    <div class="tab-content" id="house_list" style="display:none;" >
+        <ul id="province_list">
+             
+                            <li>
+                    <a v="2" title="北京" onclick="region.getRegion(2, 2, city_list, this,0,);" href="javascript:void(0);">北京</a>
+                </li>
+                            <li>
+                    <a v="3" title="安徽" onclick="region.getRegion(3, 2, city_list, this,0,);" href="javascript:void(0);">安徽</a>
+                </li>
+                            <li>
+                    <a v="4" title="福建" onclick="region.getRegion(4, 2, city_list, this,0,);" href="javascript:void(0);">福建</a>
+                </li>
+                            <li>
+                    <a v="5" title="甘肃" onclick="region.getRegion(5, 2, city_list, this,0,);" href="javascript:void(0);">甘肃</a>
+                </li>
+                            <li>
+                    <a v="6" title="广东" onclick="region.getRegion(6, 2, city_list, this,0,);" href="javascript:void(0);">广东</a>
+                </li>
+                            <li>
+                    <a v="7" title="广西" onclick="region.getRegion(7, 2, city_list, this,0,);" href="javascript:void(0);">广西</a>
+                </li>
+                            <li>
+                    <a v="8" title="贵州" onclick="region.getRegion(8, 2, city_list, this,0,);" href="javascript:void(0);">贵州</a>
+                </li>
+                            <li>
+                    <a v="9" title="海南" onclick="region.getRegion(9, 2, city_list, this,0,);" href="javascript:void(0);">海南</a>
+                </li>
+                            <li>
+                    <a v="10" title="河北" onclick="region.getRegion(10, 2, city_list, this,0,);" href="javascript:void(0);">河北</a>
+                </li>
+                            <li>
+                    <a v="11" title="河南" onclick="region.getRegion(11, 2, city_list, this,0,);" href="javascript:void(0);">河南</a>
+                </li>
+                            <li>
+                    <a v="12" title="黑龙江" onclick="region.getRegion(12, 2, city_list, this,0,);" href="javascript:void(0);">黑龙江</a>
+                </li>
+                            <li>
+                    <a v="13" title="湖北" onclick="region.getRegion(13, 2, city_list, this,0,);" href="javascript:void(0);">湖北</a>
+                </li>
+                            <li>
+                    <a v="14" title="湖南" onclick="region.getRegion(14, 2, city_list, this,0,);" href="javascript:void(0);">湖南</a>
+                </li>
+                            <li>
+                    <a v="15" title="吉林" onclick="region.getRegion(15, 2, city_list, this,0,);" href="javascript:void(0);">吉林</a>
+                </li>
+                            <li>
+                    <a v="16" title="江苏" onclick="region.getRegion(16, 2, city_list, this,0,);" href="javascript:void(0);">江苏</a>
+                </li>
+                            <li>
+                    <a v="17" title="江西" onclick="region.getRegion(17, 2, city_list, this,0,);" href="javascript:void(0);">江西</a>
+                </li>
+                            <li>
+                    <a v="18" title="辽宁" onclick="region.getRegion(18, 2, city_list, this,0,);" href="javascript:void(0);">辽宁</a>
+                </li>
+                            <li>
+                    <a v="19" title="内蒙古" onclick="region.getRegion(19, 2, city_list, this,0,);" href="javascript:void(0);">内蒙古</a>
+                </li>
+                            <li>
+                    <a v="20" title="宁夏" onclick="region.getRegion(20, 2, city_list, this,0,);" href="javascript:void(0);">宁夏</a>
+                </li>
+                            <li>
+                    <a v="21" title="青海" onclick="region.getRegion(21, 2, city_list, this,0,);" href="javascript:void(0);">青海</a>
+                </li>
+                            <li>
+                    <a v="22" title="山东" onclick="region.getRegion(22, 2, city_list, this,0,);" href="javascript:void(0);">山东</a>
+                </li>
+                            <li>
+                    <a v="23" title="山西" onclick="region.getRegion(23, 2, city_list, this,0,);" href="javascript:void(0);">山西</a>
+                </li>
+                            <li>
+                    <a v="24" title="陕西" onclick="region.getRegion(24, 2, city_list, this,0,);" href="javascript:void(0);">陕西</a>
+                </li>
+                            <li>
+                    <a v="25" title="上海" onclick="region.getRegion(25, 2, city_list, this,0,);" href="javascript:void(0);">上海</a>
+                </li>
+                            <li>
+                    <a v="26" title="四川" onclick="region.getRegion(26, 2, city_list, this,0,);" href="javascript:void(0);">四川</a>
+                </li>
+                            <li>
+                    <a v="27" title="天津" onclick="region.getRegion(27, 2, city_list, this,0,);" href="javascript:void(0);">天津</a>
+                </li>
+                            <li>
+                    <a v="28" title="西藏" onclick="region.getRegion(28, 2, city_list, this,0,);" href="javascript:void(0);">西藏</a>
+                </li>
+                            <li>
+                    <a v="29" title="新疆" onclick="region.getRegion(29, 2, city_list, this,0,);" href="javascript:void(0);">新疆</a>
+                </li>
+                            <li>
+                    <a v="30" title="云南" onclick="region.getRegion(30, 2, city_list, this,0,);" href="javascript:void(0);">云南</a>
+                </li>
+                            <li>
+                    <a v="31" title="浙江" onclick="region.getRegion(31, 2, city_list, this,0,);" href="javascript:void(0);">浙江</a>
+                </li>
+                            <li>
+                    <a v="32" title="重庆" onclick="region.getRegion(32, 2, city_list, this,0,);" href="javascript:void(0);">重庆</a>
+                </li>
+                            <li>
+                    <a v="33" title="香港" onclick="region.getRegion(33, 2, city_list, this,0,);" href="javascript:void(0);">香港</a>
+                </li>
+                            <li>
+                    <a v="34" title="澳门" onclick="region.getRegion(34, 2, city_list, this,0,);" href="javascript:void(0);">澳门</a>
+                </li>
+                            <li>
+                    <a v="35" title="台湾" onclick="region.getRegion(35, 2, city_list, this,0,);" href="javascript:void(0);">台湾</a>
+                </li>
+                        
+        </ul>   
+    </div>
+    <div style="display: block;" class="tab-content" id="city_list_id">
+        <ul id="city_list">    
+                               	                             
+                                                 
+                <li>
+                    <a v="321" title="上海" onclick="region.getRegion(321, 3, district_list, '上海',0,);" href="javascript:void(0);">上海</a>  
+                </li>
+               
+                              
+        </ul>
+    </div>
+    <div class="tab-content" id="district_list_id" style="display: none;">
+        <ul id="district_list">              
+                
+                            <li>                     
+                    <a v="" title="长宁区" onclick="region.changedDis(2703,0);" href="javascript:void(0);" id="district_2703">长宁区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="闸北区" onclick="region.changedDis(2704,0);" href="javascript:void(0);" id="district_2704">闸北区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="闵行区" onclick="region.changedDis(2705,0);" href="javascript:void(0);" id="district_2705">闵行区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="徐汇区" onclick="region.changedDis(2706,0);" href="javascript:void(0);" id="district_2706">徐汇区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="浦东新区" onclick="region.changedDis(2707,0);" href="javascript:void(0);" id="district_2707">浦东新区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="杨浦区" onclick="region.changedDis(2708,0);" href="javascript:void(0);" id="district_2708">杨浦区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="普陀区" onclick="region.changedDis(2709,0);" href="javascript:void(0);" id="district_2709">普陀区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="静安区" onclick="region.changedDis(2710,0);" href="javascript:void(0);" id="district_2710">静安区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="卢湾区" onclick="region.changedDis(2711,0);" href="javascript:void(0);" id="district_2711">卢湾区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="虹口区" onclick="region.changedDis(2712,0);" href="javascript:void(0);" id="district_2712">虹口区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="黄浦区" onclick="region.changedDis(2713,0);" href="javascript:void(0);" id="district_2713">黄浦区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="南汇区" onclick="region.changedDis(2714,0);" href="javascript:void(0);" id="district_2714">南汇区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="松江区" onclick="region.changedDis(2715,0);" href="javascript:void(0);" id="district_2715">松江区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="嘉定区" onclick="region.changedDis(2716,0);" href="javascript:void(0);" id="district_2716">嘉定区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="宝山区" onclick="region.changedDis(2717,0);" href="javascript:void(0);" id="district_2717">宝山区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="青浦区" onclick="region.changedDis(2718,0);" href="javascript:void(0);" id="district_2718">青浦区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="金山区" onclick="region.changedDis(2719,0);" href="javascript:void(0);" id="district_2719">金山区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="奉贤区" onclick="region.changedDis(2720,0);" href="javascript:void(0);" id="district_2720">奉贤区</a>  
+                </li>    
+                            <li>                     
+                    <a v="" title="崇明县" onclick="region.changedDis(2721,0);" href="javascript:void(0);" id="district_2721">崇明县</a>  
+                </li>    
+                 
+                   
+        </ul>
+    </div>
+    <div class="mod_storage_state">商品暂时只支持配送至中国大陆地区</div>
+    <input type="hidden" value="25" id="province_id" name="province_region_id">
+    <input type="hidden" value="321" id="city_id" name="city_region_id">
+    <input type="hidden" value="0" id="district_id" name="district_region_id">         
+    <input type="hidden" value="" id="merchantId" name="merchantId">
+</div>
+                                  <input type="hidden" value="" id="region_id" name="region_id">
+                                <input type="hidden" value="" id="good_id" name="good_id">
+                                <input type="hidden" value="0" id="user_id" name="user_id">
+                                <input type="hidden" value="19" id="area_id" name="area_id">
+                                <input type="hidden" value="25" id="province_id" name="province_region_id">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart-table">
+                    <div class="cart-head">
+                        <div class="column c-checkbox">
+                            <div class="cart-checkbox cart-all-checkbox" ectype="ckList">
+                                <input type="checkbox" id="cart-selectall" class="ui-checkbox checkboxshopAll" ectype="ckAll" />
+                                <label for="cart-selectall" class="ui-label-14">全选</label>
+                            </div>
+                        </div>
+                        <div class="column c-goods">商品</div>
+                        <div class="column c-props"></div>
+                        <div class="column c-price">单价（元）</div>
+                        <div class="column c-quantity">数量</div>
+                        <div class="column c-sum">小计</div>
+                        <div class="column c-action">操作</div>
+                    </div>
+                    <div class="cart-tbody" ectype="cartTboy">
+                                                <div class="cart-item" ectype="shopItem">
+                            <div class="shop">
+                                <div class="cart-checkbox" ectype="ckList">
+                                    <input type="checkbox" id="shopid_0" name="checkShop" class="ui-checkbox CheckBoxShop" ectype="ckShopAll" />
+                                    <label for="shopid_0" class="ui-label-14">&nbsp;</label>
+                                </div>
+                                <div class="shop-txt">
+																		<a href="" class="shop-name self-shop-name">商创自营</a>
+									                                    
+                                                                        	<a href="javascript:;" id="IM" onclick="openWin(this)" goods_id="" class="p-kefu p-c-violet" target="_blank"><i class="iconfont icon-kefu"></i></a>
+                                                                        
+                                </div>
+                            </div>
+                            <div class="item-list" ectype="itemList">
+                                                                                                <div class="item-single">
+                                                                	<div class="item-item" ectype="item" id="product_840" data-goodsid="840">
+                                        <div class="item-form">
+                                            <div class="cell s-checkbox">
+                                                <div class="cart-checkbox" ectype="ckList">
+                                                    <input type="checkbox" id="checkItem_4" value="4" name="checkItem" class="ui-checkbox" ectype="ckGoods" />
+                                                    <label for="checkItem_4" class="ui-label-14">&nbsp;</label>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-goods">
+                                                <div class="goods-item">
+                                                    <div class="p-img">
+                                                                                                                <a href="goods.php?id=840" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1490209125275.jpg" width="70" height="70" /></a>
+                                                                                                            </div>
+                                                    <div class="item-msg">
+                                                    	                                                        <a href="goods.php?id=840" target="_blank">COVHERlab男士职业正装商务领带 紫方块奢侈领带男韩版 礼品领带 奢侈品牌 商务必备 简约大气 送礼佳品</a>
+                                                                                                                <div class="gds-types">
+                                                                                                                                                                                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-props">
+                                                &nbsp;                                            </div>
+                                            <div class="cell s-price">
+                                                <strong id="goods_price_4"><em>¥</em>551.00</strong>
+                                            </div>
+                                            <div class="cell s-quantity">
+                                                <div class="amount-warp">
+                                                                                                                                                            <input type="text" value="1" name="goods_number[4]" id="goods_number_4" onchange="change_goods_number(4, this.value, 2, 19)" class="text buy-num" ectype="number" defaultnumber="1">
+                                                                                                        <div class="a-btn">
+                                                    	                                                        <a href="javascript:void(0);" onclick="changenum(4, 1, 2, 19)"  class="btn-add"><i class="iconfont icon-up"></i></a>
+                                                        <a href="javascript:void(0);" onclick="changenum(4, -1, 2, 19)" class="btn-reduce btn-disabled"><i class="iconfont icon-down"></i></a>
+                                                                                                            </div>
+                                                                                                    </div>
+                                                                                                <div class="tc ftx-03">有货</div>
+                                                                                            </div>
+                                            <div class="cell s-sum">
+                                                <strong id="goods_subtotal_4"><font id="_4_subtotal"><em>¥</em>551.00</font></strong>
+                                                <div class="cuttip hide">
+                                                	<span class="tit">优惠</span>
+                                                    <span class="price" id="discount_amount_4"><em>¥</em>0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-action">
+                                                <a href="javascript:void(0);" id="remove_4" ectype="cartOperation" data-value='{"divId":"cart_remove","url":"flow.php?step=drop_goods&amp;id=4","cancelUrl":"flow.php?step=drop_to_collect&amp;id=4","recid":4,"title":"删除"}' class="cart-remove">删除</a>
+                                                <a href="javascript:void(0);" id="store_4" ectype="cartOperation" data-value='{"divId":"cart_collect","url":"flow.php?step=drop_to_collect&amp;id=4","recid":4,"title":"关注"}' class="cart-store">收藏</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                </div>
+                                                                                            </div>
+                        </div>
+                                                <div class="cart-item" ectype="shopItem">
+                            <div class="shop">
+                                <div class="cart-checkbox" ectype="ckList">
+                                    <input type="checkbox" id="shopid_3" name="checkShop" class="ui-checkbox CheckBoxShop" ectype="ckShopAll" />
+                                    <label for="shopid_3" class="ui-label-14">&nbsp;</label>
+                                </div>
+                                <div class="shop-txt">
+									                                    <a href="merchants_store.php?merchant_id=3" class="shop-name"><strong>火影旗舰店</strong></a>
+									                                    
+                                                                        	<a href="javascript:;" id="IM" onclick="openWin(this)" goods_id="840" class="p-kefu" target="_blank"><i class="iconfont icon-kefu"></i></a>
+                                                                        
+                                </div>
+                            </div>
+                            <div class="item-list" ectype="itemList">
+                                                                                                <div class="item-single">
+                                                                	<div class="item-item" ectype="item" id="product_714" data-goodsid="714">
+                                        <div class="item-form">
+                                            <div class="cell s-checkbox">
+                                                <div class="cart-checkbox" ectype="ckList">
+                                                    <input type="checkbox" id="checkItem_3" value="3" name="checkItem" class="ui-checkbox" ectype="ckGoods" />
+                                                    <label for="checkItem_3" class="ui-label-14">&nbsp;</label>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-goods">
+                                                <div class="goods-item">
+                                                    <div class="p-img">
+                                                                                                                <a href="goods.php?id=714" target="_blank"><img src="__PUBLIC__/Home/images/201703/thumb_img/0_thumb_G_1490159762992.jpg" width="70" height="70" /></a>
+                                                                                                            </div>
+                                                    <div class="item-msg">
+                                                    	                                                        <a href="goods.php?id=714" target="_blank">航嘉 USB2/3.0电脑主机箱 ATX台式机箱电脑机箱游戏机箱 支持大板 小黑U3、 厚钢板、背线 支持大板</a>
+                                                                                                                <div class="gds-types">
+                                                                                                                                                                                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-props">
+                                                &nbsp;                                            </div>
+                                            <div class="cell s-price">
+                                                <strong id="goods_price_3"><em>¥</em>109.88</strong>
+                                            </div>
+                                            <div class="cell s-quantity">
+                                                <div class="amount-warp">
+                                                                                                                                                            <input type="text" value="1" name="goods_number[3]" id="goods_number_3" onchange="change_goods_number(3, this.value, 2, 19)" class="text buy-num" ectype="number" defaultnumber="1">
+                                                                                                        <div class="a-btn">
+                                                    	                                                        <a href="javascript:void(0);" onclick="changenum(3, 1, 2, 19)"  class="btn-add"><i class="iconfont icon-up"></i></a>
+                                                        <a href="javascript:void(0);" onclick="changenum(3, -1, 2, 19)" class="btn-reduce btn-disabled"><i class="iconfont icon-down"></i></a>
+                                                                                                            </div>
+                                                                                                    </div>
+                                                                                                <div class="tc ftx-03">有货</div>
+                                                                                            </div>
+                                            <div class="cell s-sum">
+                                                <strong id="goods_subtotal_3"><font id="_3_subtotal"><em>¥</em>109.88</font></strong>
+                                                <div class="cuttip hide">
+                                                	<span class="tit">优惠</span>
+                                                    <span class="price" id="discount_amount_3"><em>¥</em>0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-action">
+                                                <a href="javascript:void(0);" id="remove_3" ectype="cartOperation" data-value='{"divId":"cart_remove","url":"flow.php?step=drop_goods&amp;id=3","cancelUrl":"flow.php?step=drop_to_collect&amp;id=3","recid":3,"title":"删除"}' class="cart-remove">删除</a>
+                                                <a href="javascript:void(0);" id="store_3" ectype="cartOperation" data-value='{"divId":"cart_collect","url":"flow.php?step=drop_to_collect&amp;id=3","recid":3,"title":"关注"}' class="cart-store">收藏</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                </div>
+                                                                                            </div>
+                        </div>
+                                                <div class="cart-item" ectype="shopItem">
+                            <div class="shop">
+                                <div class="cart-checkbox" ectype="ckList">
+                                    <input type="checkbox" id="shopid_2" name="checkShop" class="ui-checkbox CheckBoxShop" ectype="ckShopAll" />
+                                    <label for="shopid_2" class="ui-label-14">&nbsp;</label>
+                                </div>
+                                <div class="shop-txt">
+									                                    <a href="merchants_store.php?merchant_id=2" class="shop-name"><strong>绿联专卖店</strong></a>
+									                                    
+                                                                        	<a href="javascript:;" id="IM" onclick="openWin(this)" goods_id="714" class="p-kefu" target="_blank"><i class="iconfont icon-kefu"></i></a>
+                                                                        
+                                </div>
+                            </div>
+                            <div class="item-list" ectype="itemList">
+                                                                                                <div class="item-single">
+                                                                	<div class="item-item" ectype="item" id="product_699" data-goodsid="699">
+                                        <div class="item-form">
+                                            <div class="cell s-checkbox">
+                                                <div class="cart-checkbox" ectype="ckList">
+                                                    <input type="checkbox" id="checkItem_2" value="2" name="checkItem" class="ui-checkbox" ectype="ckGoods" />
+                                                    <label for="checkItem_2" class="ui-label-14">&nbsp;</label>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-goods">
+                                                <div class="goods-item">
+                                                    <div class="p-img">
+                                                                                                                <a href="goods.php?id=699" target="_blank"><img src="__PUBLIC__/Home/images//201703/thumb_img/0_thumb_G_1490154264325.jpg" width="70" height="70" /></a>
+                                                                                                            </div>
+                                                    <div class="item-msg">
+                                                    	                                                        <a href="goods.php?id=699" target="_blank">红色特别版 Apple/苹果 iPhone 7 128G 全网通4G智能手机</a>
+                                                                                                                <div class="gds-types">
+                                                                                                                                                                                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-props">
+                                                &nbsp;                                            </div>
+                                            <div class="cell s-price">
+                                                <strong id="goods_price_2"><em>¥</em>5588.00</strong>
+                                            </div>
+                                            <div class="cell s-quantity">
+                                                <div class="amount-warp">
+                                                                                                                                                            <input type="text" value="2" name="goods_number[2]" id="goods_number_2" onchange="change_goods_number(2, this.value, 2, 19)" class="text buy-num" ectype="number" defaultnumber="2">
+                                                                                                        <div class="a-btn">
+                                                    	                                                        <a href="javascript:void(0);" onclick="changenum(2, 1, 2, 19)"  class="btn-add"><i class="iconfont icon-up"></i></a>
+                                                        <a href="javascript:void(0);" onclick="changenum(2, -1, 2, 19)" class="btn-reduce "><i class="iconfont icon-down"></i></a>
+                                                                                                            </div>
+                                                                                                    </div>
+                                                                                                <div class="tc ftx-03">有货</div>
+                                                                                            </div>
+                                            <div class="cell s-sum">
+                                                <strong id="goods_subtotal_2"><font id="_2_subtotal"><em>¥</em>11176.00</font></strong>
+                                                <div class="cuttip hide">
+                                                	<span class="tit">优惠</span>
+                                                    <span class="price" id="discount_amount_2"><em>¥</em>0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="cell s-action">
+                                                <a href="javascript:void(0);" id="remove_2" ectype="cartOperation" data-value='{"divId":"cart_remove","url":"flow.php?step=drop_goods&amp;id=2","cancelUrl":"flow.php?step=drop_to_collect&amp;id=2","recid":2,"title":"删除"}' class="cart-remove">删除</a>
+                                                <a href="javascript:void(0);" id="store_2" ectype="cartOperation" data-value='{"divId":"cart_collect","url":"flow.php?step=drop_to_collect&amp;id=2","recid":2,"title":"关注"}' class="cart-store">收藏</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                </div>
+                                                                                            </div>
+                        </div>
+                                            </div>
+                    <div class="cart-tfoot">
+                    	<div class="cart-toolbar">
+                        	<div class="w w1200">
+                            <div class="cart-checkbox cart-all-checkbox" ectype="ckList">
+                                <input type="checkbox" id="toggle-checkboxes-down" class="ui-checkbox checkboxshopAll" ectype="ckAll" />
+                                <label for="toggle-checkboxes-down" class="ui-label-14">全选</label>
+                            </div>
+                        	                            <div class="operation">
+                                <a href="javascript:void(0);" class="cart-remove-batch" data-dialog="remove_collect_dialog" data-divid="cart-remove-batch" data-removeurl="ajax_dialog.php?act=delete_cart_goods" data-collecturl="ajax_dialog.php?act=drop_to_collect" data-title="删除">删除选中的商品</a>
+                                <a href="javascript:void(0);" class="cart-follow-batch" data-dialog="remove_collect_dialog" data-divid="cart-collect-batch" data-removeurl="ajax_dialog.php?act=delete_cart_goods" data-collecturl="ajax_dialog.php?act=drop_to_collect" data-title="关注">移到我的收藏</a>
+                            </div>
+                            <div class="toolbar-right">
+                                <div class="comm-right">
+                                    <div class="btn-area">
+                                        <form name="formCart" method="post" action="flow.php" onsubmit="return get_toCart();">
+                                            <input name="goPay" type="submit" class="submit-btn" value="去支付"  id="go_pay" data-url="flow.php"/>
+                                            <input name="step" value="checkout" type="hidden" />
+                                            <input name="store_seller" value="" type="hidden" id="cart_store_seller" />
+                                            <input name="cart_value" id="cart_value" value="" type="hidden" />
+											<input name="goods_ru" id="goods_ru" value="" type="hidden" />
+                                        </form>
+                                    </div>
+                                    <div class="price-sum" id="total_desc">
+                                        <span class="txt">总价(不含运费)：</span>
+                                        <span class="price sumPrice" id="cart_goods_amount" ectype="goods_total"></span>
+                                    </div>
+                                    <div class="reduce-sum">
+                                        <span class="txt">已节省：</span>
+                                        <span class="price totalRePrice" id="save_total_amount" ectype="save_total"></span>
+                                    </div>
+                                    <div class="amount-sum">已选择<em class="cart_check_num" ectype="cartNum">0</em>件商品</div>
+                                </div>
+                            </div>
+                            </div>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="p-panel-main c-history">
+                <div class="ftit ftit-delr"><h3>猜你喜欢</h3></div>
+                <div class="gl-list clearfix">
+                    <ul class="clearfix">
+                                                                        <li class="opacity_img">
+                            <div class="p-img"><a href="goods.php?id=684" target="_blank"><img src="images/201703/thumb_img/0_thumb_G_1489109583798.jpg" width="190" height="190"></a></div>
+                            <div class="p-price"><em>¥</em>555.00</div>
+                            <div class="p-name"><a href="goods.php?id=684" target="_blank">【情侣款】Camel骆驼男靴 时尚潮流英伦风马丁靴高帮皮靴 爆卖1万双！ 情侣马丁靴 好评如潮</a></div>
+                            <div class="p-num">已售<em>35</em>件</div>
+                        </li>
+                                                                                                <li class="opacity_img">
+                            <div class="p-img"><a href="goods.php?id=685" target="_blank"><img src="images/201703/thumb_img/0_thumb_G_1489109633806.jpg" width="190" height="190"></a></div>
+                            <div class="p-price"><em>¥</em>1000.00</div>
+                            <div class="p-name"><a href="goods.php?id=685" target="_blank">春季马丁靴男真皮男靴黄靴工装军靴韩版短靴沙漠靴高帮男鞋大黄靴 头层牛皮</a></div>
+                            <div class="p-num">已售<em>2</em>件</div>
+                        </li>
+                                                                                                <li class="opacity_img">
+                            <div class="p-img"><a href="goods.php?id=679" target="_blank"><img src="images/201703/thumb_img/0_thumb_G_1489108999364.jpg" width="190" height="190"></a></div>
+                            <div class="p-price"><em>¥</em>200.00</div>
+                            <div class="p-name"><a href="goods.php?id=679" target="_blank">特步女鞋2017春季新款运动鞋休闲鞋女慢跑步鞋旅游鞋轻便舒适时尚 早春特惠 爆款休闲女鞋 赠运费险</a></div>
+                            <div class="p-num">已售<em>2</em>件</div>
+                        </li>
+                                                                                                <li class="opacity_img">
+                            <div class="p-img"><a href="goods.php?id=634" target="_blank"><img src="images/201703/thumb_img/0_thumb_G_1489102753231.jpg" width="190" height="190"></a></div>
+                            <div class="p-price"><em>¥</em>300.00</div>
+                            <div class="p-name"><a href="goods.php?id=634" target="_blank">新款韩版chic学生宽松短款外套上衣字母长袖连帽套头卫衣女潮</a></div>
+                            <div class="p-num">已售<em>2</em>件</div>
+                        </li>
+                                                                                                <li class="opacity_img">
+                            <div class="p-img"><a href="goods.php?id=683" target="_blank"><img src="images/201703/thumb_img/0_thumb_G_1489109337889.jpg" width="190" height="190"></a></div>
+                            <div class="p-price"><em>¥</em>330.00</div>
+                            <div class="p-name"><a href="goods.php?id=683" target="_blank">igtt铝框行李箱拉杆箱旅行箱万向轮男女20/24/26寸密码箱登机箱子 铝合金框 加强密码锁 万向轮 终身保修</a></div>
+                            <div class="p-num">已售<em>1</em>件</div>
+                        </li>
+                                                                                                <li class="opacity_img">
+                            <div class="p-img"><a href="goods.php?id=682" target="_blank"><img src="images/201703/thumb_img/0_thumb_G_1489109282145.jpg" width="190" height="190"></a></div>
+                            <div class="p-price"><em>¥</em>250.00</div>
+                            <div class="p-name"><a href="goods.php?id=682" target="_blank">波米铝框拉杆箱万向轮密码旅行箱子20/24寸行李箱女登机箱男26/28 顺丰速运赠运费险赠十礼品终身质保</a></div>
+                            <div class="p-num">已售<em>1</em>件</div>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+    <script type="text/javascript" src="__JS__/shopping_flow.js"></script>
+    <script type="text/javascript" src="__JS__/checkAll.js"></script>    
+    <script type="text/javascript">
+    	function changenum(rec_id, diff, warehouse_id, area_id, favourable_id){
+            var cValue = $("#cart_value").val();
+            var goods_number = Number($('#goods_number_' + rec_id).val()) + Number(diff);    
+            if(goods_number < 1){
+				pbDialog(json_languages.Purchase_restrictions,"",0)
+            }else{
+                change_goods_number(rec_id,goods_number, warehouse_id, area_id, cValue, favourable_id);
+            }
+        }
+		
+        function change_goods_number(rec_id, goods_number, warehouse_id, area_id, cValue, favourable_id){
+            if(cValue != "" || cValue == 'undefined'){
+               var cValue = $("#cart_value").val(); 
+            }
+            if(goods_number == 0){
+                //pbDialog("数量不能为0","",0);
+                goods_number = 1;
+            }
+
+            var items = $("#checkItem_" +rec_id).parents("*[ectype='promoItem']");
+            var input = items.find("*[ectype='ckGoods']");
+            var str ='';
+            input.each(function(){
+                if($(this).prop('checked')== true){
+                    var val = $(this).val();
+                    str += val + ',';
+                }
+            });
+            str = str.substring(str.length-1,0);
+            
+            Ajax.call('flow.php?step=ajax_update_cart', 'rec_id=' + rec_id + '&sel_id=' + str + '&sel_flag=' + 'cart_sel_flag' +'&goods_number=' + goods_number +'&cValue=' + cValue +'&warehouse_id=' + warehouse_id +'&area_id=' + area_id +'&favourable_id=' + favourable_id, change_goods_number_response, 'POST','JSON');                
+        }
+		
+        function change_goods_number_response(result)
+        {
+            var rec_id = result.rec_id;           
+            if(result.error == 0){
+                $('#goods_number_' +rec_id).val(result.goods_number);//更新数量
+                $('#goods_subtotal_' +rec_id).html(result.goods_subtotal);//更新小计
+				
+				if(result.dis_amount > 0){
+					$('#discount_amount_' +rec_id).parents('.cuttip').removeClass("hide");
+				}else{
+					$('#discount_amount_' +rec_id).parents('.cuttip').addClass("hide");
+				}
+				
+				$('#discount_amount_' +rec_id).html(result.discount_amount);//商品优惠价格
+				
+                if(result.goods_number == 1){
+                    $('#goods_number_' +rec_id).parents('.amount-warp').find('.btn-reduce').addClass("btn-disabled");
+                }else{
+                    $('#goods_number_' +rec_id).parents('.amount-warp').find('.btn-reduce').removeClass("btn-disabled");
+                }
+                if(result.goods_number <= 0){
+                    $('#tr_goods_' +rec_id).style.display = 'none'; //数量为零则隐藏所在行
+                    $('#tr_goods_' +rec_id).innerHTML = '';
+                }
+                $('#total_desc').html(result.flow_info);//更新合计
+                if ($('ECS_CARTINFO')){
+                    $('#ECS_CARTINFO').html(result.cart_info); //更新购物车数量
+                }
+        
+                if(result.group.length > 0){
+                    for(var i=0; i<result.group.length; i++){
+                        $("#" + result.group[i].rec_group).html(result.group[i].rec_group_number);//配件商品数量
+                        $("#" + result.group[i].rec_group_talId).html(result.group[i].rec_group_subtotal);//配件商品金额
+                    }
+                }
+                
+                $("#goods_price_" + rec_id).html(result.goods_price);
+                $("*[ectype='save_total']").html(result.save_total_amount); //优惠节省总金额
+                $("*[ectype='cartNum']").html(result.subtotal_number); //商品总数
+        
+                // 如果是优惠活动内的商品，更新优惠活动局部 qin
+                if (result.act_id){
+                    $("#product_promo_" + result.ru_id + "_" + result.act_id).html(result.favourable_box_content);
+                }
+            }else if(result.message != ''){
+				//更新数量
+                $('#goods_number_' +rec_id).val(result.cart_Num);
+				pbDialog(result.message," ",0,"",90,10);
+            }                
+        }
+		
+		//购物车悬浮框
+		cartScroll();
+		
+		//超值礼包
+		$(".package_goods ul").perfectScrollbar("destroy");
+		$(".package_goods ul").perfectScrollbar();
+    </script>
+    
+</block>

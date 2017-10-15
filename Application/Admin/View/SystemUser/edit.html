@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$meta_title}|易恒云管理平台</title>
+    <link href="__ROOT__/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="__CSS__/base.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/commons.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/module.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/style.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/{$Think.config.COLOR_STYLE}.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/brand.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/goods.css" media="all">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="__STATIC__/jquery-1.10.2.min.js"></script>
+    <![endif]--><!--[if gte IE 9]><!-->
+    <script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.mousewheel.js"></script>
+    <!--<![endif]-->
+    <script type="text/javascript" src="__JS__/layer/layer.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
+    <block name="style">
+
+        <style>
+            body{padding:20px;}
+        </style>
+    </block>
+</head>
+<body>
+<form method="post" action="{:U()}">
+    <div class="edit_user_div">
+        <div class="add_userWrap clearfix">
+            <div class="fl add_user_div"><b>*</b><input id="users" name="user" class="add_userText" type="text" placeholder="账号" value="{$user_list.username}"/></div>
+
+            <!--<div class="fl add_user_div"><b>*</b><input id="pwds" name="pwd" class="add_userText" type="password" placeholder="密码" value="{$user_list.password}"/></div>-->
+            <div class="fl add_user_div"><b>*</b><select id="pers" name="per" class="add_userText">
+                <option value="">权限角色</option>
+                <foreach name="_role" item="vo" >
+                    <if condition = "$vo['id'] eq $user_list['gid']" >
+                        <option value="{$vo.id}" selected="selected">{$vo.title}</option>
+                    <else />
+                        <option value="{$vo.id}">{$vo.title}</option>
+                    </if>
+                </foreach>
+            </select></div>
+            <span class="line"></span>
+            <input class="add_userText" type="text" id="names" name="name" placeholder="姓名" value="{$user_list.user_name}"/>
+            <input class="add_userText" type="text" id="tels" name="tel" placeholder="手机号" value="{$user_list.mobile}"/>
+            <input class="add_userText" type="text" id="emails" name="email" placeholder="邮箱" value="{$user_list.email}"/>
+            <input type="hidden" name ="id" value="{$user_list.id}">
+            <div class="add_userBtn">
+                <button class="btn btn-default brand-btnM ajax-post layui-layer-close1" onclick="layer.closeAll()">取消</button>
+                <!--<a class="btn btn-primary brand-btnM" onclick="edit_userSubmit($v['id'])">提交</a>-->
+                <button class="btn btn-primary brand-btnM" id="submit" type="submit">提交</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="__JS__/common.js"></script>
+
+<block name="script"></block>
+</body>
+</html>

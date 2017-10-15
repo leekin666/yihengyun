@@ -1,0 +1,135 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>{$meta_title}</h2>
+	</div>
+	<div class="cf">
+		<div class="fr">
+			<a class="btn btn-primary brand-btnM" href="{:U('Aptitude/add')}">+新增商家</a>
+        </div>
+        <!-- 高级搜索 -->
+		<div class="search-form fl cf">
+			<select class="search-condition" id="search_status">
+				<option value="">全部状态</option>
+				<foreach name="status" item="vo" key="key">
+					<option value='{$key}' <if condition="$status_val neq null and $status_val eq $key">selected</if>>{$vo}</option>
+				</foreach>
+			</select>
+            <div class="sleft">
+                <input type="text" name="keywords_val" class="search-input" value="{$keywords_val}" placeholder="请输入搜索信息">
+                <a class="btn-primary sch-btn" title="查询" href="javascript:;" id="search" url="{:U('Aptitude/index')}">查询</a>
+            </div>
+			
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+            <th width="3%" class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+			<th width="5%">编号</th>
+			<th width="8%">LOGO</th>
+			<th width="13%">公司名称</th>
+			<th width="25%">资质信息</th>
+			<th width="12%">免审信息</th>
+			<th class="">状态</th>
+			<th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+		<notempty name="_list">
+		<volist name="_list" id="vo">
+		<tr class="">
+            <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.b_id}" /></td>
+			<td>{$vo.b_id}</td>
+            <td><img src="{$vo.b_logo}?x-oss-process=image/resize,m_pad,h_50,w_50" style="width: 50px; height: 50px;"/></td>
+			<td>{$vo.b_name}</td>
+			<td b="{$vo.qualification}" width="22%">
+				<volist name="vo.qualification" id="to">
+					<span class="white-span">
+						<if condition="$to.q_type eq 2">品牌资质[{$to.store_name}] [联系人：{$to.contact} {$to.contact_tel}]<elseif condition="$to.q_type eq 3"/>采购资质[{$to.store_name}] [联系人：{$to.contact} {$to.contact_tel}]<elseif condition="$to.q_type eq 4"/>服务资质[{$to.store_name}] [联系人：{$to.contact} {$to.contact_tel}]</if>
+					</span>
+				</volist>
+			</td>
+			<td width="22%">
+				<if condition="$vo.store_ms eq 1"><span class="backg-span">店铺免审</span></if>
+				<if condition="$vo.brand_ms eq 1"><span class="backg-span">品牌信息免审</span></if>
+				<if condition="$vo.brand_ms eq 1"><span class="backg-span">商品信息免审</span></if>
+				<if condition="$vo.brand_ms eq 1"><span class="backg-span">运营计划免审</span></if>
+				<if condition="$vo.brand_ms eq 1"><span class="backg-span">运营合作免费</span></if>
+			</td>
+			<td><if condition="$vo.status eq 100"><span style="background:blue;color:#fff;padding:1px 4px;">正常</span><elseif condition="$vo.status eq 10"/><span style="background:red;color:#fff;padding:1px 4px;">审核未通过</span><elseif condition="$vo.status eq 1"/><span style="background: #ff876e;color:#fff;padding:1px 4px;">冻结</span><else/><span style="background:black;color:#fff;padding:1px 4px;">待审核</span></if></td>
+			<td class="operate-td">
+				<a class="brandImg-url" title="编辑" href="{:U('Aptitude/edit?id='.$vo['b_id'])}"><span class="edit-bgImg"></span></a>
+			</td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="11" class="text-center no-content"> 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+   </table>
+	</div>
+    <div class="page">
+    	<button title="冻结" class="btn btn-warning brand-freeze brand-btnM ajax-post confirm" url="{:U('Aptitude/freeze',array('status'=>'1'))}" target-form="ids">冻 结</button>
+        <button title="删除" class="btn btn btn-danger brand-freeze ajax-post confirm" url="{:U('Aptitude/delete',array('status'=>'-1'))}" target-form="ids">删 除</button>
+        <div class="page-fr">{$_page}</div>
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+		//导航高亮
+		highlight_subnav("{:U('Aptitude/index')}");
+		//搜索功能
+		$("#search").click(function(){
+			var url = $(this).attr('url');
+            var status = $("#search_status").val();
+            var query  = $('.search-form').find('input').serialize();
+            if(status){
+                query += '&status_val=' + status;
+            }
+			query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+			query = query.replace(/^&/g,'');
+			if( url.indexOf('?')>0 ){
+				url += '&' + query;
+			}else{
+				url += '?' + query;
+			}
+			window.location.href = url;
+		});
+
+		//回车搜索
+		$(".search-input").keyup(function(e){
+			if(e.keyCode === 13){
+				$("#search").click();
+				return false;
+			}
+		});
+
+		//状态搜索
+		$("#search_status").change(function(){
+            var url = $("#search").attr('url');
+			var status = $(this).val();
+            var query  = $('.search-form').find('input').serialize();
+            if(status){
+                query += '&status_val=' + status;
+            }
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if( url.indexOf('?')>0 ){
+                url += '&' + query;
+            }else{
+                url += '?' + query;
+            }
+            window.location.href = url;
+		});
+
+	</script>
+
+</block>

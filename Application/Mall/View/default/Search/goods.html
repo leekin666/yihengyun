@@ -1,0 +1,425 @@
+<extend name="Base/common"/>
+
+
+<block name="body">
+	
+	<script type="text/javascript">
+	$(function(){
+		var _style = "{:I('style')}";
+		var _url = window.location.href;
+		//判断有无#号
+		var _url_md= _url.indexOf('#');
+		var _url_md_new = "";
+		if(_url_md>=0){
+			_url_md_new = _url.substring(_url_md);
+			_url = _url.substring(0,_url_md);		
+		}
+		
+		
+		
+		var s_str = _url.indexOf('style');		
+		var style_str = _url.substring(s_str+6,s_str+7);
+		if(s_str>=0){
+			var b_str = _url.substring(0,s_str+6);
+		}else{
+			var b_str = _url.substring(0);
+		}		
+		var e_str = _url.substring(s_str+7);
+		
+		var _htmlLen = -1;
+		var p_str = _url.indexOf('.html');
+		var p_str_2 = _url.indexOf('.htm');
+		if(p_str>=0){
+			_htmlLen = p_str;
+		}else if(p_str_2>=0){
+			_htmlLen = p_str_2;
+		}
+		var p_before = _url.substring(0,_htmlLen);
+		
+		var main = $("*[ectype='gMain']");
+		if(_style=="g"||_style==""){
+			$("*[ectype='fsortTab'] .item").first().addClass("current");
+			main.find(".gl-warp-large").show();
+			main.find(".gl-warp-samll").hide();
+			if(_style=="g"){				
+				var newUrl =b_str+"l"+ e_str+_url_md_new;
+				$("*[ectype='fsortTab'] .item").last().find("a").attr("href",newUrl);
+			}
+			if(_style==""){
+				if(_htmlLen>=0){
+					var newUrl = p_before+"/style/"+"l"+_url_md_new;
+					$("*[ectype='fsortTab'] .item").last().find("a").attr("href",newUrl);
+				}else{
+					var newUrl = b_str+"/style/"+"l"+_url_md_new;
+					$("*[ectype='fsortTab'] .item").last().find("a").attr("href",newUrl);
+				}				
+			}			
+		}else if(_style=="l"){
+			$("*[ectype='fsortTab'] .item").last().addClass("current");
+			main.find(".gl-warp-large").hide();
+			main.find(".gl-warp-samll").show();		
+			var newUrl = b_str+"g"+e_str+_url_md_new;
+			$("*[ectype='fsortTab'] .item").first().find("a").attr("href",newUrl);			
+		}else{
+			$("*[ectype='fsortTab'] .item").first().addClass("current");
+			main.find(".gl-warp-large").show();
+			main.find(".gl-warp-samll").hide();
+			var newUrl = b_str+"l"+_url_md_new;
+			$("*[ectype='fsortTab'] .item").last().find("a").attr("href",newUrl);
+		}
+	})
+		
+		
+	</script>
+	<div class="w w1390 hide">
+    	<div class="crumbs-nav">
+			<div class="crumbs-nav-main clearfix">
+				<div class="crumbs-nav-item">
+					<div class="menu-drop">
+						<div class="trigger">
+							<a href="{:U('Category/index?id='.$vo[goods_id])}"><span>{$_goodsdetail.category_name.top}</span></a>
+							<i class="iconfont icon-down"></i>
+						</div>
+						<div class="menu-drop-main">
+							<ul>
+								<foreach name="_goods_list" item="to">
+									<li><a href="{:U('Category/index?id='.$to[id])}">{$to.name}</a></li>
+								</foreach>
+							</ul>
+						</div>
+					</div>
+					<i class="iconfont icon-right"></i>
+				</div>
+				<div class="crumbs-nav-item">
+					<div class="menu-drop">
+						<div class="trigger aHover-boder">
+							<a><span>{$_goodsdetail.category_name.crrent}</span></a>
+							<!--<i class="iconfont icon-down"></i>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <div class="container pt20">
+    	<div class="w w1390">
+            <div class="selector">                
+				<div class="right-extra" rewrite=0>
+				    <div class="u_cloose">
+						<dl>
+							<dt>已选条件：</dt>
+							<dd>
+								<if condition="$brandName" >
+									<div class="get_item" title="{$brand_info.brand_name}">
+										<b>品牌：</b>
+										<em>{$brandName}</em>
+										<a href="/Mall/search/goods/price_min/{$price_min}/price_max/{$price_max}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}"></a>
+									</div>
+								</if>
+								<if condition="$price_max" >
+									<div class="get_item" >
+										<b>价格：</b>
+										<em>{:I('price_min')}-{:I('price_max')}</em>
+										<a href="/Mall/search/goods/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}"></a>
+									</div>
+								</if>
+							</dd>
+							<dd class="give_up_all">
+								<a href="/Mall/search/goods/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}" class="ftx-05">全部撤销</a>
+							</dd>
+						</dl>
+				    </div>
+					<div class="goods_list">
+						<ul class="attr_father">			
+                        	<li class="s-line">
+				                <div class="s-l-wrap brand_img attr_list">
+				                    <div class="s-l-tit brand_name_l">品牌：</div>
+				                    <div class="s-l-value brand_select_more">
+				                        <div class="wrap_brand">  
+				                            <div class="brand_div">
+												<foreach name="brand_list" item="brand">
+                                                <div class="brand_img_word" brand ="Y">
+                                                    <a href="/Mall/search/goods/brand_id/{$brand.brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}">
+			                                        	<img src="{$brand.logo}" alt="{$brand.brand_name}" title="{$brand.brand_name}">
+			                                        	<span>{$brand.brand_name}</span>
+			                                        </a>
+                                                </div>
+												</foreach>
+                                        	</div>
+                        				</div>
+				                        <div class="zimu_list">
+				                            <ul class="get_more">
+												<foreach name="brand_list" item="brand">
+													<li class="is_no" brand ="Y" url_id="{$brand.brand_id}"><span class="choose_ico"></span><a class="goods_brand_name" data-url="/Mall/search/goods/brand_id/{$brand.brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}">{$brand.brand_name}</a></li>
+												</foreach>
+                                            </ul>
+				                        </div>
+				                        <div class="enter_yes_no">
+				                            <div class="ct_auto">
+				                                <span class="yes_bt botton disabled">确定</span>
+				                                <span class="no_bt botton">关闭</span>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <div class="s-l-opt sl-ext">
+				                        <div class="choose_open s-l-more"><i class="iconfont icon-down"></i></div>
+				                        <div class="choose_more s-l-multiple"><i class="iconfont icon-plus"></i>多选</div>
+				                    </div>
+				                </div>
+				            </li>
+                        
+            
+                        	<li class="s-line">
+				                <dl class="s-l-wrap">
+				                    <div class="s-l-tit filter_attr_name">价格：</div>
+				                    <div class="s-l-value attr_son">
+				                        <div class="price_auto fl">
+											<div class="price_range"><a href="/Mall/search/goods/brand_id/{$brand_id}/price_min/0/price_max/100/p/{$p}/sort/{$sort}/order/{$order}">0&nbsp;-&nbsp;100</a></div>
+											<div class="price_range"><a href="/Mall/search/goods/brand_id/{$brand_id}/price_min/100/price_max/300/p/{$p}/sort/{$sort}/order/{$order}">100&nbsp;-&nbsp;300</a></div>
+											<div class="price_range"><a href="/Mall/search/goods/brand_id/{$brand_id}/price_min/300/price_max/500/p/{$p}/sort/{$sort}/order/{$order}">300&nbsp;-&nbsp;500</a></div>
+											<div class="price_range"><a href="/Mall/search/goods/brand_id/{$brand_id}/price_min/500/price_max/1000/p/{$p}/sort/{$sort}/order/{$order}">500&nbsp;-&nbsp;1000</a></div>
+											<div class="price_range"><a href="/Mall/search/goods/brand_id/{$brand_id}/price_min/1000/price_max/10000/p/{$p}/sort/{$sort}/order/{$order}">1000&nbsp;-&nbsp;10000</a></div>
+										</div>
+				                        <div class="price_auto price_bottom fl">
+				                            <input type="text" title="最低价" name="price_min" class="price_class price_min" value="{$price_min|default=0}">
+				                            <span class="price_class span_price_class">-</span>
+				                            <input type="text" title="最高价" name="price_max" class="price_class price_max" value="{$price_max}">
+				                            <button class="price_ok price_class">确定</button>
+				                        </div>
+				                    </div>
+				                </dl>
+				            </li>
+            			</ul>
+    				</div>
+					<div class="click_more s-more"><span class="sm-wrap"><strong>更多选项</strong><i class="iconfont icon-down"></i></span></div>
+				</div>
+            </div>
+            <div class="filter">
+        		<div class="filter-wrap">
+				    <div class="filter-sort">
+                        <if condition="$sort eq 'id' && $order eq 'DESC'">
+				            <a href="/Mall/search/goods/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/id/order/ASC/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}" <if condition="$sort eq 'id'">class="curr"</if>>综合<i class="iconfont icon-arrow-down"></i></a>
+                        <else/>
+                            <a href="/Mall/search/goods/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/id/order/DESC/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}" <if condition="$sort eq 'id'">class="curr"</if>>综合<i class="iconfont icon-arrow-up"></i></a>
+                        </if>
+				        <!--<a href="/Mall/search/goods/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/sales_volume/order/DESC/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}" class="">销量<i class="iconfont icon-arrow-up"></i></a>-->
+                        <if condition="$sort eq 'update_time' && $order eq 'DESC'">
+                            <a href="/Mall/search/goods/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/update_time/order/ASC/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}"  <if condition="$sort eq 'update_time'">class="curr"</if>>新品<i class="iconfont icon-arrow-down"></i></a>
+                        <else/>
+                            <a href="/Mall/search/goods/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/update_time/order/DESC/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}"  <if condition="$sort eq 'update_time'">class="curr"</if>>新品<i class="iconfont icon-arrow-up"></i></a>
+                        </if>
+                        <if condition="$sort eq 'price' && $order eq 'DESC'">
+                            <a href="/Mall/search/goods/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/price/order/ASC/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}" <if condition="$sort eq 'price'">class="curr"</if>>价格<i class="iconfont icon-arrow-down"></i></a>
+                        <else/>
+                            <a href="/Mall/search/goods/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/price/order/DESC/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}" <if condition="$sort eq 'price'">class="curr"</if>>价格<i class="iconfont icon-arrow-up"></i></a>
+                        </if>
+				    </div>
+				    <div class="filter-range">
+				        <div class="fprice">
+				        	<form method="GET" action="/Mall/search/goods/style/{$style}/p/{$p}/sort/{$sort}/order/{$order}/brand_id/{$brand_id}/store_search_cmt/{$store_search_cmt}/search_type/{$search_type}/keywords/{$keyword}" class="sort" name="listform">
+                                <div class="fP-box">
+				                    <input type="text" name="price_min" class="f-text price-min" autocomplete="off" maxlength="6" placeholder="￥" id="price-min" value="{$price_min|default=0}">
+				                    <span>&nbsp;~&nbsp;</span>
+				                    <input type="text" name="price_max" class="f-text price-max" autocomplete="off" maxlength="6" placeholder="￥" id="price-max" value="{$price_max}">
+				                </div>
+				                <div class="fP-expand">
+				                	<a class="ui-btn-s ui-btn-clear" href="javascript:void(0);" id="clear_price">清空</a>
+									<a href="javascript:void(0);" class="ui-btn-s ui-btn-s-primary ui-btn-submit">确定</a>
+				                </div>
+				            </form>
+				        </div>
+				        <div class="fcheckbox">
+				                <div class="checkbox_items">
+				                <div class="checkbox_item ">
+				                    <input type="checkbox" name="fk-type" class="ui-checkbox" value="" id="store-checkbox-013" >
+				                    <label class="ui-label" for="store-checkbox-013">仅显示有货</label>
+				                    <i id="input-i1" rev=""></i>
+				                    <i id="input-i2" rev=""></i>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+    				<div class="filter-right">
+		                <div class="button-page">
+				            <span class="pageState"><span>1</span>/1</span>
+				            <a href="javascript:void(0);" title="上一页"><i class="iconfont icon-left"></i></a>
+				            <a href="javascript:void(0);" title="下一页"><i class="iconfont icon-right"></i></a>
+				        </div>                 
+				        <div class="styles">
+				            <ul class="items" ectype="fsortTab">
+				                <li class="item" data-type="large"><a href="javascript:void(0)" title="大图模式"><span class="iconfont icon-switch-grid"></span>大图</a></li>
+				                <li class="item" data-type="samll"><a href="javascript:void(0)" title="小图模式"><span class="iconfont icon-switch-list"></span>小图</a></li>
+				            </ul>
+				        </div>
+            		</div>
+				</div>    
+            </div>
+			<div class="g-view w">
+			    <div class="goods-list w1390" ectype="gMain">
+					<notempty name="_lists">
+						<div class="gl-warp gl-warp-large">
+							<form name="compareForm" action="compare.php" method="post" onSubmit="return compareGoods(this);" class="goodslistForm" data-state="0">
+								<ul>
+									<foreach name="_lists" item="vo">
+									<li class="gl-item">
+										<div class="gl-i-wrap">
+											<div class="p-img">
+												<a href="{:U('Goods/index?id='.$vo[goods_id])}" target="_blank">
+													<if condition="!$vo['goods_img']['m'][0]">
+														<img src="__PUBLIC__/Mall/img/default_goodsimg.png" />
+													<else/>
+														<img src="{$vo['goods_img']['m'][0]}" />
+													</if>
+												</a>
+											</div>
+											<div class="sider" style="height: 30px;">
+												<notempty name="vo.goods_img.f">
+													<ul>
+														<foreach name="vo.goods_img.f" item="v">
+															<li>
+																<img src="{$v}" width="26" height="26" />
+															</li>
+														</foreach>
+												   </ul>
+												</notempty>
+											</div>
+											<div class="p-lie">
+												<div class="p-price">
+													<em>¥</em>{$vo.price}
+												</div>
+												<div class="p-num">已售<em>10</em>件</div>
+											</div>
+											<div class="p-name"><a href="{:U('Goods/index?id='.$vo[goods_id])}" title="{$vo.goods_name}" target="_blank">{$vo.goods_name}</a></div>
+											<div class="p-store">
+												<a href="" title="{$vo.store_name}" class="store" target="_blank">{$vo.store_name}</a>
+												<!--<a href="javascript:;" id="IM" onclick="openWin(this)" ru_id="0" class="p-kefu p-c-violet"><i class="iconfont icon-kefu"></i></a>-->
+
+											</div>
+											<div class="p-activity">
+												<if condition="$vo['is_new'] eq 1">
+													<span class="tag tac-mn">
+														<i class="i-left"></i>
+														新品
+														<i class="i-right"></i>
+													</span>
+												</if>
+												<if condition="$vo['is_hot'] eq 1">
+													<span class="tag tac-mh">
+														<i class="i-left"></i>
+															热卖
+														<i class="i-right"></i>
+													</span>
+												</if>
+												<if condition="$vo['is_boutique'] eq 1">
+													<span class="tag tac-mb">
+														<i class="i-left"></i>
+															精品
+														<i class="i-right"></i>
+													</span>
+												</if>
+												<if condition="$vo['is_cross'] eq 1">
+													<span class="tag tac-sr">
+														<i class="i-left"></i>
+															 跨境
+														<i class="i-right"></i>
+													</span>
+												</if>
+											</div>
+											<div class="p-operate goods-list-add">
+												<!--<a href="javascript:void(0);" id="compareLink">
+													<input id="{$vo.goods_id}" type="checkbox" name="duibi" class="ui-checkbox" onClick="Compare.add(this, '{$vo.goods_id}','{$vo.goods_name}','0', '{$vo[goods_img][m][0]}', '<em>¥</em>{$vo.price}', '<em>¥</em>{$vo.market_price}')">
+													<label class="ui-label" for="{$vo.goods_id}">对比</label>
+												</a>
+												<a href="javascript:collect('{$vo.goods_id}');" class="choose-btn-coll"><i class="iconfont icon-zan-alt"></i>收藏</a>-->
+												<a href="javascript:void(0);" onClick="javascript:addToCart('{$vo.goods_id}',0,event,this,'flyItem');" rev="{$vo[goods_img][m][0]}" data-dialog="addCart_dialog" data-divid="addCartLog" data-title="请选择属性" class="addcart">
+													<i class="iconfont icon-carts"></i>加入购物车
+												</a>
+											</div>
+										</div>
+									</li>
+									</foreach>
+								</ul>
+							</form>
+							<div id="flyItem" class="fly_item"><img src="" width="40" height="40"></div>
+						</div>
+						<div class="gl-warp gl-warp-samll">
+							<form name="compareForm_cat" id="compareForm_cat" action="compare.php" method="post" onSubmit="return compareGoods(this);" class="goodslistForm" data-state="0">
+								<ul>
+									<foreach name="_lists" item="vo">
+									<li class="gl-h-item ">
+										<div class="gl-i-wrap">
+											<div class="col col-1">
+												<div class="p-img">
+													<a href="{:U('Goods/index?id='.$vo[goods_id])}" target="_blank">
+														<if condition="$vo[goods_img][m][0]">
+															<img src="{$vo[goods_img][m][0]}">
+															<else/>
+															<img src="__PUBLIC__/Mall/img/default_goodsimg.png" />
+														</if>
+													</a>
+												</div>
+												<div class="p-right">
+													<div class="p-name"><a href="{:U('Goods/index?id='.$vo[goods_id])}" title="{$vo.goods_name}" target="_blank">{$vo.goods_name}</a></div>
+													<div class="p-lie">
+														<div class="p-num">销量：10</div>
+														<!--<div class="p-comm">评价：10</div>-->
+													</div>
+												</div>
+											</div>
+											<div class="col col-2">
+												<div class="p-store">
+													<a href="" title="{$vo.store_name}" target="_blank">{$vo.store_name}</a>
+													<!--<a href="javascript:;" id="IM" onclick="openWin(this)" ru_id="0" class="p-kefu"><i class="iconfont icon-kefu"></i></a>	-->
+												</div>
+											</div>
+											<div class="col col-3">
+												<div class="p-price">
+													<div class="shop-price">
+														<em>¥</em>{$vo.price}
+													</div>
+													<div class="original-price"><em>¥</em>{$vo.market_price}</div>
+												</div>
+											</div>
+											<div class="col col-4">
+												<div class="p-operate">
+													<!--<a href="javascript:void(0);" id="compareLink">
+														<input id="duibi_{$vo.goods_id}" type="checkbox" name="duibi" class="ui-checkbox" onClick="Compare.add(this, '{$vo.goods_id}','{$vo.goods_name}','0', '{$vo[goods_img][m][0]}', '<em>¥</em>{$vo.price}', '<em>¥</em>{$vo.market_price}')">
+														<label class="ui-label" for="duibi_{$vo.goods_id}">对比</label>
+													</a>
+													<a href="javascript:collect('{$vo.goods_id}');" class="choose-btn-coll">
+														<i class="iconfont icon-zan-alt"></i>收藏
+													</a>-->
+													<a href="javascript:void(0);" onClick="javascript:addToCart('{$vo.goods_id}',0,event,this,'flyItem2');" rev="{$vo[goods_img][m][0]}" data-dialog="addCart_dialog" data-id="" data-divid="addCartLog" data-url="" data-title="请选择属性" class="addcart">
+														<i class="iconfont icon-carts"></i>加入购物车
+													</a>
+												</div>
+											</div>
+										</div>
+									</li>
+									</foreach>
+								</ul>
+							</form>
+							<div id="flyItem2" class="fly_item2"><img src="" width="40" height="40"></div>
+						</div>
+					<else/>
+						<div class="no_records">
+							<i class="no_icon_two"></i>
+							<div class="no_info no_info_line">
+								<h3>抱歉，没有找到符合条件的数据</h3>
+								<div class="no_btn">
+									<a href="/Mall/index" class="btn sc-redBg-btn">返回首页</a>
+								</div>
+							</div>
+						</div>
+					</notempty>
+			        <input type="hidden" value="2" id="region_id" name="region_id">
+			        <input type="hidden" value="19" id="area_id" name="area_id">
+			        <div class="clear"></div>
+    			</div>    
+			</div>
+			<div class="pages-inner">
+				{$_page}
+			</div>
+        </div>
+   </div>    
+</block>

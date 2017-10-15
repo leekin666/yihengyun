@@ -1,0 +1,873 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+	<script type="text/javascript" src="__JS__/myQuery.js"></script>
+	<style>
+		.controls select.region_select{
+			width: 150px;
+			min-width: auto;
+		}
+		.qualification{
+			margin-bottom: 70px;
+		}
+		.form-item{
+			margin-top: 10px;
+		}
+		checkbox{
+			background: white;
+		}
+	</style>
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>    
+    <form action="{:U('Aptitude/add')}" method="post" class="form-horizontal" id="merchants_window_form"  enctype="multipart/form-data">
+    	<ul class="goods_add_tab controls">
+    		<li class="stat_on">基本信息</li>
+    		<li>资质信息</li>
+    		<li>电子证件</li>
+    		<li>管理配置</li>
+    	</ul>
+    	<div class="goods_add_info apt-add">
+    		<!--
+            	作者：cnzap@sina.cn
+            	时间：2017-08-30
+            	描述：基本信息
+            -->
+    		<div class="goods_info_item" style="display: block;">
+    			<div class="form-item">
+		        	<label class="item-label">公司名称 <span class="red">*</span></label>
+		            <div class="controls">
+						<input type="text" class="text input-large fl" name="b_name" value="{$row.b_name}" id="b_name">
+						<div class="box_error fl red block"></div>
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">统一社会信用代码</label>
+		            <div class="controls">
+						<input type="text" class="text input-large fl" name="credit_code" value="{$row.credit_code}" id="credit_code">
+						<div class="box_error fl red block"></div>
+		            </div>            
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">营业执照公司类型：</label>
+		            <div class="controls">
+		                <select name="type">
+							<foreach name="_type" item="vo" key="key">
+								<option value="{$key}" <if condition="$row.comany_type eq $key">selected</if>>{$vo}</option>
+							</foreach>
+						</select>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">公司住所： </label>
+		            <div class="controls">
+		                <input type="text" class="text input-large fl" name="address" value="{$row.address}" id="address">
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">法定代表人： </label>
+		            <div class="controls">
+		                <input type="text" class="text input-large fl" name="legal_representative" value="{$row.legal_representative}" id="legal_representative">
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">法定代表人身份证号：</label>
+		            <div class="controls">
+		                <input type="text" class="text input-large fl" name="id_number" value="{$row.id_number}" id="id_number">
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">注册资本： </label>
+		            <div class="controls">
+		                <div class="fl input_r_text"><input type="text" class="text input-large fl" name="registered_capital" onkeyup="this.value=this.value.replace(/[^\d\.]/g, '')" value="{$row.registered_capital}" id="registered_capital"><span>万元</span></div>
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">成立日期： </label>
+		            <div class="controls">
+		                <div class="fl input_r_text"><input type="text" class="text input-large fl" name="create_term" value="{$row.create_term}" id="time-start"></div>
+		                <div class="box_error fl red"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">营业期限：</label>
+		            <div class="controls">
+		            	<div class="fl input_r_text"><input type="text" class="text fl" name="begion_term" value="{$row.begion_term}" id="begion_term"></div><span class="fl lh40" style="margin: 1px 2px 0px 2px;">&nbsp;至&nbsp;</span>
+						<div class="fl input_r_text"><input type="text" class="text fl" name="end_term" value="{$row.end_term}" id="end_term"></div>
+		            </div>
+		        </div>
+		        <div class="form-item">
+		        	<label class="item-label">经营范围：</label>
+		            <div class="controls">
+		            	<div class="fl input_r_text"><input type="text" class="text input-large fl" name="scope_business" value="{$row.scope_business}" id="scope_business"></div>
+		            </div>
+		        </div>		        
+		        <div class="form-item">
+		        	<label class="item-label">办公地址：</label>
+		            <div class="controls">
+						<div class="fl input_r_text"><input type="text" class="text input-large fl" name="address" value="{$row.address}" id="address"></div>
+					</div>
+		        </div>
+				<div class="form-item">
+					<label class="item-label">办公电话：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><input type="text" class="text input-large fl" name="mobile" value="{$row.mobile}" id="mobile"></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">公司网址：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><input type="text" class="text input-large fl" name="business_url" value="{$row.business_url}" id="business_url"></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">公司类型：</label>
+					<div class="controls">
+						<div class="fl input_r_text">
+							<select name="comany_type">
+							<foreach name="_type" item="vo" key="key">
+								<option value="{$key}" <if condition="$row.comany_type eq $key">selected</if>>{$vo}</option>
+							</foreach>
+						</select>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">公司银行账号：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><input type="text" class="text input-large fl" name="account_number" value="{$row.account_number}" id="account_number"></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">开户银行支行名称：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><input type="text" class="text input-large fl" name="bank_name" value="{$row.bank_name}" id="bank_name"></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">开户银行支行联行号：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><input type="text" class="text input-large fl" name="union_line_number" value="{$row.union_line_number}" id="union_line_number"></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">开户银行支行所在地：</label>
+					<div class="controls">
+						<select class="region_select" onChange="change_region($(this),$('#provnice').attr('id'))" id="provnice" name="provnice">
+							<option value="">--请选择省市--</option>
+							<foreach name="_region" item="vo">
+								<option value="{$vo.region_id}" <if condition="$vo.region_id eq $row.provnice"> selected </if>>{$vo.local_name}</option>
+							</foreach>
+						</select>
+						<select class="region_select" onChange="change_region($(this),$('#city').attr('id'),'{$row.city}')" id="city" name="city">
+
+						</select>
+						<select class="region_select" onChange="change_region($(this),$('#area').attr('id'),'{$row.area}')" id="area" name="area">
+
+						</select>
+					</div>
+				</div>
+    		</div>
+		</div>
+    		<div class="goods_info_item">
+				<div class="qualification">
+					<div class="form-item">
+						<input type="hidden" value="{$row.qual.0.q_id}" name="q_id">
+						<label class="item-label">品牌方资质：</label>
+						<div class="controls">
+							<label><input type="checkbox" name="brand_zz" value="1" id="bran_zz"  <if condition="$row[qual][0][q_type] eq 2"> checked="checked"</if>> 开通</label>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">店铺名称：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="name" value="{$row.qual.0.store_name}" id="name"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">店铺简介：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="summary" value="{$row.qual.0.summary}" id="summary"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">业务联系人：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="contact" value="{$row.qual.0.contact}" id="contact"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">业务联系电话：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="contact_tel" value="{$row.qual.0.contact_tel}" id="contact_tel"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">账期：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="account_period" value="{$row.qual.0.account_period}" id="period"><span>天</span></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">备注：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="remark" value="{$row.qual.0.remark}" id="remark"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="qualification">
+					<div class="form-item">
+						<input type="hidden" value="{$row.qual.0.q_id}" name="c_q_id">
+						<label class="item-label">采购方资质：</label>
+						<div class="controls">
+							<label><input type="checkbox" name="c_zz" value="1" id="c_zz" <if condition="$row[qual][1][q_type] eq 3"> checked ="checked" </if>> 开通</label>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">业务联系人：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="c_contact" value="{$row.qual.1.contact}" id="c_contact"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">业务联系电话：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="c_mobile" value="{$row.qual.1.contact_tel}" id="c_mobile"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">账期：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="c_period" value="{$row.qual.1.account_period}" id="c_period"><span>天</span></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">备注：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="c_remark" value="{$row.qual.1.remark}" id="c_remark"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="qualification">
+					<div class="form-item">
+						<input type="hidden" value="{$row.qual.0.q_id}" name="f_q_id">
+						<label class="item-label">服务方资质：</label>
+						<div class="controls">
+							<label><input type="checkbox" name="f_zz" value="1" id="f_zz" <if condition="$row[qual][2][q_type] eq 4"> checked="checked"</if>> 开通</label>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">店铺名称：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="f_name" value="{$row.qual.2.store_name}" id="f_name"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">店铺简介：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="f_summary" value="{$row.qual.2.summary}" id="f_summary"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">业务联系人：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="f_contact" value="{$row.qual.2.contact}" id="f_contact"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">业务联系电话：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="f_mobile" value="{$row.qual.2.contact_tel}" id="f_mobile"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">账期：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="f_period" value="{$row.qual.2.period}" id="f_period"><span>天</span></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">备注：</label>
+						<div class="controls">
+							<div class="fl input_r_text"><input type="text" class="text input-large fl" name="f_remark" value="{$row.qual.2.remark}" id="f_remark"></div>
+						</div>
+					</div>
+				</div>
+    		</div>
+    		<!--
+            	作者：cnzap@sina.cn
+            	时间：2017-08-30
+            	描述：其他信息
+            -->
+    		<div class="goods_info_item">
+					<div class="form-item">
+						<label class="item-label">营业执照副本：</label>
+						<div class="controls">
+							<div class="upload-img-box" id="upimg" style="display: block">
+								<if condition="$row[copy_licence]">
+									<div class="upload-pre-item logo_show"><img id="tmp_img" src="{$row.copy_licence}"/><b class="logo-close" onclick="closeLogo(this,'{$main_pic[\'id\']}')"></b><i></i></div>
+									<else/>
+									<notempty name="info['icon']">
+										<div class="upload-pre-item"><img id="tmp_img" src=src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+									</notempty>
+								</if>
+							</div>
+							<input type="file" id="upload_picture">
+							<input type="hidden" name="icon" id="icon" value="{$info['icon']|default=''}"/>
+							<input type="hidden" class="log_path" name="copy_license" id="img_path" value="{$row.copy_licence}">
+							<input type="hidden" name ="pic_id" value="{$main_pic.id}">
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">法人身份证： </label>
+						<div class="controls">
+							<div class="upload-img-box1" id="upimg1">
+								<if condition="$row['b_card']">
+									<div class="upload-pre-item logo_show"><img id="tmp_img1" src="{$row.b_card}"/><b class="logo-close" onclick="closeLogo(this,'{$main_pic[\'id\']}')"></b><i></i></div>
+									<else/>
+									<notempty name="info['icon']">
+										<div class="upload-pre-item1"><img id="tmp_img1" src=src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+									</notempty>
+								</if>
+							</div>
+							<input type="file" id="upload_picture1">
+							<input type="hidden" name="icon1" id="icon1" value="{$info['icon']|default=''}"/>
+							<input type="hidden" class="log_path" name="b_card" id="img_path1" value="{$row.b_card}">
+							<input type="hidden" name ="pic_id1" value="{$main_pic.id}">
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">开户银行许可证：</label>
+						<div class="controls">
+							<div class="upload-img-box2" id="upimg2">
+								<if condition="$row['b_licence']">
+									<div class="upload-pre-item logo_show"><img id="tmp_img2" src="{$row.b_licence}"/><b class="logo-close" onclick="closeLogo(this,'{$main_pic[\'id\']}')"></b><i></i></div>
+									<else/>
+									<notempty name="info['icon']">
+										<div class="upload-pre-item2"><img id="tmp_img2" src=src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+									</notempty>
+								</if>
+							</div>
+							<input type="file" id="upload_picture2">
+							<input type="hidden" name="icon2" id="icon2" value="{$info['icon']|default=''}"/>
+							<input type="hidden" class="log_path" name="b_licence" id="img_path2" value="{$row.b_licence}">
+							<input type="hidden" name ="pic_id2" value="{$main_pic.id}">
+							<div class="box_error fl red"></div>
+						</div>
+					</div>
+					<div class="form-item">
+						<label class="item-label">企业LOGO：</label>
+						<div class="controls">
+							<div class="upload-img-box3" id="upimg3">
+								<if condition="$row['b_logo']">
+									<div class="upload-pre-item logo_show"><img id="tmp_img3" src="{$row.b_logo}"/><b class="logo-close" onclick="closeLogo(this,'{$main_pic[\'id\']}')"></b><i></i></div>
+									<else/>
+									<notempty name="info['icon']">
+										<div class="upload-pre-item3"><img id="tmp_img3" src=src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+									</notempty>
+								</if>
+							</div>
+							<input type="file" id="upload_picture3">
+							<input type="hidden" name="icon3" id="icon3" value="{$info['icon']|default=''}"/>
+							<input type="hidden" class="log_path" name="b_logo" id="img_path3" value="{$row.b_logo}">
+							<input type="hidden" name ="pic_id3" value="{$main_pic.id}">
+							<div class="box_error fl red"></div>
+						</div>
+					</div>
+    		</div>
+    		<!--
+            	作者：cnzap@sina.cn
+            	时间：2017-08-30
+            	描述：管理配置
+            -->
+    		<div class="goods_info_item">
+				<!--<div class="form-item">-->
+					<!--<label class="item-label">管理员账号：</label>-->
+					<!--<div class="controls">-->
+						<!--<div class="fl input_r_text"><input type="text" class="text input-large fl" name="admin_acount" value="{$row.admin_acount}" id="admin_acount"></div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-item">-->
+					<!--<label class="item-label">管理员密码：</label>-->
+					<!--<div class="controls">-->
+						<!--<div class="fl input_r_text"><input type="password" class="text input-large fl" name="admin_password" value="" id="admin_password"></div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-item">-->
+					<!--<label class="item-label">确认密码：</label>-->
+					<!--<div class="controls">-->
+						<!--<div class="fl input_r_text"><input type="password" class="text input-large fl" name="secoud_password" value="" id="secoud_password"></div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<div class="form-item">
+					<label class="item-label">分配管理员：</label>
+					<div class="controls">
+						<select name="group_id">
+							<option value="">--请选择管理员--</option>
+							<foreach name="role" item="vo" key="key">
+								<option value="{$vo.uid}">{$vo.user_name}</option>
+							</foreach>
+						</select>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">店铺信息免审：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><label><input type="checkbox" class="" name="store_ms" value="1" id="weight" <if condition="$row[store_ms] eq 1"> checked="checked"</if>> 确认</label></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">品牌信息免审：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><label><input type="checkbox" class="" name="brand_ms" value="1" id="weight" <if condition="$row[brand_ms] eq 1"> checked="checked"</if>> 确认</label></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">商品信息免审：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><label><input type="checkbox" class="" name="goods_ms" value="1" id="weight" <if condition="$row[goods_ms] eq 1"> checked="checked"</if>> 确认</label></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">运营计划免审：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><label><input type="checkbox" class="" name="oprate_ms" value="1" id="weight" <if condition="$row[oprate_ms] eq 1"> checked="checked"</if>> 确认</label></div>
+					</div>
+				</div>
+				<div class="form-item">
+					<label class="item-label">运营合作免费：</label>
+					<div class="controls">
+						<div class="fl input_r_text"><label><input type="checkbox" class="" name="oprate_free" value="1" id="weight" <if condition="$row[oprate_free] eq 1"> checked="checked"</if>> 确认</label></div>
+					</div>
+				</div>
+    		</div>
+    	</div>
+        <div class="form-item pt20">
+            <input type="hidden" name ="b_id" value="{$row.b_id}">
+            <button class="btn btn-info brand-btnM" onclick="javascript:history.back(-1);return false;">返回</button>
+			<button class="btn  btn-primary ajax-post" id="submit" type="submit" target-form="form-horizontal">提交</button>
+        </div>
+    </form>   
+</block>
+
+<block name="script">
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+		//导航高亮
+		highlight_subnav("{:U('Aptitude/index')}");
+          
+        $('#time-start').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true,
+            pickerPosition:'top-right'
+        });
+        $('#begion_term').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true,
+            pickerPosition:'top-right'
+        });
+        $('#end_term').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true,
+            pickerPosition:'top-right'
+        });
+
+        //上传图片
+        /* 初始化上传插件 */
+        $("#upload_picture").uploadify({
+            "height"          : 30,
+            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName"     : "download",
+            "buttonText"      : "上传",
+            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            "width"           : 120,
+            'removeTimeout'	  : 1,
+            'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+            "onUploadSuccess" : uploadPicture,
+        });
+        //上传图片
+        /* 初始化上传插件 */
+        $("#upload_picture1").uploadify({
+            "height"          : 30,
+            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName"     : "download",
+            "buttonText"      : "上传",
+            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            "width"           : 120,
+            'removeTimeout'	  : 1,
+            'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+            "onUploadSuccess" : uploadPicture1,
+			"uploadLimit"     : 10,
+            'onFallback' : function() {
+                alert('未检测到兼容版本的Flash.');
+            }
+        });
+        //上传图片
+        /* 初始化上传插件 */
+        $("#upload_picture2").uploadify({
+            "height"          : 30,
+            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName"     : "download",
+            "buttonText"      : "上传",
+            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            "width"           : 120,
+            'removeTimeout'	  : 1,
+            'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+            "onUploadSuccess" : uploadPicture2,
+            "uploadLimit"     : 10,
+            'onFallback' : function() {
+                alert('未检测到兼容版本的Flash.');
+            }
+        });
+        //上传图片
+        /* 初始化上传插件 */
+        $("#upload_picture3").uploadify({
+            "height"          : 30,
+            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName"     : "download",
+            "buttonText"      : "上传",
+            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            "width"           : 120,
+            'removeTimeout'	  : 1,
+            'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+            "onUploadSuccess" : uploadPicture3,
+            "uploadLimit"     : 10,
+            'onFallback' : function() {
+                alert('未检测到兼容版本的Flash.');
+            }
+        });
+        function uploadPicture(file, data){
+            var data = $.parseJSON(data);
+            var src = '';
+            if(data.status){
+//                //创建input借点
+//				$_img_path = $("<input type='hidden' name='icon[]' class='icon' value=''/>" );
+//                //将当前图片的id赋予input
+//				$_img_path.val(data.id);
+//				//将input添加到上传图片的div中
+//				$("#tab1").append($_img_path);
+//				src = data.url || '__ROOT__'+data.path;
+//				//创建图片接点
+//				$_upload_img = $("<img src="+src+" title = '点击显示大图'>");
+//				//创建图片删除的节点
+//				$_img_del =  $("<span class='btn-close' title='删除图片'>");
+//				//创建div节点并添加图片接点和删除图片接点
+//				$_upload_item = $("<div class='upload-pre-item'></div>");
+//				$_upload_item.append($_upload_img);
+//				$_upload_item.append($_img_del);
+//				$(".icon").parent().find('.upload-img-box').append($_upload_item);
+				$("#icon").val(data.id);
+                src = data.url || '__ROOT__' + data.path;
+                $("#icon").parent().find('.upload-img-box').html(
+                        '<div class="upload-pre-item"><img src="' + src + '"/><b class="logo-close" onclick="closeLogo(this,\'{$main_pic[\'id\']}\')"></b><i></i></div>'
+                );
+                $.post(
+                    "{:U('Aptitude/up_img_oss')}",
+                    {tmp_img:src},
+                    function(data){
+                        console.log(data);
+                        $('#img_path').val(data);
+                        $(".goods_add_tab li").eq(1).removeClass("tab_error");
+					    $("input[name='copy_license']").removeClass("input_error").next(".box_error").hide().html("");
+                    }
+                );
+            } else {
+                updateAlert(data.info);
+                setTimeout(function(){
+                    $('#top-alert').find('button').click();
+                    $(that).removeClass('disabled').prop('disabled',false);
+                },1500);
+            }
+        }
+
+        var goods_img = [];        
+        var sortNum = 0;
+        function uploadPicture1(file, data){
+            var data = $.parseJSON(data);
+            var src = '';
+            if(data.status){
+//                //创建input借点
+//				$_img_path = $("<input type='hidden' name='icon[]' class='icon' value=''/>" );
+//                //将当前图片的id赋予input
+//				$_img_path.val(data.id);
+//				//将input添加到上传图片的div中
+//				$("#tab1").append($_img_path);
+//				src = data.url || '__ROOT__'+data.path;
+//				//创建图片接点
+//				$_upload_img = $("<img src="+src+" title = '点击显示大图'>");
+//				//创建图片删除的节点
+//				$_img_del =  $("<span class='btn-close' title='删除图片'>");
+//				//创建div节点并添加图片接点和删除图片接点
+//				$_upload_item = $("<div class='upload-pre-item'></div>");
+//				$_upload_item.append($_upload_img);
+//				$_upload_item.append($_img_del);
+//				$(".icon").parent().find('.upload-img-box').append($_upload_item);
+                $("#icon1").val(data.id);
+                src = data.url || '__ROOT__' + data.path;
+                $("#icon1").parent().find('.upload-img-box1').html(
+                    '<div class="upload-pre-item1"><img src="' + src + '"/><b class="logo-close" onclick="closeLogo(this,\'{$main_pic[\'id\']}\')"></b><i></i></div>'
+                );
+                $.post(
+                    "{:U('Aptitude/up_img_oss')}",
+                    {tmp_img:src},
+                    function(data){
+                        console.log(data);
+                        $('#img_path1').val(data);
+                        $(".goods_add_tab li").eq(1).removeClass("tab_error");
+                        $("input[name='b_card']").removeClass("input_error").next(".box_error").hide().html("");
+                    }
+                );
+            } else {
+                updateAlert(data.info);
+                setTimeout(function(){
+                    $('#top-alert').find('button').click();
+                    $(that).removeClass('disabled').prop('disabled',false);
+                },1500);
+            }
+        }
+        function uploadPicture2(file, data){
+            var data = $.parseJSON(data);
+            var src = '';
+            if(data.status){
+//                //创建input借点
+//				$_img_path = $("<input type='hidden' name='icon[]' class='icon' value=''/>" );
+//                //将当前图片的id赋予input
+//				$_img_path.val(data.id);
+//				//将input添加到上传图片的div中
+//				$("#tab1").append($_img_path);
+//				src = data.url || '__ROOT__'+data.path;
+//				//创建图片接点
+//				$_upload_img = $("<img src="+src+" title = '点击显示大图'>");
+//				//创建图片删除的节点
+//				$_img_del =  $("<span class='btn-close' title='删除图片'>");
+//				//创建div节点并添加图片接点和删除图片接点
+//				$_upload_item = $("<div class='upload-pre-item'></div>");
+//				$_upload_item.append($_upload_img);
+//				$_upload_item.append($_img_del);
+//				$(".icon").parent().find('.upload-img-box').append($_upload_item);
+                $("#icon2").val(data.id);
+                src = data.url || '__ROOT__' + data.path;
+                $("#icon2").parent().find('.upload-img-box2').html(
+                    '<div class="upload-pre-item2"><img src="' + src + '"/><b class="logo-close" onclick="closeLogo(this,\'{$main_pic[\'id\']}\')"></b><i></i></div>'
+                );
+                $.post(
+                    "{:U('Aptitude/up_img_oss')}",
+                    {tmp_img:src},
+                    function(data){
+                        console.log(data);
+                        $('#img_path2').val(data);
+                        $(".goods_add_tab li").eq(1).removeClass("tab_error");
+                        $("input[name='b_licence']").removeClass("input_error").next(".box_error").hide().html("");
+                    }
+                );
+            } else {
+                updateAlert(data.info);
+                setTimeout(function(){
+                    $('#top-alert').find('button').click();
+                    $(that).removeClass('disabled').prop('disabled',false);
+                },1500);
+            }
+        }
+        function uploadPicture3(file, data){
+            var data = $.parseJSON(data);
+            var src = '';
+            if(data.status){
+//                //创建input借点
+//				$_img_path = $("<input type='hidden' name='icon[]' class='icon' value=''/>" );
+//                //将当前图片的id赋予input
+//				$_img_path.val(data.id);
+//				//将input添加到上传图片的div中
+//				$("#tab1").append($_img_path);
+//				src = data.url || '__ROOT__'+data.path;
+//				//创建图片接点
+//				$_upload_img = $("<img src="+src+" title = '点击显示大图'>");
+//				//创建图片删除的节点
+//				$_img_del =  $("<span class='btn-close' title='删除图片'>");
+//				//创建div节点并添加图片接点和删除图片接点
+//				$_upload_item = $("<div class='upload-pre-item'></div>");
+//				$_upload_item.append($_upload_img);
+//				$_upload_item.append($_img_del);
+//				$(".icon").parent().find('.upload-img-box').append($_upload_item);
+                $("#icon3").val(data.id);
+                src = data.url || '__ROOT__' + data.path;
+                $("#icon3").parent().find('.upload-img-box3').html(
+                    '<div class="upload-pre-item3"><img src="' + src + '"/><b class="logo-close" onclick="closeLogo(this,\'{$main_pic[\'id\']}\')"></b><i></i></div>'
+                );
+                $.post(
+                    "{:U('Aptitude/up_img_oss')}",
+                    {tmp_img:src},
+                    function(data){
+                        console.log(data);
+                        $('#img_path3').val(data);
+                        $(".goods_add_tab li").eq(1).removeClass("tab_error");
+                        $("input[name='b_logo']").removeClass("input_error").next(".box_error").hide().html("");
+                    }
+                );
+            } else {
+                updateAlert(data.info);
+                setTimeout(function(){
+                    $('#top-alert').find('button').click();
+                    $(that).removeClass('disabled').prop('disabled',false);
+                },1500);
+            }
+        }
+		
+		var uploadLimit = 10;
+		function closeLogo(obj,id){			
+	      	var _this = $(obj);
+	      	var zhuPic = _this.parents(".controls").find(".log_path").val();
+	      	var imgSrc = _this.parents(".controls").find("img").attr("src");
+      		$.post("{:U('Aptitude/removePic')}",{path:imgSrc,id:id},function (res) {
+	      	    if(res==0){ 
+	      	    	_this.parent().remove();
+                    if(zhuPic.indexOf(imgSrc)>-1){
+                    	_this.parents(".controls").find(".log_path").val("");
+                    }else{                    	
+	                    for(var i = 0;i<goods_img.length;i++){
+	                    	if(goods_img[i].indexOf(imgSrc)>-1){	                    		
+	                    		goods_img.splice(i,1);
+	                    	}
+	                    }
+	                    $("input[name='goods_img']").val(goods_img);
+	                    changeNum();	                    
+	                    $('#upload_picture1').uploadify('settings','uploadLimit', ++uploadLimit);
+                    }
+                    
+                }
+            })
+        }
+		
+		function changeNum(){
+			var s_n = [];
+        	$(".fuPic_box").find('.upload-img-box').find('input').each(function(){
+        		s_n.push($(this).val());
+        	})
+        	if(s_n.length<=0){
+        		sortNum = 0;
+        	}else{
+        		sortNum = Math.max.apply(null, s_n)+1;
+        	}
+			
+		}
+        function change_region(_obj,obgId,region_id) {
+            var parent_id = _obj.find("option:selected").val();
+				$.post("{:U('Aptitude/getregion')}",{parent_id:parent_id},function (json) {
+                    var json = eval('(' + json + ')');
+                    if (obgId == "provnice") {
+                        $("#city").empty();
+                        var optionObg = "<option value=''>请选择</option>";
+                        for (var i = 0; i < json.length; i++) {
+                            optionObg += "<option value='" + json[i].region_id + "' <if condition='"+region_id+" eq "+json[i].region_id+"'>selected</if> >" + json[i].local_name + "</option>";
+                        }
+                        $("#city").append(optionObg);
+                    } else if(obgId == "city"){
+                        $("#area").empty();
+                        var optionObg = "<option value=''>请选择</option>";
+                        for (var i = 0; i < json.length; i++) {
+                            optionObg += "<option value='" + json[i].region_id + "'>" + json[i].local_name + "</option>";
+                        }
+                        $("#area").append(optionObg);
+                    }
+                })
+        }
+		
+		
+
+        $(function(){        	
+        	$(document).click(function(event){
+        		var doc = $(event.target);
+        		if(doc.hasClass("input_error")){
+        			doc.removeClass("input_error");
+        			doc.parents(".controls").find(".box_error").hide().html("");
+        		}
+        	});	
+        	
+        	
+        	$(".fuPic_box").find('.upload-img-box').on("focus","input",function(){
+        		var val = $(this).val();
+        		$(this).change(function(){
+        			var changeVal = $(this).val();
+        			if(changeVal==""){
+        				layer.alert('排序数字不能为空');
+        				$(this).val(val);
+        				changeNum();
+        			}
+        		})
+        	})
+        	
+        	
+        	//添加商品tab切片
+		    $(".goods_add_tab li").click(function(){
+		    	if(!$(this).hasClass("stat_on")){
+		    		var num = $(".goods_add_tab li").removeClass("stat_on").index($(this).addClass("stat_on"));		    		
+			    	$(".goods_add_info .goods_info_item").hide().eq(num).show();			    	
+			    	
+		    	}
+		    	
+		    })
+        	
+        	
+        	function verInput(){
+        		var proBrand = $("select[name='brand_id']").val();
+	            if(proBrand==""){
+	            	if(proBrand==""){
+	            		$("select[name='brand_id']").addClass("input_error").parents(".controls").find(".box_error").show().html("请填写公司名称");
+	            	}
+	            }else{
+	            	return true;
+	            }
+        	}
+            
+            
+            $("#submit").click(function(){            	
+				if(verInput()){
+					$("#merchants_window_form").submit();
+				}else{
+					layer.alert('请填写公司名称！');
+					return false;
+				}
+         	});
+            
+            
+            $("input[name='com_type']").each(function(){
+            	deli_type($(this));
+            });
+            
+           	$("input[name='com_type']").click(function(){
+           		deli_type($(this));
+           	});
+		 	
+		 	function deli_type(_this){
+		 		if(_this.prop("checked")==true&&_this.val()==3){
+           			$(".deli_type").show();
+           			$(".deli_type input[name='deli_type']").first().prop("checked",true);
+           		}else{
+           			$(".deli_type").hide();
+           			$(".deli_type input[name='deli_type']").prop("checked",false);
+           		}
+		 	}
+
+
+        })
+
+        
+        
+    </script>
+</block>

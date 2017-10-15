@@ -1,0 +1,241 @@
+.admin-head-text span{ color: #fff; border-right: 1px solid #fff; padding-right: 10px;}
+.admin-head-text span em{ font-style: normal;}
+.admin-head-text .admin-loginOut{ color: #fff;  padding: 0 10px;  line-height: 50px; display: inline-block;}
+.admin-head-text .admin-loginOut:hover{border-bottom: 0; background: #86db00;}
+
+
+.logo-close{
+
+position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background: url(../img/bg_icon.png) no-repeat -25px 2px;
+    cursor: pointer;
+	z-index: 999;
+
+
+}
+.upload-img-box .upload-pre-item{ position: relative; overflow: visible;display: inline-block; }
+.upload-img-box{display: inline-block; vertical-align: middle; *zoom: 0;}
+.uploadify{display: inline-block; vertical-align: middle;*zoom: 0;}
+.logo_show img{ max-height: 120px; max-width: 120px;}
+.file_logo_box{ display: inline-block; position: relative; }
+.look_brand .controls{ color: #888; }
+#upload_picture-queue{ width: 120px; position: relative; z-index: 10;}
+.controls select{ min-width: 250px; height: 38px; border-radius: 0; border:1px solid #ddd}
+
+.red{ color: #f00;}
+.pt20{ padding-top: 20px;}
+.btns{ margin-right: 10px;  padding: 6px 20px;}
+.controls #store_id.input_error,
+.controls .input_error{ border: 1px dashed #f00!important;}
+.controls .box_error{ line-height: 38px; margin-left: 10px; display: none;}
+
+tbody tr:hover td{background: #f5faff; transition: all 0.3s ease 0s}
+
+
+
+
+
+/*渠道*/
+.plan-list{
+	margin-left: 15px;
+}
+.planDay,.planWeek,.planMonth,.planMonweek{
+	margin-top: 20px;
+	border:1px solid #ddd;
+	padding: 20px;
+}
+.planInput{
+	height: 30px;
+    line-height: 30px;
+    width: 200px;
+    padding-left: 4px;
+}
+.ditch-list{
+	width: 1200px!important;
+}
+.ditch-info{
+	border: 1px solid #ddd;
+    padding: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+.ditch-info img{
+    float: left;
+    height: 90px;
+    width: 120px;
+}
+.ditch-info p{
+    float: left;
+    width: 400px;
+    margin: 0px 15px;
+}
+.ditch-infoCheckbox label{
+	border: 1px solid #ddd;
+    padding: 2px 12px;
+    margin-left: 10px;
+    display: inline-block;
+    margin-top: 6px;
+    height: 18px;
+    line-height: 18px;
+}
+/*.laberInput{
+	position: relative;
+	top:2px;
+	left: -2px;
+}*/
+.error-p,.error-week{
+	color:#c9302c;
+	font-size: 14px;
+	display: none;
+	margin-left: 4px;
+}
+
+.planWeek-list{
+	height: 50px;
+    line-height: 50px;
+    margin-bottom: 20px;
+}
+
+.plan-label label{
+    border: 1px solid #ddd;
+    padding: 6px 16px;
+    margin-right: 22px;
+}
+.plan-labelInput{
+	position: relative;
+	top:2px;
+	left: -2px;
+}
+/*每月（天）*/
+.planMonth-day{
+	height: 65px;
+	width: 752px;
+	margin-bottom: 20px;
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+}
+.planMonth-day li{
+	float: left;
+	width: 46px;
+	height: 32px;
+	line-height: 32px;
+	text-align:center;
+	font-size: 14px;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+.planMonth-day li.active{
+	background-color: #eee;
+}
+.planMonth-day li:hover{
+	background-color: #eee;
+	cursor: pointer;
+}
+.planMweek-num{
+	margin-bottom: 0px;
+}
+.layui-inline > span{
+	padding:0 6px 0 8px;
+}
+.ditch-list .form-item .look-label{
+	vertical-align: middle;
+}
+.dicth-btn{
+	margin: 20px 0;
+}
+.error-only{
+    color: red;
+    margin-left: 10px;
+    height: 40px;
+    display: inline-block;
+    line-height: 40px;
+}
+/*渠道-商品信息*/
+.brand-all{
+	float: left;
+}
+.brand-all,.brand-part{
+	border: 1px solid #ddd;
+	padding:10px;
+	width: 520px;
+	display: inline-block;
+    margin-right: 24px;
+}
+.brandAll-ul li{
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px dashed #ddd;
+	
+}
+.brandAll-ul li input{
+	vertical-align: middle;
+}
+.brandAll-ul li span{
+	margin-left: 5px;
+	display: inline-block;
+	height: 40px;
+	width: 480px;
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.brandAll-condition label{
+	display: inline-block;
+	height: 40px;
+}
+.brandAll-condition label >input{
+    margin-right: 9px;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+.brandAll-condition  select{
+	margin-left: 10px;
+	height: 30px;
+	line-height: 30px;
+	width:90px;
+}
+.goods_info_item .brandAll-condition >input{
+	height: 28px!important;
+	padding: 0 4px;
+	width: 180px;
+	margin:-2px 0 0 10px;
+}
+.brandAll-condition button{
+    height: 30px;
+    text-align: center;
+    background-color: #337ab7;
+    color: #fff;
+    padding: 4px 8px;
+    border: none;
+    margin-left: -5px;
+    cursor: pointer;
+}
+.brandAll-condition span{
+	display: inline-block;
+    border: 1px solid #ddd;
+    padding: 4px 7px 4px 17px;
+    cursor:pointer;
+}
+.brandAll-condition span:hover{
+	background-color: #eee;
+}
+.brandAll-condition .all-sales{
+	margin-right: -5px;
+}
+.allTall-img{
+	background:url(../img/tall.png) no-repeat left center;
+	background-size: 34%;
+}
+.allLow-img{
+		background:url(../img/low.png) no-repeat left center;
+	background-size: 34%;
+}
+.overflow-list{
+	overflow-y: scroll;
+    max-height: 1000px;
+}

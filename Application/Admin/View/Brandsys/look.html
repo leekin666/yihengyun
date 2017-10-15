@@ -1,0 +1,143 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="form-item">
+    		<h2 class="look_tit">{$meta_title}</h2>           
+    </div>
+    <div class="look_brand form-horizontal look-listInfo">
+        <div class="form-item">
+        	<label class="look-label">中文名称：</label>
+            <div class="look-info">
+                {$info.brand_name}
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">英文名称：</label>
+            <div class="look-info">
+                {$info.brand_letter}
+            </div>            
+        </div>
+        <div class="form-item">
+        	<label class="look-label">中文描述：</label>
+            <div class="look-info">
+                {$info.desc_cn}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">英文描述：</label>
+            <div class="look-info">
+                {$info.desc_letter}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">品牌口号：</label>
+            <div class="look-info">
+                {$info.slogan}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">官网：</label>
+            <div class="look-info">
+                {$info.web_url}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">国家：</label>
+            <div class="look-info">
+                {$info.country}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">成立时间：</label>
+            <div class="look-info">
+                {$info.create_date|date="Y-m-d H:i",###}
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="look-label">LOGO：</label>
+        	<img src="{$info.logo}"  />
+        </div>
+        <if condition="$act eq 'index'">
+            <div class="form-item">
+                <label class="look-label">添加时间：</label>
+                <div class="look-info">
+                    {$info.add_date|date='Y-m-d',###}
+                </div>
+            </div>
+        </if>
+        <if condition="$act neq 'index'">
+            <div class="form-item">
+                <label class="look-label">提交时间：</label>
+                <div class="look-info">
+                    {$info.add_date|date='Y-m-d',###}
+                </div>
+            </div>
+        </if>
+        <div class="form-item">
+            <label class="look-label">状态：</label>
+            <div class="look-info">
+                {$info.status_cn}
+            </div>
+        </div>
+        <div class="form-item" style="margin-left: 170px;">
+            <button class="btn  btn-info brand-btnM" onclick="javascript:history.back(-1);return false;">返 回</button>
+            <if condition="$act eq 'index' && ($info['status'] eq 1 || $info['status'] eq 10)">
+                <a class="btn btn-warning confirm ajax-get" title="冻结" href="{:U('Brandsys/freeze?id='.$info['id'])}">冻结</a>
+            </if>
+            <if condition="$act eq 'check'">
+                <a class="btn btn-danger" title="驳回" id="rebut" url="{:U('Brandsys/rebut')}">驳 回</a>
+            </if>
+            <if condition="$act eq 'recycle'">
+                <a class="btn btn-danger confirm ajax-get" title="删除" href="{:U('Brandsys/recovery_del?id='.$info['id'].'&store_id='.$info['store_id'])}">删除</a>
+            </if>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        //导航高亮
+        if("{$act}" == 'check'){
+            highlight_subnav('{:U('Brandsys/check')}');
+        }else if("{$act}" == 'recycle'){
+            highlight_subnav('{:U('Brandsys/recycle')}');
+        }else{
+            highlight_subnav('{:U('Brandsys/index')}');
+        }
+        //驳回
+        $(function(){
+            $("#rebut").click(function(){
+                var url = $(this).attr('url');
+                var ids = {$info['id']};
+                if(ids.length == 0){
+                    layer.msg('请选择要操作的数据！', {icon: 5});
+                    return false;
+                }
+                layer.prompt({title: '请输入驳回信息', formType: 2}, function(text, index){
+                    $.post(
+                            url,
+                            {ids:ids,text:text},
+                            function(data){
+                                layer.close(index);
+                                if(data == 'success'){
+                                    layer.msg('驳回成功!');
+                                }else if(data == 'fail'){
+                                    layer.msg('驳回失败!请联系系统管理员!');
+                                }
+                                setTimeout(function(){
+                                    window.location.reload();
+                                }, 3000);
+                            }
+                    );
+                });
+            })
+        });
+    </script>
+
+</block>

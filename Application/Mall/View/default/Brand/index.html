@@ -1,0 +1,54 @@
+<extend name="Base/common"/>
+
+
+<block name="body">
+	<div class="hot-brand clearfix" id="brand_content">
+	<div class="hot-brand-inner w1200 clearfix">
+		<div class="hot-brand-name fl" id="{$id}">
+			<a href="{:U('Brand/index')}" class="">全部推荐品牌</a>
+			<foreach name="country_list" item="vo">
+                    <em>|</em><a c_id="{$vo['id']}" href="{:U('Brand/index?id='.$vo['id'])}">{$vo.name}</a>
+			</foreach>
+        </div>
+	</div>
+</div>
+	<div class="brand-content">
+	<div class="brand-inner w1200">
+		<ul class="brand-box clearfix" id="brand_cat">
+			<volist name="brand_list" id="vo">
+				<li class="fl">
+					<a href="{:U('brand/detail?id='.$vo['brand_id'])}" class="clearfix">
+						<span class="brand-logo fl"><img src={$vo.logo} alt="{$vo.brand_name}"></span>
+						<div class="brand-text">
+							<h2>{$vo.brand_name}</h2>
+							<i></i>
+							<p>{$vo.desc_cn}</p>
+						</div>
+					</a>
+				</li>
+			</volist>
+		</ul>
+	</div>
+	<div class="pages-inner">
+		{$_page}
+	</div>
+</div>
+<script type="text/javascript">
+	var _url = $(".hot-brand-name").attr("id");
+	if(_url!=""){
+		$("a",".hot-brand-name ").each(function(){
+			var cid = $(this).attr("c_id");
+			if(cid == _url){
+				$(this).addClass("stat-on");
+			}else{
+				$(this).removeClass("stat-on");
+			}
+		});
+	}
+	$(function(){
+		if($(".brand-box li").length<1){
+			$(".brand-box").html('<p class="no_data">此地区暂无品牌</p>')
+		}
+	})
+</script>
+</block>

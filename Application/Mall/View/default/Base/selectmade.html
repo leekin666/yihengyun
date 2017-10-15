@@ -1,0 +1,184 @@
+<div class="selector">
+    <div class="right-extra" rewrite=0>
+        <div class="u_cloose">
+            <dl>
+                <dt>已选条件：</dt>
+                <dd>
+                    <if condition="$brandName" >
+                        <div class="get_item" title="同庆和堂">
+                            <b>品牌：</b>
+                            <em>{$brandName}</em>
+                            <a href="/mall/category/index/id/10/price_min/{$price_min}/price_max/{$price_max}"></a>
+                        </div>
+                    </if>
+                    <if condition="$price_max" >
+                        <div class="get_item" title="同庆和堂">
+                            <b>价格：</b>
+                            <em>{:I('price_min')}-{:I('price_max')}</em>
+                            <a href="/Mall/Category/index/id/10/brand_id/{$brand_id}"></a>
+                        </div>
+                    </if>
+                </dd>
+                <dd class="give_up_all">
+                    <a href="/Mall/category/index/id/10" class="ftx-05">全部撤销</a>
+                </dd>
+            </dl>
+        </div>
+        <div class="goods_list">
+            <ul class="attr_father">
+                <li class="s-line">
+                    <div class="s-l-wrap brand_img attr_list">
+                        <div class="s-l-tit brand_name_l">品牌：</div>
+                        <div class="s-l-value brand_select_more">
+                            <div class="all_a_z">
+                                <ul class="a_z">
+                                    <li class="all_brand curr">所有品牌</li>
+                                    <li data-key="A">A</li>
+                                    <li data-key="B">B</li>
+                                    <li data-key="C">C</li>
+                                    <li data-key="D">D</li>
+                                    <li data-key="E">E</li>
+                                    <li data-key="F">F</li>
+                                    <li data-key="G">G</li>
+                                    <li data-key="H">H</li>
+                                    <li data-key="I">I</li>
+                                    <li data-key="J">J</li>
+                                    <li data-key="K">K</li>
+                                    <li data-key="L">L</li>
+                                    <li data-key="M">M</li>
+                                    <li data-key="N">N</li>
+                                    <li data-key="O">O</li>
+                                    <li data-key="P">P</li>
+                                    <li data-key="Q">Q</li>
+                                    <li data-key="R">R</li>
+                                    <li data-key="S">S</li>
+                                    <li data-key="T">T</li>
+                                    <li data-key="U">U</li>
+                                    <li data-key="V">V</li>
+                                    <li data-key="W">W</li>
+                                    <li data-key="X">X</li>
+                                    <li data-key="Y">Y</li>
+                                    <li data-key="Z">Z</li>
+                                    <li class="other_brand">其他</li>
+                                </ul>
+                            </div>
+                            <div class="wrap_brand">
+                                <div class="brand_div">
+                                    <foreach name="brand_list" item="brand">
+                                        <div class="brand_img_word" brand ="Y">
+                                            <a href="/Mall/Category/index/id/{$id}/brand_id/{$brand.brand_id}/price_min/{$price_min}/price_max/{$price_max}">
+                                                <img src="{$brand.logo}" alt="{$brand.brand_name}" title="{$brand.brand_name}">
+                                                <span>{$brand.brand_name}</span>
+                                            </a>
+                                        </div>
+                                    </foreach>
+                                </div>
+                            </div>
+                            <div class="zimu_list">
+                                <ul class="get_more">
+                                    <foreach name="brand_list" item="brand">
+                                        <li class="is_no" brand ="Y" url_id="{$brand.brand_id}"><span class="choose_ico"></span><a class="goods_brand_name" data-url="/Mall/Category/index/id/{$id}/brand_id/{$brand.brand_id}/price_min/{$price_min}/price_max/{$price_max}">{$brand.brand_name}</a></li>
+                                    </foreach>
+                                </ul>
+                            </div>
+                            <div class="enter_yes_no">
+                                <div class="ct_auto">
+                                    <span class="yes_bt botton disabled">确定</span>
+                                    <span class="no_bt botton">关闭</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="s-l-opt sl-ext" style="width: 30px">
+                            <div class="choose_open s-l-more"><i class="iconfont icon-down"></i></div>
+                            <!--<div class="choose_more s-l-multiple"><i class="iconfont icon-plus"></i>多选</div>-->
+                        </div>
+                    </div>
+                </li>
+
+                <if condition="!$price_max" >
+                    <li class="s-line">
+                        <dl class="s-l-wrap">
+                            <div class="s-l-tit filter_attr_name">价格：</div>
+                            <div class="s-l-value attr_son">
+                                <div class="price_auto fl">
+                                    <div class="price_range"><a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/price_min/0/price_max/100/p/{$p}/sort/{$sort}/order/{$order}">0&nbsp;-&nbsp;100</a></div>
+                                    <div class="price_range"><a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/price_min/100/price_max/300/p/{$p}/sort/{$sort}/order/{$order}">100&nbsp;-&nbsp;300</a></div>
+                                    <div class="price_range"><a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/price_min/300/price_max/500/p/{$p}/sort/{$sort}/order/{$order}">300&nbsp;-&nbsp;500</a></div>
+                                    <div class="price_range"><a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/price_min/500/price_max/1000/p/{$p}/sort/{$sort}/order/{$order}">500&nbsp;-&nbsp;1000</a></div>
+                                    <div class="price_range"><a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/price_min/1000/price_max/10000/p/{$p}/sort/{$sort}/order/{$order}">1000&nbsp;-&nbsp;10000</a></div>
+                                </div>
+                                <div class="price_auto price_bottom fl">
+                                    <input type="text" title="最低价" name="price_min" class="price_class price_min" value="{$price_min|default=0}">
+                                    <span class="price_class span_price_class">-</span>
+                                    <input type="text" title="最高价" name="price_max" class="price_class price_max" value="{$price_max}">
+                                    <button class="price_ok price_class">确定</button>
+                                </div>
+                            </div>
+                        </dl>
+                    </li>
+                </if>
+            </ul>
+        </div>
+        <div class="click_more s-more"><span class="sm-wrap"><strong>更多选项</strong><i class="iconfont icon-down"></i></span></div>
+    </div>
+</div>
+<div class="filter">
+    <div class="filter-wrap">
+        <div class="filter-sort">
+            <if condition="$sort eq 'id' && $order eq 'DESC'">
+                <a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/id/order/ASC#goods_list" <if condition="$sort eq 'id'">class="curr"</if>>综合<i class="iconfont icon-arrow-down"></i></a>
+                <else/>
+                <a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/id/order/DESC#goods_list" <if condition="$sort eq 'id'">class="curr"</if>>综合<i class="iconfont icon-arrow-up"></i></a>
+            </if>
+            <!--<a href="/mall/category/index/id/{$id}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/sales_volume/order/DESC#goods_list" class="">销量<i class="iconfont icon-arrow-up"></i></a>-->
+            <if condition="$sort eq 'update_time' && $order eq 'DESC'">
+                <a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/update_time/order/ASC#goods_list"  <if condition="$sort eq 'update_time'">class="curr"</if>>新品<i class="iconfont icon-arrow-down"></i></a>
+                <else/>
+                <a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/update_time/order/DESC#goods_list"  <if condition="$sort eq 'update_time'">class="curr"</if>>新品<i class="iconfont icon-arrow-up"></i></a>
+            </if>
+            <if condition="$sort eq 'price' && $order eq 'DESC'">
+                <a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/price/order/ASC#goods_list" <if condition="$sort eq 'price'">class="curr"</if>>价格<i class="iconfont icon-arrow-down"></i></a>
+                <else/>
+                <a href="/mall/category/index/id/{$id}/brand_id/{$brand_id}/style/{$style}/price_min/{$price_min}/price_max/{$price_max}/p/{$p}/sort/price/order/DESC#goods_list" <if condition="$sort eq 'price'">class="curr"</if>>价格<i class="iconfont icon-arrow-up"></i></a>
+            </if>
+        </div>
+        <div class="filter-range">
+            <div class="fprice">
+                <form method="GET" action="/mall/category/index/id/{$id}/style/{$style}/p/{$p}/sort/{$sort}/order/{$order}" class="sort" name="listform">
+                    <div class="fP-box">
+                        <input type="text" name="price_min" class="f-text price-min" autocomplete="off" maxlength="6" placeholder="￥" id="price-min" value="{$price_min|default=0}">
+                        <span>&nbsp;~&nbsp;</span>
+                        <input type="text" name="price_max" class="f-text price-max" autocomplete="off" maxlength="6" placeholder="￥" id="price-max" value="{$price_max}">
+                    </div>
+                    <div class="fP-expand">
+                        <a class="ui-btn-s ui-btn-clear" href="javascript:void(0);" id="clear_price">清空</a>
+                        <a href="javascript:void(0);" class="ui-btn-s ui-btn-s-primary ui-btn-submit">确定</a>
+                    </div>
+                </form>
+            </div>
+            <div class="fcheckbox">
+                <div class="checkbox_items">
+                    <div class="checkbox_item ">
+                        <input type="checkbox" name="fk-type" checked="checked" class="ui-checkbox" value="" id="store-checkbox-013" >
+                        <label class="ui-label" for="store-checkbox-013">仅显示有货</label>
+                        <i id="input-i1" rev=""></i>
+                        <i id="input-i2" rev=""></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filter-right">
+            <div class="button-page">
+                <span class="pageState"><span>1</span>/1</span>
+                <a href="javascript:void(0);" title="上一页"><i class="iconfont icon-left"></i></a>
+                <a href="javascript:void(0);" title="下一页"><i class="iconfont icon-right"></i></a>
+            </div>
+            <div class="styles">
+                <ul class="items" ectype="fsortTab">
+                    <li class="item" data-type="large"><a href="javascript:void(0)" title="大图模式"><span class="iconfont icon-switch-grid"></span>大图</a></li>
+                    <li class="item" data-type="samll"><a href="javascript:void(0)" title="小图模式"><span class="iconfont icon-switch-list"></span>小图</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

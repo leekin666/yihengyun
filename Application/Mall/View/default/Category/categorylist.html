@@ -1,0 +1,108 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	
+</block>
+
+<block name="body">
+	<div class="w w1200">
+		<div class="crumbs-nav">
+	        <div class="crumbs-nav-main clearfix">
+	            <div class="crumbs-nav-item">
+	                <span><a href=".">首页</a></span><span class="arrow">&gt;</span> <span class="finish">所有分类</span>                    					</div>
+	        </div>
+	    </div>
+	    
+	    <div class="catalog-main clearfix">
+			<div class="catalog-side">
+				<div class="catalog-menu">
+					<ul class="menu-list">
+						<volist name="goods_list" id="zo" key="zk">
+							<li class="current"><a href="javascript:void(0);">{$zk} {$zo.name}</a></li>
+						</volist>
+					</ul>
+					<div class="back-top-wp">
+						<a href="javascript:;" class="back-top" ectype="returnTop">返回顶部</a>
+					</div>
+				</div>
+			</div>
+			<div class="catalog-detail">
+				<volist name="goods_list" id="vo">
+					<div class="catalog-item categorylist">
+						<h2><a href="{:U('category/index?id='.$vo['id'])}" target="_blank">{$vo.name}</a></h2>
+						<ul class="h4 clearfix">
+							<volist name="vo._child" id="c_o">
+								<li><a href="{:U('category/index?id='.$c_o['id'])}" target="_blank">{$c_o.name}</a></li>
+							</volist>
+						</ul>
+
+						<div class="catalog-item-ad clearfix">
+							<div class="cate_detail" ectype="subitems_858">
+								<div class="brand-channel clearfix" id="h-brand_0" data-type="range" data-lift="品牌">
+									<div ectype="homeBrand">
+										<div class="brand-list" id="recommend_brands" data-value="204,93,110,113,116,195,79,95,76,126,73,122,98,82,101,85,105">
+											<ul>
+												<notempty name="vo.brand.0">
+													<volist name="vo.brand" id="e_v">
+														<li>
+															<div class="brand-img"><a href="{:U('brand/detail?id='.$e_v['id'])}" target="_blank"><img src="{$e_v.logo}"></a></div>
+															<div class="brand-mash">
+																<div class="coupon"><a href="{:U('brand/detail?id='.$e_v['id'])}" target="_blank">{$e_v.brand_name}</a></div>
+															</div>
+														</li>
+													</volist>
+												</notempty>
+										   </ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</volist>
+			</div>
+		</div>
+	    
+    </div>
+    
+    
+    <script type="text/javascript">
+        $(function(){
+            var items = $(".catalog-menu");
+            var top = parseInt(items.offset().top);
+            var allFloor = $(".catalog-detail");
+            var floors = allFloor.find(".catalog-item");
+            var height = parseInt(items.height());
+            var IE6 = navigator.userAgent.indexOf("MSIE 6.0")>0;
+            var IE7 = navigator.userAgent.indexOf("MSIE 7.0")>0;
+            
+            $(window).on('scroll',function(){
+                var scrollTop = $(window).scrollTop();
+                if(scrollTop>top){
+                    items.css({'position':'fixed','top':0});
+                }else{
+                    items.removeAttr("style");
+                }
+                
+                for(var i=0;i<floors.length;i++){
+                    var floorsTop = floors.eq(i).position().top;
+                    if(IE6||IE7){
+                        floorsTop = floorsTop.toString();
+                        floorsTop = floorsTop.substring(0,floorsTop.length-2);
+                    }
+                    if(scrollTop>floorsTop){
+                        items.find("li").eq(i).addClass("current").siblings().removeClass("current");
+                        floors.eq(i).addClass("curr").siblings().removeClass("curr");
+                    }
+                }
+            });
+            
+            $(".catalog-menu .menu-list li").on('click',function(){
+                var index = $(this).index();
+                var top = floors.eq(index).offset().top;
+                $("body,html").stop().animate({scrollTop:top});
+            });
+        })
+    </script>
+    
+</block>

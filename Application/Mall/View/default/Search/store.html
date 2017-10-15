@@ -1,0 +1,84 @@
+<extend name="Base/common"/>
+
+
+<block name="body">
+	<div class="w w1200">
+    	<div class="crumbs-nav">
+            <div class="crumbs-nav-main clearfix">
+                <div class="crumbs-nav-item">
+                    <span>全部</span>
+                    <span class="arrow">&gt;</span>
+                    <span>共{$count}家店铺</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    	<div class="w w1200">
+            <notempty name="list">
+			<foreach name="list" item="vo">
+            <div class="store-shop-list" id="store_shop_list">
+            	<div class="ss-warp">
+                	<div class="ss-item">
+                        <div class="ss-info">
+                            <div class="ss-i-info">
+                            	
+                                <div class="ss-i-top">
+                                	<div class="clearfix">
+	                                    <div class="logo"><a href="/mall/store/index/id/{$vo.store_id}"><img src=""></a></div>
+	                                    <div class="r-info">                                    	
+	                                		<div class="ss-tit">
+                                                {$vo.name}
+											</div>
+											<div class="ss-desc">
+	                                            <p>主营品牌： {$vo.brand}</p>
+	                                        </div>                             
+	                                    </div>
+                                    </div>
+                                    <div class="ss-btn">
+                                        <a href="/mall/store/index/id/{$vo.store_id}" class="btn">进入店铺</a>
+                                    </div>                                    
+                                </div>                                
+                            </div>
+                            <div class="ss-i-goods">
+                            	<ul>
+									<foreach name="vo.goods" item="v">
+                            		<li class="opacity_img">
+		                                <div class="p-img"><a href="/Mall/goods/index/id/{$v.goods_id}" target="_blank"><img src="{$v.goods_img.m.0}"></a></div>
+		                                <div class="p-name"><a href="/Mall/goods/index/id/{$v.goods_id}" target="_blank" title="{$v.goods_name}">{$v.goods_name}</a></div>
+		                                <div class="p-price">
+		                                	<em>¥</em>{$v.price}
+		                                </div>
+                            		</li>
+									</foreach>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="s-more">
+                            <span class="sm-wrap"><a href="/mall/store/index/id/{$vo.store_id}" target="_blank">更多商品<i class="iconfont icon-right"></i></a></span>
+                        </div>
+                    </div>                                
+                </div>
+            </div>
+			</foreach>
+            <else/>
+                <div class="goods-list">
+                    <div class="no_records">
+                        <i class="no_icon_two"></i>
+                        <div class="no_info no_info_line">
+                            <h3>抱歉，没有找到符合条件的数据</h3>
+                            <!--<div class="no_btn">-->
+                                <!--<a href="/Mall/index" class="btn sc-redBg-btn">返回首页</a>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </notempty>
+        </div>
+
+
+        <div class="pages-inner">
+            {$_page}
+        </div>
+    </div>    
+</block>

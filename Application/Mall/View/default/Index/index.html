@@ -1,0 +1,280 @@
+<extend name="Base/common"/>
+
+<block name="body">
+    <div class="homeindex" ectype="homeWrap">                                       
+		<div class="content" style="min-height: 920px;">
+			<div class="visual-item" data-mode="lunbo" data-purebox="banner" data-li="1" data-length="5" ectype="visualItme" style="display: block;" data-diff="0">                                    
+                <div class="view">
+                    <div class="banner home-banner">
+                    	<div class="bd">
+                        	<ul data-type="range"> 
+						    	<li style="background:url(__PUBLIC__/Mall/img/data/1494984992503176615.jpg) center center no-repeat;"><div class="banner-width"><a href="" style="height:500px;"></a></div></li>
+					    	    <li style="background:url(__PUBLIC__/Mall/img/data/1494984990506843460.jpg) center center no-repeat;"><div class="banner-width"><a href="" style="height:500px;"></a></div></li>
+					    	    <li style="background:url(__PUBLIC__/Mall/img/data/1494984991783527346.jpg) center center no-repeat;"><div class="banner-width"><a href="" style="height:500px;"></a></div></li>
+
+							</ul>
+							<div class="spec" data-spec=""></div>
+                        </div>
+                        <div class="hd"><ul></ul></div>                            
+                    </div>
+                </div>
+           </div>                
+            <div class="visual-item w1200 brandList hotBrandList" data-mode="h-brand" data-purebox="homeAdv" data-li="1" ectype="visualItme" data-diff="0" style="display: block;">                                    
+                <div class="view">
+                    <div class="brand-channel clearfix" id="h-brand_0" data-type="range" data-lift="品牌">
+                         <h2 class="w-tit1 w-tit1-1"><span class="big">热门品牌</span>全球精选，一网打尽</h2>							
+							<div ectype="homeBrand">
+							    <div class="brand-list" id="recommend_brands" data-value="204,93,110,113,116,195,79,95,76,126,73,122,98,82,101,85,105">
+						        	<ul>
+										<foreach name="_brand_list" item="vo">
+											<li>
+												<div class="brand-img"><a href="{:U('Brand/detail?id='.$vo[id])}" target="_blank"><img src="{$vo.logo}"><i></i></a></div>
+												<div class="brand-mash">
+													<div class="coupon"><a href="{:U('Brand/detail?id='.$vo[id])}" target="_blank"><span>点击进入</span></a></div>
+												</div>
+											</li>
+										</foreach>
+				                    </ul>
+				        			<!--<a href="javascript:void(0);" ectype="changeBrand" class="refresh-btn"><i class="iconfont icon-rotate-alt"></i><span>换一批</span></a>-->
+							    </div>
+							</div>
+							<div class="spec" data-spec="" data-title="undefined"></div>
+                        </div>
+                    </div>
+                </div>
+			<foreach name="category_list" item="vo" key="_key">
+                <div class="visual-item w1200" data-mode="homeFloor" data-purebox="homeFloor" data-li="1" ectype="visualItme" data-diff="0" style="display: block;">                                    
+                    <div class="view">
+                        <div class="floor-content" data-type="range" id="homeFloor_0" data-lift="女装"> 
+						<div class="floor-line-con floor-color-type-{$_key+1}" data-title="男装女装" data-idx="1" id="floor_1" ectype="floorItem">
+
+								<div class="floor-hd" ectype="floorTit">
+									<i class="box_hd_arrow"></i>
+									<i class="box_hd_dec"></i>
+
+									<div class="hd-tit">{$vo.name}</div>
+									<div class="sk-more"><a href="{:U('Category/index?id='.$vo[id])}" target="_blank">更多</a> <i class="arrow"></i></div>
+								</div>
+								<div class="floor-bd bd-mode-01">
+									<div class="lift-channel clearfix" id="guessYouLike" data-type="range" data-lift="商品">
+										<ul>
+											<foreach name="vo.goods_list" item="to">
+												<li class="opacity_img">
+													<a href="{:U('Goods/index?id='.$to[goods_id])}">
+														<div class="p-img"><img src="{$to.good_imgs.m.0}"></div>
+														<div class="p-name" title="{$to.goods_name}">{$to.goods_name}</div>
+														<div class="p-price">
+															<div class="shop-price"><em>¥</em>{$to.price}</div>
+															<div class="original-price"></div>
+														</div>
+													</a>
+												</li>
+											</foreach>
+										</ul>
+									</div>
+								</div>
+
+						</div>
+					<div class="spec" data-spec="" data-title="undefined"></div></div>
+               		</div>
+           		</div>
+			</foreach>
+        	</div>
+
+
+    </div>
+    
+    
+    
+
+
+<script type="text/javascript" src="__JS__/suggest.js"></script>
+<!--<script type="text/javascript" src="js/scroll_city.js"></script>-->
+<script type="text/javascript" src="__JS__/utils.js"></script>
+<script type="text/javascript" src="__JS__/warehouse_area.js"></script>
+    	
+	
+
+
+    <script type="text/javascript">
+		/*首页轮播*/
+		var slideType = $("*[data-mode='lunbo']").find("*[data-type='range']").data("slide");
+		var length = $(".banner .bd").find("li").length;
+		
+		if(slideType == "roll"){
+			slideType = "left";
+		}
+		
+		if(length>1){
+			
+			$(".banner").slide({titCell:".hd ul",mainCell:".bd ul",effect:slideType,interTime:5000,delayTime:500,autoPlay:true,autoPage:true,trigger:"click",endFun:function(i,c,s){
+				$(window).resize(function(){
+					var width = $(window).width();
+					s.find(".bd li").css("width",width);
+				});
+			}});
+		}else{
+			$(".banner .hd").hide();
+		}
+		
+		//首页信息栏 新闻文章切换 
+		$(".vip-item").slide({titCell:".tit a",mainCell:".con"});
+		
+		//楼层二级分类商品切换
+		$("*[ectype='floorItem']").slide({titCell:".hd-tags li",mainCell:".floor-tabs-content",titOnClassName:"current"});
+		
+		$("*[ectype='floorItem']").slide({titCell:".floor-nav li",mainCell:".floor-tabs-content",titOnClassName:"current"});
+		
+		//第五套楼层模板
+		$(".floor-fd-slide").slide({mainCell:".bd ul",effect:"left",autoPlay:false,autoPage:true,vis:4,scroll:1,prevCell:".ff-prev",nextCell:".ff-next"});
+		
+		//第六套楼层模板
+		$(".floor-brand").slide({mainCell:".fb-bd ul",effect:"left",pnLoop:true,autoPlay:false,autoPage:true,vis:3,scroll:1,prevCell:".fs_prev",nextCell:".fs_next"});
+		
+		//楼层轮播图广告
+		$("*[data-purebox='homeFloor']").each(function(index, element) {
+			var f_slide_length = $(this).find(".floor-left-slide .bd li").length;
+			if(f_slide_length > 1){
+				$(element).find(".floor-left-slide").slide({titCell:".hd ul",mainCell:".bd ul",effect:"left",interTime:3500,delayTime:500,autoPlay:true,autoPage:true});
+			}else{
+				$(element).find(".floor-left-slide .hd").hide();
+			}
+        });
+
+		//异步加载出秒杀活动、品牌信息
+//      $(function(){
+//          var site_domain = "";
+//          var brand_id = $('*[ectype="homeBrand"]').find(".brand-list").data("value");
+//			var where = '';
+//			if(!brand_id){
+//				brand_id = '';
+//			}
+//          if(site_domain){
+//              $.ajax({
+//                  type: "GET",
+//                  /*jquery Ajax跨域*/
+//                  url: "ajax_dialog.php",
+//                  data: "act=getUserInfo&is_jsonp=1&brand_id="+brand_id,
+//                  dataType:"jsonp",
+//                  jsonp:"jsoncallback",
+//                  success: homeAjax
+//               });
+//          }else{
+//              Ajax.call('ajax_dialog.php?act=getUserInfo', 'brand_id=' + brand_id, homeAjax , 'POST', 'JSON');
+//          }
+//			
+//			function homeAjax(data){
+//				$("*[ectype='user_info']").html(data.content);
+//				$("*[ectype='homeBrand']").html(data.brand_list);
+//				
+//				if($("*[data-mode='lunbo']").length > 0){
+//					$("*[data-mode='lunbo']").after("<div class='visual-item w1200' ectype='channel'>"+data.seckill_goods+"</div>");
+//				}else{
+//					$(".content").find("*[ectype='visualItme']").eq(0).before("<div class='visual-item w1200' ectype='channel'>"+data.seckill_goods+"</div>");
+//				}
+//				$("*[ectype='time']").each(function(){
+//					$(this).yomi();
+//				});
+//				
+//				//秒杀活动
+//				var seckill_goods = $("input[name='seckill_goods']").val();
+//				if(seckill_goods == 0){
+//					$(".lift-h-seckill").hide();
+//				}else{
+//					$(".lift-h-seckill").show();
+//				}
+//				
+//				//首页秒杀商品滚动
+//				$(".seckill-channel").slide({mainCell:".box-bd ul",effect:"leftLoop",autoPlay:true,autoPage:true,interTime:5000,delayTime:500,vis:5,scroll:1,trigger:"click"});
+//				
+//				$.catetopLift();
+//				
+//				$(window).scroll(function(){
+//					var scrollTop = $(document).scrollTop();
+//					var navTop = $("*[ectype='channel']").offset().top;  //by yanxin
+//						
+//					if(scrollTop>navTop){
+//						$("*[ectype='suspColumn']").addClass("show");
+//					}else{
+//						$("*[ectype='suspColumn']").removeClass("show");
+//					}
+//				});
+//			}
+//                      
+//			//重新加载商品模块
+//			$("[data-mode='guessYouLike']").each(function(){
+//				var _this = $(this);
+//				var goods_ids = _this.data("goodsid");
+//				var warehouse_id = $("input[name='warehouse_id']").val();
+//				var area_id = $("input[name='area_id']").val();
+//				if(goods_ids){
+//					 Ajax.call('ajax_dialog.php?act=getguessYouLike', 'goods_ids=' + goods_ids + "&warehouse_id=" + warehouse_id + "&area_id=" + area_id, function(data){
+//						 if(data.content){
+//							_this.find(".view .lift-channel ul").html(data.content);
+//						}
+//					 } , 'POST', 'JSON');
+//				}
+//			});
+//                     
+//			$("li[ectype='floor_cat_content'].current").each(function(){
+//				 get_homefloor_cat_content(this);
+//			});
+//			
+//			$("[ectype='identi_floorgoods'].current").each(function(){
+//				 get_homefloor_cat_content(this);
+//			});
+//      });
+		
+		function readyLoad(){
+			var homeWrap = $("*[ectype='homeWrap']");
+			var homeitem = homeWrap.find("*[ectype='visualItme']");
+			var mode = "";
+			var range = "";
+			var lift = "";
+			var id = "";
+			var floorItem = "";
+			var returnTop = '<div class="lift-item lift-item-top" ectype="liftItem"><i class="iconfont icon-returntop"></i></div>';
+			homeitem.each(function(k,v){
+				mode = $(this).data("mode");
+				if(mode != "lunbo" && mode != "h-streamer" && mode != "custom"){
+					range = $(this).find("*[data-type='range']");
+					lift = range.data("lift");
+					id = range.attr("id");
+					
+					var _div = '<div class="lift-item" ectype="liftItem" data-target="#'+ id +'"><span>'+lift+'</span></div>';
+					
+					$("*[ectype='liftList']").append(_div);
+				}
+				
+			});
+			
+			$("*[ectype='liftList']").append(returnTop);
+		}
+		readyLoad();
+		
+		//会员名称*号 by yanxin
+		/*var name = $(".suspend-login a.nick_name").text();
+		var star = new Array();
+		var nameLen = name.length > 2 ? name.length-2:"1";
+		for(var i=1;i<=nameLen;i++){
+			star.push("*");
+		}
+		star = star.join("");
+		if(name.length > 2){
+			var new_name = name[0] + star + name[name.length-1];
+		}else{
+			var new_name = name[0] + star;
+		}
+		$(".suspend-login a.nick_name").text(new_name);
+*/		
+		//去掉悬浮框 我的购物车
+		$(".attached-search-container .shopCart-con a span").text("");
+		
+		$("*[ectype='time']").each(function(){
+			$(this).yomi();
+		});
+    </script>
+    
+    
+    
+</block>

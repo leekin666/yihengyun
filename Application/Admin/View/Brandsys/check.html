@@ -1,0 +1,127 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>{$meta_title}</h2>
+	</div>
+	<div class="cf">
+        <!-- 高级搜索 -->
+		<div class="search-form fl cf">
+            <div class="sleft">
+                <input type="text" name="keywords_val" class="search-input" value="{$keywords_val}" placeholder="请输入搜索信息">
+                <a class="btn-primary sch-btn" href="javascript:;" id="search" url="{:U('Brandsys/check')}">查询</a>
+            </div>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+            <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+            <th width="5%">编号</th>
+            <th width="12%">中文名称</th>
+            <th width="12%">英文名称</th>
+            <th width="12%">店铺</th>
+            <th width="10%">国家</th>
+            <th width="8%">品牌成立</th>
+            <th width="15%">官网</th>
+            <th >提交审核时间</th>
+            <th >操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="_list">
+		<volist name="_list" id="vo">
+		<tr class="">
+            <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></td>
+			<td>{$vo.id}</td>
+			<td>{$vo.brand_name}</td>
+			<td>{$vo.brand_letter}</td>
+			<td>{$vo.store_name}</td>
+			<td>{$vo.country|msubstr=0,10}</td>
+			<td>{$vo.create_date|default=''|date='Y',###}年</td>
+			<td><a target="_blank" href="{$vo.web_url}" class="brand-url">{$vo.web_url|msubstr=0,20}</a></td>
+            <td>{$vo.update_time|default=''|date='Y/m/d H:i',###}</td>
+            <td><a href="{:U('Brandsys/look?id='.$vo['id'].'&act='.$act)}" class="brandImg-url">查看</a></td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="11" class="text-center no-content"> 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+        
+	</div>
+    <div class="page">
+    	<button class="btn btn-danger brand-freeze brand-btnM" id="rebut" url="{:U('Brandsys/rebut')}">驳 回</button>
+		<button class="btn btn-success brand-freeze ajax-post confirm" url="{:U('Brandsys/changeStatus',array('status'=>'1'))}" target-form="ids">通 过</button>
+        <div class="page-fr">{$_page}</div>
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+		//导航高亮
+		highlight_subnav('{:U('Brandsys/check')}');
+		//搜索功能
+		$("#search").click(function(){
+			var url = $(this).attr('url');
+            var query  = $('.search-form').find('input').serialize();
+			query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+			query = query.replace(/^&/g,'');
+			if( url.indexOf('?')>0 ){
+				url += '&' + query;
+			}else{
+				url += '?' + query;
+			}
+			window.location.href = url;
+		});
+
+		//回车搜索
+		$(".search-input").keyup(function(e){
+			if(e.keyCode === 13){
+				$("#search").click();
+				return false;
+			}
+		});
+        //驳回
+        $(function(){
+            $("#rebut").click(function(){
+                var url = $(this).attr('url');
+                var ids = [];
+                $('.ids').each(function(){
+                    if($(this).prop('checked') == true){
+                        ids.push($(this).val());
+                    }
+                });
+                if(ids.length == 0){
+                    layer.msg('请选择要操作的数据！', {icon: 5});
+                    return false;
+                }
+                layer.prompt({title: '请输入驳回信息', formType: 2}, function(text, index){
+                    $.post(
+                        url,
+                        {ids:ids,text:text},
+                        function(data){
+                            layer.close(index);
+                            if(data == 'success'){
+
+                                layer.msg('驳回成功!');
+                            }else if(data == 'fail'){
+                                layer.msg('驳回失败!请联系系统管理员!');
+                            }
+                            setTimeout(function(){
+                                window.location.reload();
+                            }, 3000);
+                        }
+                    );
+                });
+            })
+        });
+	</script>
+
+</block>

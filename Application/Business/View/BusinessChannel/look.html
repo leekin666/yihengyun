@@ -1,0 +1,100 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <div class="look_brand form-horizontal look-listInfo goods_look">
+        <div class="form-item">
+            <h2 class="look_tit">基本信息</h2>
+        </div>
+        <div class="form-item">
+            <label class="look-label">运营计划</label>
+            <div class="look-info">
+                {$_arr.name}
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="look-label">计划描述</label>
+            <div class="look-info">
+                {$_arr.desc}
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="look-label">起始日期</label>
+            <div class="look-info">
+                {$_arr.start_time}
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="look-label">截止日期</label>
+            <div class="look-info">
+                {$_arr.end_time}
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="look-label">计划类型</label>
+            <div class="look-info">
+                {$_arr.x_type}
+            </div>
+        </div>
+    </div>
+    <!--<div class="form-item pt20">-->
+        <!--<h2 class="look_tit">商品详情</h2>-->
+    <!--</div>-->
+    <!--<div class="form-item">-->
+        <!--<label class="look-label">中文详细描述</label>-->
+        <!--<div class="look-info">-->
+            <!--{$_goods_info.}-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="look_brand form-horizontal look-listInfo goods_look">
+        <div class="form-item">
+            <h2 class="look_tit">渠道信息</h2>
+        </div>
+
+        <div class="form-item">
+            <volist name="_content" id="co">
+                <label class="look-label">{$co.channel_name}</label>
+                    <div class="look-info">
+                        <volist name="co.level" id="lo">
+                            <span style="margin-left: 15px">{$lo.column_name}</span>
+                        </volist>
+                    </div>
+            </volist>
+        </div>
+    </div>
+
+    <div class="form-item" style="margin-left: 100px;">
+
+        <button class="btn btn-info brand-btnM" onclick="javascript:history.back(-1);return false;">返 回</button>
+        <a class="btn btn-primary brand-btnM" title="编辑" href="{:U('BusinessChannel/edit?id='.$_arr['id'])}">编辑</a>
+        <a class="btn btn-danger confirm ajax-get" title="删除" href="{:U('BusinessChannel/del?id='.$_arr['id'].'&status=-1')}">删除</a></if>
+
+    </div>
+    </div>
+</block>
+
+<block name="script">
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        //导航高亮
+        if("{$act}" == 'look'){
+            highlight_subnav('{:U('BusinessChannel/index')}');
+        }
+
+
+        $('#time-start').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true,
+            pickerPosition:'top-right'
+        });
+    </script>
+</block>

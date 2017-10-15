@@ -1,0 +1,503 @@
+<div class="site-nav" id="site-nav">
+    <div <if condition="$is_shopindex">class="w w1200"<else/>class="w w1390"</if>>
+        <div class="fl">
+			<div class="txt-info" id="ECS_MEMBERZONE">				
+				<a href="user.php" class="link-login red">请登录</a>
+			    <a href="user.php?act=register" class="link-regist">免费注册</a>    	
+            </div>
+        </div>
+        <ul class="quick-menu fr">
+            <li>
+                <div class="dt"><a href="user.php?act=order_list">我的订单</a></div>
+            </li>
+            <li class="spacer"></li>
+            <li>
+                <div class="dt"><a href="history_list.php">我的浏览</a></div>
+            </li>
+            <li class="spacer"></li>
+            <li>
+                <div class="dt"><a href="user.php?act=collection_list">我的收藏</a></div>
+            </li>
+            <li class="spacer"></li>
+            <li>
+                <div class="dt"><a href="user.php?act=message_list">客户服务</a></div>
+            </li>            
+        </ul>
+    </div>
+</div>
+
+<!--购物车头部-->
+<if condition="$is_cart">
+<div class="header header-cart">
+    <div class="w w1200">
+        <div class="logo">
+            <div class="logoImg"><a href="index.php"><img src="__PUBLIC__/Home/images/logo.gif" /></a></div>
+            <div class="tit">购物车（<em ectype="cartNum"></em>）</div>
+        </div>
+        <div class="dsc-search">
+        	<ul class="dsc-search-tab clearfix">
+        		<li class="current" search-type="item">商品</li>
+        		<li search-type="shop">店铺</li>
+        		<li search-type="channel">渠道</li>
+        	</ul>
+            <div class="form">
+                <form id="searchForm" name="searchForm" method="get" action="search.php" onSubmit="return checkSearchForm()" class="search-form">
+                    <input autocomplete="off" onKeyUp="lookup(this.value);" name="keywords" type="text" id="keyword" value="周大福" class="search-text"/>
+                    <input type="hidden" name="store_search_cmt" value="0">
+                    <button type="submit" class="button button-goods" onclick="checkstore_search_cmt(0)" >搜索</button>
+                    <input type="hidden" name="search_type" value="item" />
+                </form>                      
+            </div>
+        </div>    
+    </div>
+</div>
+<else/>
+<!--其它头部-->
+<div class="header">
+    <div <if condition="$is_shopindex">class="w w1200"<else/>class="w w1390"</if>>
+        <div class="logo">
+            <div class="logoImg"><a href="index.php"><img src="__PUBLIC__/Home/images/logo.gif" /></a></div>
+				<div class="logoAdv"><a href="merchants.php"><img src="__PUBLIC__/Home/images/ecsc-join.gif" /></a></div>
+	        </div>
+        <div class="dsc-search">
+        	<ul class="dsc-search-tab clearfix">
+        		<li class="current" search-type="item">商品</li>
+        		<li search-type="shop">店铺</li>
+        		<li search-type="channel">渠道</li>
+        	</ul>
+            <div class="form">
+                <form id="searchForm" name="searchForm" method="get" action="search.php" onSubmit="return checkSearchForm()" class="search-form">
+                    <input autocomplete="off" onKeyUp="lookup(this.value);" name="keywords" type="text" id="keyword" value="周大福" class="search-text"/>
+                    <input type="hidden" name="store_search_cmt" value="0">
+                    <button type="submit" class="button button-goods" onclick="checkstore_search_cmt(0)" >搜索</button>
+                    <input type="hidden" name="search_type" value="item" />
+                </form>
+                <ul class="keyword">
+	                <li><a href="search.php?keywords=%E5%91%A8%E5%A4%A7%E7%A6%8F" target="_blank">周大福</a></li>
+	                <li><a href="search.php?keywords=%E5%86%85%E8%A1%A3" target="_blank">内衣</a></li>
+	                <li><a href="search.php?keywords=Five+Plus" target="_blank">Five Plus</a></li>
+	                <li><a href="search.php?keywords=%E6%89%8B%E6%9C%BA" target="_blank">手机</a></li>
+                </ul>                                
+                <div class="suggestions_box" id="suggestions" style="display:none;">
+                    <div class="suggestions_list" id="auto_suggestions_list">
+                        &nbsp;
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="shopCart" data-ectype="dorpdown" id="ECS_CARTINFO" data-carteveval="0">        
+			<div class="shopCart-con dsc-cm">
+				<a href="/Home/Cart">
+					<i class="iconfont icon-carts"></i>
+					<span>我的购物车</span>
+					<em class="count cart_num">3</em>
+				</a>
+			</div>
+			<div class="dorpdown-layer" ectype="dorpdownLayer">
+	        	<div class="prompt"><div class="nogoods"><b></b><span>购物车中还没有商品，赶紧选购吧！</span></div></div>
+	    	</div>
+	
+			<script type="text/javascript">
+				function changenum(rec_id, diff, warehouse_id, area_id)
+				{
+					var cValue = $('#cart_value').val();
+				    var goods_number =Number($('#goods_number_' + rec_id).text()) + Number(diff);
+				 
+					if(goods_number < 1)
+					{
+						return false;	
+					}
+					else
+					{
+						change_goods_number(rec_id,goods_number, warehouse_id, area_id, cValue);
+					}
+				}
+				function change_goods_number(rec_id, goods_number, warehouse_id, area_id, cValue)
+				{
+					if(cValue != '' || cValue == 'undefined'){
+					   var cValue = $('#cart_value').val(); 
+					}   
+					Ajax.call('flow.php?step=ajax_update_cart', 'rec_id=' + rec_id +'&goods_number=' + goods_number +'&cValue=' + cValue +'&warehouse_id=' + warehouse_id +'&area_id=' + area_id, change_goods_number_response, 'POST','JSON');                
+				}
+				function change_goods_number_response(result)
+				{    
+					var rec_id = result.rec_id;           
+				    if (result.error == 0)
+				    {
+				       $('#goods_number_' +rec_id).val(result.goods_number);//更新数量
+				       $('#goods_subtotal_' +rec_id).html(result.goods_subtotal);//更新小计
+				       if (result.goods_number <= 0)
+				        {
+							//数量为零则隐藏所在行
+				            $('#tr_goods_' +rec_id).style.display = 'none';
+				            $('#tr_goods_' +rec_id).innerHTML = '';
+				        }
+				        $('#total_desc').html(result.flow_info);//更新合计
+				        if($('ECS_CARTINFO'))
+				        {//更新购物车数量
+				            $('#ECS_CARTINFO').html(result.cart_info);
+				        }
+				
+						if(result.group.length > 0){
+							for(var i=0; i<result.group.length; i++){
+								$("#" + result.group[i].rec_group).html(result.group[i].rec_group_number);//配件商品数量
+								$("#" + result.group[i].rec_group_talId).html(result.group[i].rec_group_subtotal);//配件商品金额
+							}
+						}
+				
+						$("#goods_price_" + rec_id).html(result.goods_price);
+						$(".cart_num").html(result.subtotal_number);
+					}
+					else if (result.message != '')
+					{
+						$('#goods_number_' +rec_id).val(result.cart_Num);//更新数量
+						alert(result.message);
+					}                
+				}
+				
+				function deleteCartGoods(rec_id,index)
+				{
+					Ajax.call('delete_cart_goods.php', 'id='+rec_id+'&index='+index, deleteCartGoodsResponse, 'POST', 'JSON');
+				}
+				
+				/**
+				 * 接收返回的信息
+				 */
+				function deleteCartGoodsResponse(res)
+				{
+				  if (res.error)
+				  {
+				    alert(res.err_msg);
+				  }
+				  else if(res.index==1)
+				  {
+						Ajax.call('get_ajax_content.php?act=get_content', 'data_type=cart_list', return_cart_list, 'POST', 'JSON');
+				  }
+				  else
+				  {
+					  $("#ECS_CARTINFO").html(res.content);
+					  $(".cart_num").html(res.cart_num);
+				  }
+				}
+				
+				function return_cart_list(result)
+				{
+					$(".cart_num").html(result.cart_num);
+					$(".pop_panel").html(result.content);
+					tbplHeigth();
+				}
+			</script>        
+        </div>
+    </div>
+</div>
+
+<div class="nav dsc-zoom" ectype="dscNav">
+    <div <if condition="$is_shopindex">class="w w1200"<else/>class="w w1390"</if>>
+        <div <if condition="$is_categorys">class="categorys"<else/>class="categorys site-mast"</if>>
+            <div class="categorys-type"><a href="/Mall/Category/categorylist" target="_blank">全部商品分类</a></div>
+            <div class="categorys-tab-content">
+            	<div class="categorys-items" id="cata-nav">
+			        <div class="categorys-item" ectype="cateItem" data-id="858" data-eveval="0">
+				        <div class="item item-content">
+	                        <i class="iconfont icon-ele"></i>
+	                        <div class="categorys-title">
+	                			<strong>
+	                                <a href="category.php?id=858" target="_blank">家用电器</a>
+	                            </strong>
+	                            <!--<span>
+	                                <a href="category.php?id=1105" target="_blank">大家电</a>
+	                                <a href="category.php?id=1115" target="_blank">生活电器</a>                    	
+	                            </span>-->
+	                        </div>
+				        </div>
+				        <div class="categorys-items-layer" ectype="cateLayer">
+				            <div class="cate-layer-con clearfix">
+				                <div class="cate-layer-left">
+				                    <div class="cate_channel" ectype="channels_858">
+										<a href="category.php?id=1105" target="_blank">品牌日</a>
+										<a href="category.php?id=1115" target="_blank">家电城</a>
+										<a href="category.php?id=1129" target="_blank">智能生活馆</a>
+										<a href="category.php?id=1130" target="_blank">京东净化馆</a>
+										<a href="category.php?id=1145" target="_blank">京东帮服务店</a>
+										<a href="category.php?id=1160" target="_blank">值得买精选</a>
+										<a href="category.php?id=1105" target="_blank">品牌日</a>
+										<a href="category.php?id=1115" target="_blank">家电城</a>
+										<a href="category.php?id=1129" target="_blank">智能生活馆</a>
+										<a href="category.php?id=1130" target="_blank">京东净化馆</a>
+										<a href="category.php?id=1145" target="_blank">京东帮服务店</a>
+										<a href="category.php?id=1160" target="_blank">值得买精选</a>
+									</div>
+				                    <div class="cate_detail" ectype="subitems_858">
+														
+										<div class="brand-channel clearfix" id="h-brand_0" data-type="range" data-lift="品牌"> 
+											<div ectype="homeBrand">
+											    <div class="brand-list" id="recommend_brands" data-value="204,93,110,113,116,195,79,95,76,126,73,122,98,82,101,85,105">
+										        	<ul>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=204" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490039286075654490.jpg"></a></div>
+											                <div class="brand-mash">													                    
+											                    <div class="coupon"><a href="brandn.php?id=204" target="_blank">品牌名</a></div>
+											                </div>
+											            </li>
+				                        				<li>
+											                <div class="brand-img"><a href="brandn.php?id=195" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490075385239594909.jpg"></a></div>
+											                <div class="brand-mash">													                   
+											                    <div class="coupon"><a href="brandn.php?id=195" target="_blank">品牌名</a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=73" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072329183966195.jpg"></a></div>
+											                <div class="brand-mash">													                    
+											                    <div class="coupon"><a href="brandn.php?id=73" target="_blank">品牌名</a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=76" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072373278367315.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="76" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=76" target="_blank">关注人数<br><div id="collect_count_76">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=79" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072677495061584.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="79" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=79" target="_blank">关注人数<br><div id="collect_count_79">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=82" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072694695600078.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="82" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=82" target="_blank">关注人数<br><div id="collect_count_82">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=85" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072756032175204.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="85" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=85" target="_blank">关注人数<br><div id="collect_count_85">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=110" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490074043963552715.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="110" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=110" target="_blank">关注人数<br><div id="collect_count_110">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=113" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490074030328949587.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="113" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=113" target="_blank">关注人数<br><div id="collect_count_113">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=116" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490073109529817869.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="116" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=116" target="_blank">关注人数<br><div id="collect_count_116">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=122" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490073982547710498.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="122" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=122" target="_blank">关注人数<br><div id="collect_count_122">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=126" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490073943918274561.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="126" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=126" target="_blank">关注人数<br><div id="collect_count_126">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=95" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072870537181142.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="95" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=95" target="_blank">关注人数<br><div id="collect_count_95">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=98" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072898345358625.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="98" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=98" target="_blank">关注人数<br><div id="collect_count_98">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=101" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072931218635674.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="101" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=101" target="_blank">关注人数<br><div id="collect_count_101">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=105" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072971610241726.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="105" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=105" target="_blank">关注人数<br><div id="collect_count_105">0</div></a></div>
+											                </div>
+											            </li>
+								                        <li>
+											                <div class="brand-img"><a href="brandn.php?id=93" target="_blank"><img src="__PUBLIC__/Home/images/data/brandlogo/1490072850306019115.jpg"></a></div>
+											                <div class="brand-mash">
+											                    <div data-bid="93" ectype="coll_brand"><i class="iconfont icon-zan-alt"></i></div>
+											                    <div class="coupon"><a href="brandn.php?id=93" target="_blank">关注人数<br><div id="collect_count_93">0</div></a></div>
+											                </div>
+											            </li>
+								                    </ul>
+								        			<a href="javascript:void(0);" ectype="changeBrand" class="refresh-btn"><i class="iconfont icon-rotate-alt"></i><span>换一批</span></a>
+											    </div>
+											</div>
+											<div class="spec" data-spec="" data-title="undefined"></div>
+				                        </div>							
+									</div>
+				                </div>						                
+				            </div>
+				        </div>
+				        <div class="clear"></div>
+				    </div>
+	                <div class="categorys-item" ectype="cateItem" data-id="3" data-eveval="0">
+	        			<div class="item item-content">
+	                        <i class="iconfont icon-digital"></i>
+	                        <div class="categorys-title">
+	                			<strong>
+	                                <a href="category.php?id=33" target="_blank" class="division_cat">手机</a>、<a href="category.php?id=64" target="_blank" class="division_cat">数码</a>、<a href="category.php?id=37" target="_blank" class="division_cat">通信</a>                               
+	                			</strong>
+	                    	</div>
+	        			</div>
+				        <div class="categorys-items-layer" ectype="cateLayer">
+				            <div class="cate-layer-con clearfix">
+				                <div class="cate-layer-left">
+				                    <div class="cate_channel" ectype="channels_3"></div>
+				                    <div class="cate_detail" ectype="subitems_3"></div>
+				                </div>
+				                <div class="cate-layer-rihgt" ectype="brands_3"></div>
+				            </div>
+				        </div>
+				        <div class="clear"></div>
+				    </div>
+	                <div class="categorys-item" ectype="cateItem" data-id="4" data-eveval="0">
+				        <div class="item item-content">
+	                        <i class="iconfont icon-computer"></i>
+	                        <div class="categorys-title">
+				                <strong>
+	                            	<a href="category.php?id=4" target="_blank">电脑、办公</a>
+	                           </strong>
+	                        </div>
+				        </div>
+				        <div class="categorys-items-layer" ectype="cateLayer">
+				            <div class="cate-layer-con clearfix">
+				                <div class="cate-layer-left">
+				                    <div class="cate_channel" ectype="channels_4"></div>
+				                    <div class="cate_detail" ectype="subitems_4"></div>
+				                </div>
+				                <div class="cate-layer-rihgt" ectype="brands_4"></div>
+				            </div>
+				        </div>
+				        <div class="clear"></div>
+				    </div>
+	                <div class="categorys-item" ectype="cateItem" data-id="5" data-eveval="0">
+						<div class="item item-content">
+			                <i class="iconfont icon-bed"></i>
+			                <div class="categorys-title">
+					        	<strong>
+		                        	<a href="category.php?id=5" target="_blank">家居、家具、家装、厨具</a>
+		                       </strong>
+		                    </div>
+						</div>
+				        <div class="categorys-items-layer" ectype="cateLayer">
+				            <div class="cate-layer-con clearfix">
+				                <div class="cate-layer-left">
+				                    <div class="cate_channel" ectype="channels_5"></div>
+				                    <div class="cate_detail" ectype="subitems_5"></div>
+				                </div>
+				                <div class="cate-layer-rihgt" ectype="brands_5"></div>
+				            </div>
+				        </div>
+				        <div class="clear"></div>
+				    </div>
+	                <div class="categorys-item" ectype="cateItem" data-id="6" data-eveval="0">
+	        			<div class="item item-content">
+	                        <i class="iconfont icon-clothes"></i>
+	                        <div class="categorys-title">
+	                			<strong>
+	                                <a href="category.php?id=6" target="_blank">男装、女装、内衣</a>
+	                           </strong>
+	                        </div>
+				        </div>
+				        <div class="categorys-items-layer" ectype="cateLayer">
+				            <div class="cate-layer-con clearfix">
+				                <div class="cate-layer-left">
+				                    <div class="cate_channel" ectype="channels_6"></div>
+				                    <div class="cate_detail" ectype="subitems_6"></div>
+				                </div>
+				                <div class="cate-layer-rihgt" ectype="brands_6"></div>
+				            </div>
+				        </div>
+				        <div class="clear"></div>
+				    </div>
+	                <div class="categorys-item" ectype="cateItem" data-id="8" data-eveval="0">
+	        			<div class="item item-content">
+	                        <i class="iconfont icon-shoes"></i>
+	                        <div class="categorys-title">
+	                			<strong>
+	                                <a href="category.php?id=8" target="_blank">鞋靴、箱包、钟表、奢侈品</a>
+	                           </strong>
+	                        </div>
+				        </div>
+				        <div class="categorys-items-layer" ectype="cateLayer">
+				            <div class="cate-layer-con clearfix">
+				                <div class="cate-layer-left">
+				                    <div class="cate_channel" ectype="channels_8"></div>
+				                    <div class="cate_detail" ectype="subitems_8"></div>
+				                </div>
+				                <div class="cate-layer-rihgt" ectype="brands_8"></div>
+				            </div>
+				        </div>
+				        <div class="clear"></div>
+				    </div>
+	                <div class="categorys-item" ectype="cateItem" data-id="860" data-eveval="0">
+	    				<div class="item item-content">
+	                        <i class="iconfont icon-heal"></i>
+	                        <div class="categorys-title">
+	                			<strong>
+	                                <a href="category.php?id=860" target="_blank">个人化妆、清洁用品</a>
+	                           </strong>
+	                        </div>
+					    </div>
+					    <div class="categorys-items-layer" ectype="cateLayer">
+					        <div class="cate-layer-con clearfix">
+					            <div class="cate-layer-left">
+					                <div class="cate_channel" ectype="channels_860"></div>
+					                <div class="cate_detail" ectype="subitems_860"></div>
+					            </div>
+					            <div class="cate-layer-rihgt" ectype="brands_860"></div>
+					        </div>
+					    </div>
+					    <div class="clear"></div>
+					</div>                                                                                
+	        	</div>            
+	        </div>
+	    </div>
+    	<div class="nav-main" id="nav">
+            <ul class="navitems">
+                <li><a href="/Home/Index/shop" class="curr">首页</a></li>
+                <li><a href="/Home/Brand"  >品牌专区</a></li>
+                <!--<li><a href="category.php?id=6"  >国家馆</a></li>-->
+                <li><a href="category.php?id=858"  >保税产品</a></li>
+                <li><a href="category.php?id=8"  >国内产品</a></li>
+                <li><a href="brand.php"  >跨境产品</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+</if> 

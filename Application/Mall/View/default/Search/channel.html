@@ -1,0 +1,39 @@
+<extend name="Base/common"/>
+
+
+<block name="body">
+	<div class="w w1200 channel-list">
+		<notempty name="_list">
+			<ul class="clearfix">
+				<foreach name="_list" item="vo">
+					<li class="fl">
+						<a href="{:U('Channel/detail?id='.$vo[id])}" class="clearfix">
+							<img src="{$vo.channel_logo}" width="150" height="150" />
+							<div class="channel-item-txt">
+								{$vo.channel_name}
+							</div>
+							<div class="channel-item-data">
+								<p><span>销售额：</span>30亿/年</p>
+								<p><span>流量：</span>20万DAU</p>
+								<p><span>转化率：</span>30.5%</p>
+							</div>
+						</a>
+					</li>
+				</foreach>
+			</ul>
+		<else/>
+			<div class="goods-list">
+				<div class="no_records">
+					<i class="no_icon_two"></i>
+					<div class="no_info no_info_line">
+						<h3>抱歉，没有找到符合条件的数据</h3>
+						<!--<div class="no_btn">-->
+						<!--<a href="/Mall/index" class="btn sc-redBg-btn">返回首页</a>-->
+						<!--</div>-->
+					</div>
+				</div>
+			</div>
+		</notempty>
+	</div>
+
+</block>

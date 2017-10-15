@@ -1,0 +1,239 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>    
+    <form action="{:U()}" method="post" class="form-horizontal" id="merchants_window_form"  enctype="multipart/form-data">
+        <div class="form-item">
+        	<label class="item-label">店铺名称 <span class="red">*</span></label>
+            <div class="controls">
+                <select name="store_id" id="store_id" class="fl">
+                    <option value="">请选择店铺</option>
+                    <foreach name="_store_name" item="vo">
+                        <option value="{$vo.store_id}" <if condition="$row['store_id'] eq $vo['store_id']">selected</if>>{$vo.name}</option>
+                    </foreach>
+                </select>
+                <div class="box_error fl red"></div>
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">品牌中文名称 <span class="red">*</span><span class="check-tips">（不超过20字符）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large fl" name="brand_name" value="{$row.brand_name}" id="brand_name">
+                <div class="box_error fl red"></div>
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">品牌英文名称<span class="check-tips">（不超过50字符）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="brand_letter" value="{$row.brand_letter}">
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">品牌中文描述<span class="check-tips">（不超过50字符）</span></label>
+            <div class="controls">
+                <label class="textarea input-large">
+					<textarea name="desc_cn">{$row.desc_cn}</textarea>
+				</label>
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">品牌英文描述<span class="check-tips">（不超过50字符）</span></label>
+            <div class="controls">
+                <label class="textarea input-large">
+					<textarea name="desc_letter">{$row.desc_letter}</textarea>
+				</label>
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">品牌口号<span class="check-tips">（不超过100字符）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="slogan" value="{$row.slogan}">
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">品牌官网<span class="check-tips">（不超过100字符）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="web_url" value="{$row.web_url}">
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">品牌国家<span class="check-tips">（不超过20字符）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="country" value="{$row.country}">
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">品牌成立时间<span class="check-tips">（不超过20字符）</span></label>
+            <div class="controls">
+                <input type="text"  class="text input-large" name="create_date" id="time-start" value="{$row.create_date|default=time()|date='Y-m-d',###}">
+            </div>
+        </div>
+
+        <div class="form-item">
+        	<label class="item-label">品牌LOGO</label>
+            <div class="controls">
+            	<div class="file_logo_box" editId = "{$row['id']}">
+            		<b class="logo-close" onclick="closeLogo(this,'{$row[\'id\']}')">×</b>
+	                <div class="upload-img-box">
+	                    <if condition="$row['logo']">
+	                        <div class="upload-pre-item logo_show"><img id="tmp_img" src="{$row.logo}"/></div>
+	                    <else/>
+	                        <notempty name="info['icon']">
+	                            <div class="upload-pre-item"><img id="tmp_img" src=src="__ROOT__{$info.icon|get_cover='path'}"/></div>
+	                        </notempty>
+	                    </if>
+	                </div>
+                </div>
+	            <input type="file" id="upload_picture">
+	            <input type="hidden" name="icon" id="icon" value="{$info['icon']|default=''}"/>
+                <input type="hidden" name="logo" id="img_path" value="{$row.logo}">
+	        </div>
+        </div>  
+        <div class="form-item pt20">
+            <input type="hidden" name ="id" value="{$row.id}">
+        	<button class="btn btns btn-default" onclick="javascript:location.reload();return false;">重 置</button>
+            <if condition="$row['status'] eq 10">
+                <button class="btn btns submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">解冻并提交</button>
+            <else/>
+                <button class="btn btns submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">提交</button>
+            </if>
+            <button class="btn btns btn-info" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav('{:U('Brand/index')}');
+        
+        if($(".file_logo_box").attr("editId")&&$("#img_path").val()){
+        	$(".file_logo_box").css("margin-right","20px").find(".logo-close").show();
+        }
+
+
+
+        
+        $('#time-start').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true,
+            pickerPosition:'top-right'
+        });
+
+        //上传图片
+        /* 初始化上传插件 */
+        $("#upload_picture").uploadify({
+            "height"          : 30,
+            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName"     : "download",
+            "buttonText"      : "上传logo",
+            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            "width"           : 120,
+            'removeTimeout'	  : 1,
+            'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+            "onUploadSuccess" : uploadPicture,
+            'onFallback' : function() {
+                alert('未检测到兼容版本的Flash.');
+            }
+        });
+        function uploadPicture(file, data){
+            var data = $.parseJSON(data);
+            var src = '';
+            if(data.status){
+                $("#icon").val(data.id);
+                src = data.url || '__ROOT__' + data.path;
+                $("#icon").parent().find('.upload-img-box').html(
+                        '<div class="upload-pre-item logo_show"><img src="' + src + '"/></div>'
+                );
+                $(".file_logo_box").css("margin-right","20px").find(".logo-close").show();
+                $.post(
+                    "{:U('Brand/up_img_oss')}",
+                    {tmp_img:src},
+                    function(data){
+                        console.log(data);
+                        $('#img_path').val(data);
+                    }
+                );
+            } else {
+                updateAlert(data.info);
+                setTimeout(function(){
+                    $('#top-alert').find('button').click();
+                    $(that).removeClass('disabled').prop('disabled',false);
+                },1500);
+            }
+        }
+
+		function closeLogo(obj,id){
+	      	var _this = $(obj);
+	      	var imgSrc = $("#img_path").val();
+      		$.post("{:U('Brand/removePic')}",{path:imgSrc,id:id},function (res) {
+	      	    if(res==0){
+                    $("#img_path").val("");
+                    $(".upload-img-box").html("");
+                    _this.hide().parents(".file_logo_box").css("margin-right","0px");
+                }
+            })
+        }
+
+        $(function(){        	
+        	$(document).click(function(event){
+        		var doc = $(event.target);
+        		if(doc.hasClass("input_error")){
+        			doc.removeClass("input_error");
+        			doc.next(".box_error").hide().html("");
+        		}
+        	});	
+        	
+            $("#brand_name").blur(function(){
+                var store_id = $("#store_id").val();
+                var brand_name = $(this).val();
+                brand_only(store_id,brand_name);
+            });
+            
+            $("#store_id").change(function(){
+            	var store_id = $(this).val();
+                var brand_name = $("#brand_name").val();
+                brand_only(store_id,brand_name);
+            });
+            
+            function brand_only(store_id,brand_name){
+	        	if(brand_name){
+	        		if(store_id){
+	        			$.post(
+	                        "{:U('Brand/check_brand')}",
+	                        {store_id:store_id,brand_name:brand_name},
+	                        function(data){
+	                            if(data == 'fail'){
+	                            	$("#brand_name").addClass("input_error").next(".box_error").show().html('该店铺下品牌名重复！');
+	                            	$("#submit").attr("disabled","disabled");
+	                                return false;
+	                            }else{
+	                            	$("#submit").removeAttr("disabled");
+	                            	$("#store_id,#brand_name").removeClass("input_error").next(".box_error").hide().html("");
+	                            }
+	                        }
+	                    );
+	        		}else{
+	        			$("#store_id").addClass("input_error").next(".box_error").show().html('请选择店铺！');
+	        			$("#submit").attr("disabled","disabled");
+	                    return false;
+	        		}
+	        	}
+	        }
+        })
+        
+        
+        
+    </script>
+</block>
