@@ -18,7 +18,6 @@ use OAuth2\Autoloader;
  */
 class HomeController extends Controller {
     /* 空操作，用于输出404页面 */
-    protected $oauth2;
     
     public function _empty() {
         $this->redirect('Index/index');
@@ -29,8 +28,6 @@ class HomeController extends Controller {
         /* 读取站点配置 */
         $config = api('Config/lists');
         C($config); //添加配置
-        $this->oauth2 = $this->OAuthServer();
-        
         if (!C('WEB_SITE_CLOSE')) {
             $this->error('站点已经关闭，请稍后访问~');
         }
@@ -46,16 +43,6 @@ class HomeController extends Controller {
         is_login() || $this->error('您还没有登录，请先登录！', U('User/login'));
     }
      
-    protected function OAuthServer(){
-        \OAuth2\Autoloader::register();
-        $storage = new \OAuth2\Storage\Pdo(array('dsn' =>  'mysql:dbname=bbc_v2;host=localhost', 'username' => 'root' , 'password' => 'L&S123smzq'));
-        $server = new \OAuth2\Server($storage);
-        $server->addGrantType(new \OAuth2\GrantType\AuthorizationCode($storage));
-        $server->addGrantType(new \OAuth2\GrantType\ClientCredentials($storage));
-        $server->addGrantType(new \OAuth2\GrantType\RefreshToken($storage));
-//        $server->handleTokenRequest(\OAuth2\Request::createFromGlobals())->send();
-        return $server;
-    }
     
     public function jsonSuccess($data = null, $message = '')
     {

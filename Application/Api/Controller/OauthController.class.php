@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Created by phpStorm.
- * User: ronghaichuan
- * Date: 2017/10/9
- * Time: 13:53
- */
-
 namespace Api\Controller;
 
 class OauthController extends HomeController {
@@ -17,52 +10,105 @@ class OauthController extends HomeController {
     const AUTHORIZE_REDIRECT_URL = self::DOMAIN.'/oauth/authorize.html';
     const ENCRYPT_SECRET = 'YiHeng';
     const API_KEY = 'YunApi';
-
-    public function register() {
+    
+    protected $oauth2;
+    
+    protected function _initialize() {
+        header("Content-Type: application/json");
+        $this->oauth2 = $this->OAuthServer();
+    }
+    
+    protected function OAuthServer(){
+        \OAuth2\Autoloader::register();
+        $storage = new \OAuth2\Storage\Pdo(array('dsn' =>  'mysql:dbname=bbc_v2;host=localhost', 'username' => 'root' , 'password' => 'L&S123smzq'));
+        $server = new \OAuth2\Server($storage);
+        $server->addGrantType(new \OAuth2\GrantType\AuthorizationCode($storage));
+        $server->addGrantType(new \OAuth2\GrantType\ClientCredentials($storage));
+        $server->addGrantType(new \OAuth2\GrantType\RefreshToken($storage));
+        return $server;
+    }
+    
+    public function index(){
+        exit($this->jsonError(401, 'UnAuthorized'));
+    }
+    
+    public function login() {
         $request = \OAuth2\Request::createFromGlobals();
         $post = $request->request;
         $storage = $this->oauth2->getStorage('client');
-        if (isset($post['username']) && isset($post['password'])) {
-            $checkOpenUserRes = M('distribution_open')->where(['key' => $post['username'],'secret' => md5($post['password']),'status' => 1])->find();
-            if ($checkOpenUserRes) {
-                $client_id = md5($post['username']);
-                $client_secret = md5(uniqid());
-                $status = $storage->setClientDetails($client_id, $client_secret, self::AUTHORIZE_REDIRECT_URL, 'authorization_code refresh_token');
-                if ($status) {
-                    $details = $storage->getClientDetails($client_id);
-                    $data = $this->client($details);
-                    exit($this->jsonSuccess($data));
-                } else {
-                    exit($this->jsonError(20001, '认证失败'));
-                }
-            } else {
-                exit($this->jsonError(10013, '请求参数不合法'));
-            }
-        } else {
+        if (!isset($post['username']) || !isset($post['password'])) {
             exit($this->jsonError(10012, '请求参数缺失'));
         }
+        $clientRow = M('distribution_open')->where(['key' => $post['username'],'secret' => md5($post['password']),'status' => 1])->find();
+        if (!$clientRow) {
+            exit($this->jsonError(21001, '账号或密码错误'));
+        }
+        $client_id = md5($post['username']);
+        $client_secret = md5($post['password']);
+        $seed = uniqid();
+        $state = substr(md5($client_id. 'authorize'), 0, 8);
+        $redirect_uri = self::AUTHORIZE_REDIRECT_URL.'?response_type=code&client_id='.$client_id.'&state='.$state;
+        $status = $storage->setClientDetails($client_id, $client_secret, $redirect_uri, 'authorization_code refresh_token','all',$clientRow['id']);
+        if (!$status) {
+            exit($this->jsonError(20001, '认证失败'));
+        }
+        header('Location:'.$redirect_uri);
+//        $details = $storage->getClientDetails($client_id);
+//        $data = $this->client($details);
+//        print_r($details);die;
+//        header($string);
+//        exit($this->jsonSuccess($data));
     }
-
+    
     public function authorize() {
         $request = \OAuth2\Request::createFromGlobals();
-        $post = $request->request;
-        
-        if ($checkOpenUserRes) {
+//        print_r($request);die;
+        if($_GET['response_type'] != 'code'){
+            exit($this->jsonError(20008, '不支持的RESPONSE_TYPE类型'));
+        }
+        $storage = $this->oauth2->getStorage('client');
+        $client = $storage->getClientDetails($_GET['client_id']);
+        if(!$client){
+            exit($this->jsonError(21002, '不合法的client_id'));
+        }
+        if ($_GET['state'] == substr(md5($_GET['client_id']. 'authorize'), 0, 8)) {
             $response = new \OAuth2\Response();
             if ($this->oauth2->validateAuthorizeRequest($request, $response)) {
                 $clientId = 0;
                 $this->oauth2->handleAuthorizeRequest($request, $response, true, $clientId);
                 $code = substr($response->getHttpHeader('Location'), strpos($response->getHttpHeader('Location'), 'code=') + 5, 40);
-//                print_r($code);die;
                 $authorize = $this->oauth2->getStorage('authorization_code');
                 $authed = $authorize->getAuthorizationCode($code);
                 $data = [
                     'authorize_code' => $code,
                     'expire_time' => $authed['expires']
                 ];
-                return $this->jsonSuccess($data);
+                exit($this->jsonSuccess($data));
             } else {
-//                $response->send();
+                exit($this->jsonError(20002, '授权失败'));
+            }
+        } else {
+            exit($this->jsonError(20009, '回调失败'));
+        }
+    }
+    
+    public function authorizeBack() {
+        $request = \OAuth2\Request::createFromGlobals();
+        $post = $request->request;
+        if (1) {
+            $response = new \OAuth2\Response();
+            if ($this->oauth2->validateAuthorizeRequest($request, $response)) {
+                $clientId = 0;
+                $this->oauth2->handleAuthorizeRequest($request, $response, true, $clientId);
+                $code = substr($response->getHttpHeader('Location'), strpos($response->getHttpHeader('Location'), 'code=') + 5, 40);
+                $authorize = $this->oauth2->getStorage('authorization_code');
+                $authed = $authorize->getAuthorizationCode($code);
+                $data = [
+                    'authorize_code' => $code,
+                    'expire_time' => $authed['expires']
+                ];
+                exit($this->jsonSuccess($data));
+            } else {
                 exit($this->jsonError(20002, '授权失败'));
             }
         } else {
@@ -70,26 +116,21 @@ class OauthController extends HomeController {
         }
     }
 
-    /*
-     * 有效期为 1209600s，可以在 OAuth2/ResponseType/AccessToken.php 中的 AccessToken class 中的构造函数配置中进行修改。
-     * curl -u app_key:app_secret /authed/token/********.html -d grant_type=authorization_code&code=$authcode
-     */
-
     public function token() {
         $request = \OAuth2\Request::createFromGlobals();
         $post = $request->request;
-        if ($args['auth'] == substr(md5($post['client_id'] . $post['state'] . 'token'), 0, 8)) {
+        if ($post['code']) {
             $response = new \OAuth2\Response();
             $resp = $this->oauth2->handleTokenRequest(\OAuth2\Request::createFromGlobals(), $response);
             $body = $resp->getResponseBody();
             $data = json_decode($body, true);
             if (isset($data['access_token'])) {
-                return $this->jsonSuccess($res, $data);
+                exit($this->jsonSuccess($data));
             } else {
-                return $this->jsonError($res, 20003, $data);
+                exit($this->jsonError(20003, $data));
             }
         } else {
-            return $this->jsonError($res, 10013, '请求参数不合法');
+            exit($this->jsonError(10013, '请求参数不合法'));
         }
     }
 
@@ -115,23 +156,6 @@ class OauthController extends HomeController {
         }
     }
     
-    public function client($details) {
-        $seed = md5(uniqid());
-        $authorize = substr(md5($details['client_id'] . $seed . 'authorize'), 0, 8);
-        $token = substr(md5($details['client_id'] . $seed . 'token'), 0, 8);
-        $refresh = substr(md5($details['client_id'] . $seed . 'refresh'), 0, 8);
-        $resource = substr(md5($details['client_id'] . $seed . 'resource'), 0, 8);
-        return array(
-            'app_key' => $details['client_id'],
-            'app_secret' => $details['client_secret'],
-            'authorize_url' => self::REDIRECT_URL.'/oauth/authorize/'.$authorize.'.html',
-            'token_url' => self::REDIRECT_URL.'/oauth/token/'. $token.'.html',
-            'refresh_url' => self::REDIRECT_URL.'/oauth/refresh/'.$refresh.'.html',
-            // 'source_url' => Config::REDIRECT_URL.'/oauth/resource/'.$resource.'.html',
-            'state' => $seed,
-            'expire_time' => 30
-        );
-    }
     
     public function setTokenUserId($access_token, $user_id) {
         $where = ['access_token' => $access_token];
