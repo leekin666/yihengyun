@@ -17,7 +17,7 @@ class GoodsController extends HomeController{
 
 	//商品列表接口
     public function index(){
-
+       
         $result = array(
             'errorCode' => 0,
             'Message'   => '',
