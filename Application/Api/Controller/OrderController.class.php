@@ -46,5 +46,33 @@ class OrderController extends HomeController
        }
    }
 
+   //订单列表接口
+    public function lists(){
+        $this->resource();
+        $post = $this->getOauthRequest();
+        $user_id =$this->getTokenUserId($post['access_token']);
+        if($user_id < 1){
+            jsonError('21002','不存在此渠道信息');
+        }
+
+        $page = $_POST['page']?$_POST['page'] : 1;
+        $limit  = $_POST['limit'] ? $_POST['limit'] : 10;
+        if ($limit > 50){
+            $limit = 50;
+        }
+        $count = M('b_order_goods')->where($map)->count();
+        $num = ceil($count / $limit);
+
+        $orderList = M('b_order_goods')->query($sql);
+        if(!$goods_info){
+            exit(jsonError('21003','Nothing Found!'));
+        }
+        $param = [
+            'currentPage' => $page,
+            'totalPage' => $num
+        ];
+        exit(jsonSuccess($goods_info,$param));
+    }
+
 
 }

@@ -38,4 +38,5 @@ phpunit.phar
 /Runtime/Data/
 /Runtime/Logs/
 /Runtime/Temp/
+/Application/Common/Conf/config.php
 /.idea/

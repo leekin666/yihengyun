@@ -14,6 +14,6 @@ use Think\Think;
 class TestController extends \Think\Controller
 {
         public function index(){
-
+        	print_r(base64_decode('8J+Ys/CfmpTwn5ih8J+RjPCfj77wn5iH8J+YieaWh+eroOW+iOWlveWVig=='));die;
         }
 }
