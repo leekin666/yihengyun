@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # yii console commands
 /yii
 /yii_test
@@ -40,3 +41,47 @@ phpunit.phar
 /Runtime/Temp/
 /Application/Common/Conf/config.php
 /.idea/
+=======
+# yii console commands
+/yii
+/yii_test
+/yii_test.bat
+
+# phpstorm project files
+.idea
+
+# netbeans project files
+nbproject
+
+# zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer vendor dir
+#/vendor
+
+# composer itself is not needed
+composer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+# phpunit itself is not needed
+phpunit.phar
+# local phpunit config
+/phpunit.xml
+
+# vagrant runtime
+/.vagrant
+#/Runtime/
+/Runtime/Cache/
+/Runtime/Data/
+/Runtime/Logs/
+/Runtime/Temp/
+/Application/Common/Conf/config.php
+/.idea/
+>>>>>>> 1e9db0ffff7e9fdba3e366c99d24a947f3b86e7e

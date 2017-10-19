@@ -4,6 +4,7 @@ namespace Api\Controller;
 
 class GoodsController extends OauthController{
 
+<<<<<<< HEAD
     //商品列表
     public function lists(){
         $this->resource();
@@ -17,6 +18,21 @@ class GoodsController extends OauthController{
         $limit  = $_POST['limit'] ? $_POST['limit'] : 10;
         if ($limit > 50){
             $limit = 50;
+=======
+	//商品列表接口
+    public function index(){
+       
+        $result = array(
+            'errorCode' => 0,
+            'Message'   => '',
+            'data'      => array(),
+        );
+        $header = array();
+        foreach ($_SERVER as $key => $value) {
+            if ('HTTP_' == substr($key, 0, 5)) {
+                $header[str_replace('_', '-', substr($key, 5))] = $value;
+            }
+>>>>>>> 1e9db0ffff7e9fdba3e366c99d24a947f3b86e7e
         }
         $count = M('s_show_goods')->where(['channel_id' => $user_id,'status' => 1])->count();
         $num = ceil($count / $limit);
